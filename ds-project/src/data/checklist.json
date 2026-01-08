@@ -1,0 +1,166 @@
+{
+  "universalChecklist": {
+    "questions": [
+      "What is the input data structure?",
+      "Is the data sorted or unsorted?",
+      "What is the expected output type?",
+      "Is this a traversal, search, validation, or optimization problem?",
+      "Do I need order, uniqueness, or fast lookup?",
+      "Are there time or space constraints?",
+      "Can I trade space for time?"
+    ]
+  },
+
+  "dataStructures": [
+    {
+      "name": "Array",
+      "questions": [
+        "Is the array sorted?",
+        "Do I need indices?",
+        "Am I looking for a subarray or subsequence?",
+        "Can I modify the array in place?"
+      ],
+      "patterns": [
+        { "clue": "Sorted array", "use": "Two pointers" },
+        { "clue": "Subarray sum / window", "use": "Sliding window" },
+        { "clue": "Running totals", "use": "Prefix sum" },
+        { "clue": "Max / Min", "use": "Greedy or scan" }
+      ]
+    },
+
+    {
+      "name": "String",
+      "questions": [
+        "Is character frequency important?",
+        "Is case sensitivity relevant?",
+        "Are we dealing with substrings or subsequences?",
+        "Is the alphabet size fixed?"
+      ],
+      "patterns": [
+        { "clue": "Frequency counting", "use": "Map" },
+        { "clue": "Windowed substring", "use": "Sliding window" },
+        { "clue": "Palindrome", "use": "Two pointers" },
+        { "clue": "Nested structure", "use": "Stack" }
+      ]
+    },
+
+    {
+      "name": "Linked List",
+      "questions": [
+        "Is it singly or doubly linked?",
+        "Can pointers be modified?",
+        "Is there a cycle?",
+        "Do I need one pass?"
+      ],
+      "patterns": [
+        { "clue": "Find middle", "use": "Fast & slow pointers" },
+        { "clue": "Cycle detection", "use": "Floyd’s algorithm" },
+        { "clue": "Reverse list", "use": "Pointer manipulation" },
+        { "clue": "Remove nth node", "use": "Dummy node" }
+      ]
+    },
+
+    {
+      "name": "Stack",
+      "questions": [
+        "Is this LIFO behavior?",
+        "Are elements nested?",
+        "Do I need to undo or backtrack?"
+      ],
+      "patterns": [
+        { "clue": "Matching pairs", "use": "Stack" },
+        { "clue": "Monotonic behavior", "use": "Monotonic stack" },
+        { "clue": "Expression evaluation", "use": "Stack" }
+      ]
+    },
+
+    {
+      "name": "Queue",
+      "questions": [
+        "Is FIFO behavior required?",
+        "Is this level-based processing?",
+        "Is scheduling involved?"
+      ],
+      "patterns": [
+        { "clue": "Level traversal", "use": "BFS" },
+        { "clue": "Sliding window", "use": "Deque" },
+        { "clue": "Scheduling", "use": "Queue" }
+      ]
+    },
+
+    {
+      "name": "Tree",
+      "questions": [
+        "Is it a binary tree or a BST?",
+        "Am I working top-down or bottom-up?",
+        "Do I need all paths or just one?",
+        "Is this level-based?"
+      ],
+      "decisionGuide": [
+        { "goal": "Boolean result", "use": "DFS with short-circuit" },
+        { "goal": "Numeric result", "use": "DFS with return values" },
+        { "goal": "All paths", "use": "DFS with backtracking" },
+        { "goal": "Level traversal", "use": "BFS" },
+        { "goal": "BST validation", "use": "DFS with bounds or inorder" }
+      ]
+    },
+
+    {
+      "name": "Graph",
+      "questions": [
+        "Is the graph directed or undirected?",
+        "Are there cycles?",
+        "Is it weighted?",
+        "Do I need shortest paths?"
+      ],
+      "patterns": [
+        { "clue": "Reachability", "use": "DFS or BFS" },
+        { "clue": "Shortest path (unweighted)", "use": "BFS" },
+        { "clue": "Shortest path (weighted)", "use": "Dijkstra" },
+        { "clue": "Cycle detection", "use": "DFS + visited set" },
+        { "clue": "Ordering constraints", "use": "Topological sort" }
+      ]
+    },
+
+    {
+      "name": "Heap",
+      "questions": [
+        "Do I need the smallest or largest element repeatedly?",
+        "Is this streaming data?",
+        "Is priority important?"
+      ],
+      "patterns": [
+        { "clue": "Top K elements", "use": "Min or Max Heap" },
+        { "clue": "Median of stream", "use": "Two heaps" },
+        { "clue": "Scheduling", "use": "Heap" }
+      ]
+    },
+
+    {
+      "name": "Map / Set",
+      "questions": [
+        "Do I need fast lookup?",
+        "Is uniqueness important?",
+        "Am I counting occurrences?"
+      ],
+      "patterns": [
+        { "clue": "Frequency counting", "use": "Map" },
+        { "clue": "Seen before", "use": "Set" },
+        { "clue": "Anagram grouping", "use": "Map" }
+      ]
+    },
+
+    {
+      "name": "Priority Queue",
+      "questions": [
+        "Does order matter more than insertion order?",
+        "Do I always need the next best option?"
+      ],
+      "patterns": [
+        { "clue": "Task scheduling", "use": "Priority queue" },
+        { "clue": "Kth largest/smallest", "use": "Priority queue" },
+        { "clue": "Merge sorted lists", "use": "Priority queue" }
+      ]
+    }
+  ]
+}

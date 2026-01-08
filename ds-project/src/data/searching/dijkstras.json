@@ -1,0 +1,21 @@
+{
+  "title": "Dijkstra's Algorithm",
+  "description": "Dijkstra's algorithm finds the shortest path from a source node to all other nodes in a weighted graph with non-negative edge weights.",
+  "usedFor": ["Shortest path in weighted graphs", "Network routing"],
+  "code": {
+    "language": "javascript",
+    "code": "function dijkstra(graph, start) {\n  const dist = {};\n  const visited = new Set();\n  const pq = new MinPriorityQueue();\n  for (let node in graph) dist[node] = Infinity;\n  dist[start] = 0;\n  pq.enqueue(start, 0);\n  while (!pq.isEmpty()) {\n    const { element: node } = pq.dequeue();\n    if (visited.has(node)) continue;\n    visited.add(node);\n    for (let [nei, weight] of graph[node]) {\n      if (dist[node] + weight < dist[nei]) {\n        dist[nei] = dist[node] + weight;\n        pq.enqueue(nei, dist[nei]);\n      }\n    }\n  }\n  return dist;\n}"
+  },
+  "timeComplexity": "O((V + E) log V)",
+  "spaceComplexity": "O(V)",
+  "keyPoints": [
+    "Uses a priority queue (min-heap) for efficiency.",
+    "Does not work with negative edge weights.",
+    "Returns shortest path distances from the source to all nodes."
+  ],
+  "pseudocode": "1. Set distance to source as 0, all others as infinity.\n2. Use a min-priority queue to select the node with the smallest distance.\n3. For each neighbor, update distance if a shorter path is found.\n4. Repeat until all nodes are visited.",
+  "edgeCases": [
+    "Graphs with negative weights (use Bellman-Ford instead)",
+    "Disconnected graphs (some nodes may remain at infinity)"
+  ]
+}

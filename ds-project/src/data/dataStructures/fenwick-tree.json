@@ -1,0 +1,27 @@
+{
+  "type": "Fenwick Tree",
+  "title": "Fenwick Tree (Binary Indexed Tree)",
+  "description": "A Fenwick Tree, or Binary Indexed Tree (BIT), is a data structure that provides efficient methods for prefix sum queries and updates.",
+  "keyPoints": [
+    "Supports prefix sum queries and updates in O(log n) time.",
+    "Requires O(n) space.",
+    "Simpler to implement than segment trees for some use cases."
+  ],
+  "techniques": [
+    {
+      "title": "Prefix Sum Query",
+      "codeSnippet": "function query(i) { let sum = 0; while (i > 0) { sum += bit[i]; i -= i & -i; } return sum; }",
+      "description": "Query the prefix sum up to index i using a Fenwick Tree.",
+      "useCases": ["Prefix sum queries", "Frequency tables"]
+    }
+  ],
+  "codeSnippet": {
+    "language": "javascript",
+    "code": "// Fenwick Tree (BIT) structure\nclass FenwickTree { constructor(n) { this.bit = Array(n+1).fill(0); } }"
+  },
+  "usedFor": [
+    "Prefix sum queries",
+    "Frequency tables",
+    "Range updates"
+  ]
+}

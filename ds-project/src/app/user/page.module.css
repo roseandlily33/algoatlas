@@ -1,0 +1,178 @@
+.dashboardLayout {
+  display: flex;
+  height: 100%;
+}
+.sidebar {
+  width: 30%;
+  overflow-y: scroll;
+  padding: 1rem;
+  min-height: 100%;
+  background-color: var(--indigo-200);
+}
+.mainContent {
+  width: 75%;
+  background-color: var(--white);
+  padding: 1rem;
+  min-height: 100%;
+}
+.algoCard {
+  border: 2px dashed #fbbf24 !important; /* yellow */
+}
+
+.sidebarAlgoBtn:hover {
+  background: var(--purple-50);
+  box-shadow: 0 2px 8px 0 rgba(160, 85, 247, 0.1);
+  border-color: var(--purple-400);
+}
+
+.sidebarAlgoStatusRow {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  font-size: 0.97rem;
+  margin-top: 0.2rem;
+}
+.sidebarAlgoRank {
+  color: var(--indigo-500);
+  font-weight: 500;
+}
+.sidebarAlgoStatus {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.sidebarAlgoStatus.status-mastered {
+  color: var(--green-600);
+}
+.sidebarAlgoStatus.status-reviewing {
+  color: var(--yellow-600);
+}
+.sidebarAlgoStatus.status-deep {
+  color: var(--red-500);
+}
+
+.section {
+  margin-bottom: 2.5rem;
+  background: var(--purple-50);
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 8px 0 rgba(160, 85, 247, 0.07);
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.algoList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.algoCard {
+  background: var(--white);
+  border-radius: 0.8rem;
+  box-shadow: 0 1px 4px 0 rgba(160, 85, 247, 0.08);
+  padding: 1rem 1.2rem;
+  min-width: 220px;
+  flex: 1 1 220px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: box-shadow 0.2s;
+  border: 1px solid var(--purple-100);
+}
+.algoCard:hover {
+  box-shadow: 0 4px 16px 0 rgba(160, 85, 247, 0.13);
+  border-color: var(--purple-300);
+}
+
+.algoInfo {
+  flex: 1 1 auto;
+}
+.algoTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--purple-700);
+  margin-bottom: 0.3rem;
+}
+.statusRow {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 0.98rem;
+  color: var(--gray-700);
+}
+.rank {
+  color: var(--indigo-500);
+  font-weight: 500;
+}
+.status {
+  color: var(--purple-500);
+  font-weight: 500;
+}
+.arrowBtn {
+  background: var(--purple-300);
+  border: none;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s;
+  margin-left: 1rem;
+}
+.arrowBtn:hover {
+  background: var(--purple-500);
+}
+.arrow {
+  font-size: 1.3rem;
+  color: var(--white);
+  font-weight: bold;
+}
+.randomBtn {
+  background: var(--indigo-400);
+  color: var(--white);
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.4rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.randomBtn:hover {
+  background: var(--indigo-600);
+}
+.groupSection {
+  margin-bottom: 1.5rem;
+}
+.groupTitle {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--purple-600);
+  margin-bottom: 0.7rem;
+}
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--gray-500);
+  margin-top: 3rem;
+}
+
+@media (max-width: 700px) {
+  .main {
+    padding: 1rem 0.2rem 2rem 0.2rem;
+  }
+  .algoList {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .algoCard {
+    min-width: 0;
+    padding: 0.8rem 0.7rem;
+  }
+}

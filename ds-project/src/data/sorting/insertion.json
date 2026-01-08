@@ -1,0 +1,22 @@
+{
+  "title": "Insertion Sort",
+  "description": "Insertion sort builds the sorted array one element at a time by repeatedly picking the next element and inserting it into its correct position.",
+  "usedFor": ["Small datasets", "Nearly sorted arrays", "Online sorting (as data arrives)", "Educational purposes"],
+  "code": {
+    "language": "javascript",
+    "code": "function insertionSort(arr) {\n  for (let i = 1; i < arr.length; i++) {\n    let key = arr[i], j = i - 1;\n    while (j >= 0 && arr[j] > key) {\n      arr[j + 1] = arr[j];\n      j--;\n    }\n    arr[j + 1] = key;\n  }\n  return arr;\n}"
+  },
+  "timeComplexity": "O(n^2)",
+  "spaceComplexity": "O(1)",
+  "keyPoints": [
+    "Efficient for small or nearly sorted arrays.",
+    "Stable sort.",
+    "In-place sorting algorithm."
+  ],
+  "pseudocode": "1. Iterate from the second element to the end.\n2. Compare the current element with those before it.\n3. Shift larger elements one position to the right.\n4. Insert the current element in the correct position.",
+  "edgeCases": [
+    "Already sorted array (best case)",
+    "Reverse sorted array (worst case)",
+    "Array with all equal elements"
+  ]
+}

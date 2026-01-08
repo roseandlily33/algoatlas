@@ -1,0 +1,21 @@
+{
+  "title": "Selection Sort",
+  "description": "Selection sort repeatedly selects the minimum element from the unsorted part and moves it to the sorted part.",
+  "usedFor": ["Small datasets", "Educational purposes"],
+  "code": {
+    "language": "javascript",
+    "code": "function selectionSort(arr) {\n  for (let i = 0; i < arr.length - 1; i++) {\n    let minIdx = i;\n    for (let j = i + 1; j < arr.length; j++) {\n      if (arr[j] < arr[minIdx]) minIdx = j;\n    }\n    if (minIdx !== i) [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];\n  }\n  return arr;\n}"
+  },
+  "timeComplexity": "O(n^2)",
+  "spaceComplexity": "O(1)",
+  "keyPoints": [
+    "Simple but inefficient for large datasets.",
+    "Not stable by default.",
+    "In-place sorting algorithm."
+  ],
+  "pseudocode": "1. Iterate through the array.\n2. Find the minimum element in the unsorted part.\n3. Swap it with the first unsorted element.\n4. Repeat for the rest of the array.",
+  "edgeCases": [
+    "Already sorted array",
+    "Array with all equal elements"
+  ]
+}

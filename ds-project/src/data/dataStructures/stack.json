@@ -1,0 +1,46 @@
+{
+  "type": "Stack",
+  "title": "Stack – Control Flow & Backtracking",
+  "description": "A stack follows LIFO and mirrors how function calls work internally.",
+  "coreMentalModel": [
+    "Last in, first out.",
+    "Stacks model nesting and backtracking."
+  ],
+  "keyPoints": [
+    "Push and pop are O(1).",
+    "Recursion uses the call stack.",
+    "Explicit stacks replace recursion."
+  ],
+  "corePatterns": [
+    {
+      "pattern": "Matching / Nesting",
+      "recognition": [
+        "Parentheses",
+        "Brackets",
+        "Nested structure"
+      ],
+      "mentalModel": "Push opening, pop on closing.",
+      "commonProblems": [
+        "Valid Parentheses",
+        "Min Remove to Make Valid Parentheses"
+      ]
+    },
+    {
+      "pattern": "Monotonic Stack",
+      "recognition": [
+        "Next greater/smaller element"
+      ],
+      "mentalModel": "Maintain increasing or decreasing order.",
+      "commonProblems": [
+        "Daily Temperatures",
+        "Next Greater Element"
+      ]
+    }
+  ],
+  "dfsRelation": "DFS recursion == implicit stack",
+  "usedFor": [
+    "DFS",
+    "Undo operations",
+    "Expression evaluation"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "type": "Traversal",
+  "title": "DFS & BFS – Universal Traversal Patterns",
+  "description": "DFS and BFS are traversal strategies used across trees, graphs, and grids.",
+  "coreDecisionRule": {
+    "DFS": "Go deep first",
+    "BFS": "Explore level by level"
+  },
+  "dfs": {
+    "mentalModel": [
+      "Explore fully before backtracking",
+      "Uses stack (explicit or recursion)"
+    ],
+    "whenToUse": [
+      "Path existence",
+      "Connected components",
+      "Cycle detection",
+      "Tree recursion"
+    ],
+    "template": "dfs(node) { mark visited; for each neighbor: dfs(neighbor) }"
+  },
+  "bfs": {
+    "mentalModel": [
+      "Expand outward in waves",
+      "Uses queue"
+    ],
+    "whenToUse": [
+      "Shortest path (unweighted)",
+      "Level order traversal",
+      "Minimum steps"
+    ],
+    "template": "queue.push(start); while queue not empty: process level"
+  },
+  "visitedRules": [
+    "Graphs: visited is required",
+    "Trees: visited not needed",
+    "Grids: modify grid or use visited"
+  ],
+  "commonProblems": [
+    "Number of Islands",
+    "Course Schedule",
+    "Flood Fill",
+    "Binary Tree Level Order Traversal"
+  ],
+  "commonMistakes": [
+    "Forgetting visited",
+    "Wrong traversal choice",
+    "Infinite loops in graphs"
+  ]
+}

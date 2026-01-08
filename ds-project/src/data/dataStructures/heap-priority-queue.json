@@ -1,0 +1,63 @@
+{
+  "type": "Heap & Priority Queue",
+  "title": "Heap & Priority Queue – Mental Model & Usage",
+  "description": "A heap is a complete binary tree where each parent satisfies an ordering property with its children. Priority queues are built on heaps to always extract the most important element.",
+  "coreMentalModel": [
+    "Heaps answer: what is the next smallest or largest thing?",
+    "You do NOT search heaps — you extract from the top.",
+    "The structure is a tree but implemented as an array."
+  ],
+  "keyPoints": [
+    "Min-heap: parent ≤ children.",
+    "Max-heap: parent ≥ children.",
+    "Insert and remove are O(log n).",
+    "Peek is O(1)."
+  ],
+  "arrayIndexMapping": {
+    "parent": "Math.floor((i - 1) / 2)",
+    "leftChild": "2 * i + 1",
+    "rightChild": "2 * i + 2"
+  },
+  "corePatterns": [
+    {
+      "pattern": "Top K Elements",
+      "recognition": [
+        "Kth largest/smallest",
+        "Top K frequent"
+      ],
+      "mentalModel": "Keep heap size at K.",
+      "useHeap": "Min-heap for largest, max-heap for smallest",
+      "commonProblems": [
+        "215 Kth Largest Element",
+        "347 Top K Frequent Elements"
+      ]
+    },
+    {
+      "pattern": "Streaming Data",
+      "recognition": [
+        "Data arrives over time",
+        "Median or running top values"
+      ],
+      "mentalModel": "Maintain balance using two heaps.",
+      "commonProblems": [
+        "295 Find Median from Data Stream"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Trying to search inside a heap",
+    "Using wrong heap type (min vs max)",
+    "Forgetting heap size control"
+  ],
+  "whenToUse": [
+    "Repeated min/max extraction",
+    "Scheduling",
+    "Greedy algorithms"
+  ],
+  "usedFor": [
+    "Priority scheduling",
+    "Dijkstra",
+    "Top K problems",
+    "Streaming statistics"
+  ]
+}

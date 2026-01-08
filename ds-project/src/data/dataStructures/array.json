@@ -1,0 +1,104 @@
+{
+  "type": "Array",
+  "title": "Array – Core Patterns, Mental Models, and Pitfalls",
+  "description": "An array is a data structure that stores elements in contiguous memory, accessed by index. Most algorithm problems reduce to controlling how you move indices.",
+  "coreMentalModel": [
+    "Arrays are about index control.",
+    "Most array problems ask: how do I move pointers efficiently?",
+    "You rarely need nested loops if a pattern exists."
+  ],
+  "keyPoints": [
+    "Random access by index is O(1).",
+    "Iteration is O(n).",
+    "Insertion/deletion in the middle is expensive.",
+    "Indices and boundaries are the most common bug source."
+  ],
+  "corePatterns": [
+    {
+      "pattern": "Sliding Window",
+      "recognition": [
+        "Subarray or substring",
+        "Continuous range",
+        "Max/min/longest/shortest"
+      ],
+      "mentalModel": "Expand with right pointer, shrink with left pointer.",
+      "template": "let left = 0; for (let right = 0; right < n; right++) { add(arr[right]); while (invalid) { remove(arr[left++]); } updateAnswer(); }",
+      "commonProblems": [
+        "Maximum Subarray",
+        "Longest Substring",
+        "Minimum Size Subarray Sum"
+      ]
+    },
+    {
+      "pattern": "Two Pointers",
+      "recognition": [
+        "Sorted array",
+        "Pairs",
+        "Opposite ends"
+      ],
+      "mentalModel": "Move pointers inward based on condition.",
+      "template": "let l = 0, r = n - 1; while (l < r) { if (condition) l++; else r--; }",
+      "commonProblems": [
+        "Two Sum II",
+        "Container With Most Water",
+        "Valid Palindrome"
+      ]
+    },
+    {
+      "pattern": "Prefix Sum",
+      "recognition": [
+        "Multiple range sum queries",
+        "Subarray sum equals k"
+      ],
+      "mentalModel": "Store cumulative totals to avoid recomputation.",
+      "template": "prefix[i] = prefix[i - 1] + nums[i]",
+      "commonProblems": [
+        "Subarray Sum Equals K",
+        "Range Sum Query"
+      ]
+    },
+    {
+      "pattern": "Binary Search",
+      "recognition": [
+        "Sorted array",
+        "Find boundary",
+        "Minimum/maximum valid value"
+      ],
+      "mentalModel": "Eliminate half of the search space each step.",
+      "template": "while (left <= right) { mid = floor((l+r)/2); adjust bounds }",
+      "commonProblems": [
+        "Binary Search",
+        "Search Insert Position",
+        "Find First/Last Position"
+      ]
+    }
+  ],
+  "mutationVsTracking": {
+    "mutateArray": [
+      "When modifying input is allowed",
+      "Saves extra space"
+    ],
+    "useExtraMemory": [
+      "When original array must remain unchanged",
+      "Easier to reason about"
+    ]
+  },
+  "commonMistakes": [
+    "Off-by-one errors",
+    "Incorrect loop bounds",
+    "Forgetting to update pointers",
+    "Using nested loops instead of a pattern"
+  ],
+  "debugChecklist": [
+    "What do left and right represent?",
+    "When do pointers move?",
+    "Is this contiguous or non-contiguous?",
+    "Do I need sorted order?"
+  ],
+  "usedFor": [
+    "Data storage",
+    "Searching",
+    "Sorting",
+    "Matrix traversal"
+  ]
+}

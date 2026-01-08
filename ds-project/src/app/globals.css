@@ -1,6 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@400;600;700&display=swap");
+
 :root {
+  /* Purples: Y2K scale (main: #d8b4fe) */
+  --purple-50: #f5e8ff; /* lightest */
+  --purple-100: #f3e8ff;
+  --purple-200: #e9d5ff;
+  --purple-300: #d8b4fe; /* main */
+  --purple-400: #c084fc;
+  --purple-500: #a855f7;
+  --purple-600: #9333ea;
+  --purple-700: #6d28d9; /* darkest */
+
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Indigo scale */
+  --indigo-50: #eef2ff;
+  --indigo-100: #e0e7ff;
+  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8; /* main indigo */
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-700: #3730a3;
+
+  --secondary-indigo: #818cf8;
+
+  --error: #ef4444;
+  --success: #22c55e;
+  --white: #ffffff;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --black: #000000;
+
+  /* Font families */
+  --font-main: "Poppins", Arial, Helvetica, sans-serif;
+  --font-serif: "Merriweather", Georgia, serif;
+  --font-mono: "Fira Mono", "Menlo", "Monaco", "Consolas", monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,9 +62,26 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+
+code,
+pre,
+textarea,
+.codeTextarea {
+  font-family: var(--font-mono);
 }
 
 * {

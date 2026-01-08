@@ -1,0 +1,27 @@
+{
+  "type": "Segment Tree",
+  "title": "Segment Tree",
+  "description": "A segment tree is a binary tree used for storing intervals or segments, allowing efficient range queries and updates.",
+  "keyPoints": [
+    "Supports range queries and updates in O(log n) time.",
+    "Used for sum, min, max, gcd, etc. over intervals.",
+    "Requires O(n) space."
+  ],
+  "techniques": [
+    {
+      "title": "Range Sum Query",
+      "codeSnippet": "function query(node, l, r, ql, qr) { if (ql > r || qr < l) return 0; if (ql <= l && r <= qr) return tree[node]; let m = Math.floor((l + r) / 2); return query(2*node, l, m, ql, qr) + query(2*node+1, m+1, r, ql, qr); }",
+      "description": "Query the sum in a given range using a segment tree.",
+      "useCases": ["Range sum queries", "Interval problems"]
+    }
+  ],
+  "codeSnippet": {
+    "language": "javascript",
+    "code": "// Segment tree node structure\nclass SegmentTreeNode { constructor(left, right, sum) { this.left = left; this.right = right; this.sum = sum; this.leftChild = null; this.rightChild = null; } }"
+  },
+  "usedFor": [
+    "Range queries",
+    "Interval updates",
+    "Competitive programming"
+  ]
+}

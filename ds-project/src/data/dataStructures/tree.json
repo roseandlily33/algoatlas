@@ -1,0 +1,148 @@
+{
+  "type": "Tree",
+  "title": "Trees – Core Concepts & Problem-Solving Patterns",
+  "description": "A tree is a hierarchical, acyclic data structure with a single root. Trees are most commonly traversed using recursion (DFS) or iteration (BFS). Many tree problems reduce to defining what each recursive call represents and how results are combined.",
+  "coreIdeas": [
+    "A tree has no cycles and exactly one path between any two nodes.",
+    "Recursion is the natural way to traverse trees because each subtree is itself a tree.",
+    "Most tree problems are DFS-based and fall into top-down or bottom-up patterns.",
+    "The key question is usually: what does my recursive function return?"
+  ],
+  "treeTypes": [
+    {
+      "name": "Binary Tree",
+      "description": "Each node has at most two children (left and right).",
+      "commonProblems": ["Traversal", "Depth", "Diameter", "Path Sum"]
+    },
+    {
+      "name": "Binary Search Tree (BST)",
+      "description": "Left subtree values < node value < right subtree values.",
+      "commonProblems": ["Validate BST", "Search", "Range Sum"]
+    },
+    {
+      "name": "N-ary Tree",
+      "description": "Each node can have multiple children.",
+      "commonProblems": ["Level Order Traversal"]
+    },
+    {
+      "name": "Trie",
+      "description": "Prefix tree for strings.",
+      "commonProblems": ["Autocomplete", "Prefix Search"]
+    }
+  ],
+  "recursionDeepDive": {
+    "mentalModel": [
+      "Each recursive call works on one node.",
+      "The call stack holds unfinished work.",
+      "Leaf nodes return first.",
+      "Parent nodes combine child results."
+    ],
+    "baseCaseRules": [
+      "If the node is null, return immediately.",
+      "Base cases prevent infinite recursion."
+    ],
+    "stackFrameConcept": [
+      "Each function call has its own local variables.",
+      "Return values bubble up to the parent call."
+    ],
+    "commonMistakes": [
+      "Forgetting to return a value in recursion.",
+      "Mixing traversal logic with result logic.",
+      "Not clearly defining what dfs(node) means."
+    ]
+  },
+  "dfsPatterns": [
+    {
+      "pattern": "Top-Down DFS",
+      "description": "Information flows from parent to child.",
+      "whenToUse": [
+        "Tracking a path",
+        "Carrying accumulated values",
+        "Validating constraints from root to leaves"
+      ],
+      "exampleProblems": ["Path Sum", "Validate BST with bounds"],
+      "template": "function dfs(node, state) { if (!node) return; dfs(node.left, updatedState); dfs(node.right, updatedState); }"
+    },
+    {
+      "pattern": "Bottom-Up DFS",
+      "description": "Information flows from children back to parent.",
+      "whenToUse": [
+        "Computing max/min values",
+        "Finding height, diameter, time, cost"
+      ],
+      "exampleProblems": ["Max Depth", "Diameter of Binary Tree", "Time Needed to Inform Employees"],
+      "template": "function dfs(node) { if (!node) return baseValue; let left = dfs(node.left); let right = dfs(node.right); return combine(left, right); }"
+    }
+  ],
+  "traversals": [
+    {
+      "name": "Preorder",
+      "order": "Root → Left → Right",
+      "useCases": ["Tree copying", "Serialization"],
+      "code": "function preorder(node) { if (!node) return; visit(node); preorder(node.left); preorder(node.right); }"
+    },
+    {
+      "name": "Inorder",
+      "order": "Left → Root → Right",
+      "useCases": ["Sorted output in BST"],
+      "code": "function inorder(node) { if (!node) return; inorder(node.left); visit(node); inorder(node.right); }"
+    },
+    {
+      "name": "Postorder",
+      "order": "Left → Right → Root",
+      "useCases": ["Tree deletion", "Bottom-up calculations"],
+      "code": "function postorder(node) { if (!node) return; postorder(node.left); postorder(node.right); visit(node); }"
+    }
+  ],
+  "bfsTraversal": {
+    "description": "Level-by-level traversal using a queue.",
+    "whenToUse": [
+      "Level order traversal",
+      "Shortest path in trees",
+      "Problems involving distance from root"
+    ],
+    "template": "function bfs(root) { const queue = [root]; while (queue.length) { const node = queue.shift(); process(node); if (node.left) queue.push(node.left); if (node.right) queue.push(node.right); } }"
+  },
+  "commonTreePatterns": [
+    {
+      "pattern": "Count Nodes / Paths",
+      "keyIdea": "Increment only when a condition is met.",
+      "example": "Path Sum"
+    },
+    {
+      "pattern": "Maximum / Minimum",
+      "keyIdea": "Return values from children and take max/min.",
+      "example": "Max Depth, Diameter"
+    },
+    {
+      "pattern": "Validation",
+      "keyIdea": "Carry constraints down the tree.",
+      "example": "Validate BST"
+    },
+    {
+      "pattern": "Tree Construction",
+      "keyIdea": "Build children relationships first, then traverse.",
+      "example": "Build tree from parent array"
+    }
+  ],
+  "treeVsGraphNotes": [
+    "Trees do not need a visited set because there are no cycles.",
+    "Graphs require visited tracking to avoid infinite loops.",
+    "Trees are a special case of graphs."
+  ],
+  "codeTemplates": {
+    "treeNode": "class TreeNode { constructor(val) { this.val = val; this.left = null; this.right = null; } }",
+    "basicDFS": "function dfs(node) { if (!node) return; dfs(node.left); dfs(node.right); }"
+  },
+  "howToThink": [
+    "Ask: what does dfs(node) represent?",
+    "Decide: top-down or bottom-up?",
+    "Define the base case first.",
+    "Write the recursive step last."
+  ],
+  "difficultyNotes": [
+    "Traversal problems are beginner-friendly.",
+    "Bottom-up DFS problems are intermediate.",
+    "Tree DP problems are advanced."
+  ]
+}

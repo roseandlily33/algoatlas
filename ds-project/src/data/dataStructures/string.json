@@ -1,0 +1,79 @@
+{
+  "type": "String",
+  "title": "String – Patterns, Mental Models, and Traps",
+  "description": "A string is a sequence of characters. String problems are usually array problems with extra constraints.",
+  "coreMentalModel": [
+    "Strings behave like arrays but are immutable.",
+    "Most string problems reduce to sliding window or frequency tracking.",
+    "Think characters + indices."
+  ],
+  "keyPoints": [
+    "Strings are immutable in JavaScript.",
+    "Index access is O(1).",
+    "Creating new strings costs time and space."
+  ],
+  "corePatterns": [
+    {
+      "pattern": "Sliding Window (Substring)",
+      "recognition": [
+        "Longest/shortest substring",
+        "No repeating characters",
+        "At most / at least k"
+      ],
+      "mentalModel": "Grow window until invalid, then shrink.",
+      "template": "use set or map to track window state",
+      "commonProblems": [
+        "Longest Substring Without Repeating Characters",
+        "Minimum Window Substring"
+      ]
+    },
+    {
+      "pattern": "Frequency Map",
+      "recognition": [
+        "Anagram",
+        "Character counts",
+        "Rearrangement"
+      ],
+      "mentalModel": "Count characters and compare maps.",
+      "template": "freq[c] = (freq[c] || 0) + 1",
+      "commonProblems": [
+        "Valid Anagram",
+        "Group Anagrams"
+      ]
+    },
+    {
+      "pattern": "Two Pointers (Palindrome)",
+      "recognition": [
+        "Palindrome",
+        "Reverse comparison"
+      ],
+      "mentalModel": "Compare outer characters inward.",
+      "template": "while (l < r) { compare(str[l], str[r]) }",
+      "commonProblems": [
+        "Valid Palindrome",
+        "Palindrome Number"
+      ]
+    }
+  ],
+  "mutationRules": {
+    "whySplit": "Strings cannot be modified directly.",
+    "commonFix": "Convert to array → modify → join back."
+  },
+  "commonMistakes": [
+    "Forgetting immutability",
+    "Using expensive string concatenation in loops",
+    "Incorrect window shrink conditions"
+  ],
+  "debugChecklist": [
+    "Is this contiguous?",
+    "Do I need order?",
+    "Do duplicates matter?",
+    "Do I need frequency tracking?"
+  ],
+  "usedFor": [
+    "Text processing",
+    "Pattern matching",
+    "Parsing",
+    "Validation"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Counting Sort",
+  "description": "Counting sort is a non-comparison-based sorting algorithm that counts the occurrences of each value and uses this information to place elements in the correct position.",
+  "usedFor": ["Sorting integers in a known range", "Linear time sorting when range is small"],
+  "code": {
+    "language": "javascript",
+    "code": "function countingSort(arr, maxVal) {\n  const count = Array(maxVal + 1).fill(0);\n  for (let num of arr) count[num]++;\n  let idx = 0;\n  for (let i = 0; i <= maxVal; i++) {\n    while (count[i]-- > 0) arr[idx++] = i;\n  }\n  return arr;\n}"
+  },
+  "timeComplexity": "O(n + k)",
+  "spaceComplexity": "O(k)",
+  "keyPoints": [
+    "Non-comparison sort.",
+    "Efficient for small integer ranges.",
+    "Not suitable for large ranges or non-integer data."
+  ],
+  "pseudocode": "1. Count occurrences of each value.\n2. Overwrite the array with sorted values based on counts.",
+  "edgeCases": [
+    "Array with negative numbers (not supported)",
+    "Large range of values (inefficient)"
+  ]
+}

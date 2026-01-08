@@ -1,0 +1,45 @@
+{
+  "type": "Graph",
+  "title": "Graph",
+  "description": "A graph is a collection of nodes (vertices) and edges connecting pairs of nodes. Can be directed/undirected, weighted/unweighted.",
+  "keyPoints": [
+    "Represented as adjacency list or matrix.",
+    "Can be cyclic or acyclic.",
+    "Used for modeling networks, relationships, and more."
+  ],
+  "techniques": [
+    {
+      "title": "Adjacency List",
+      "codeSnippet": "const graph = { 0: [1,2], 1: [0,2], 2: [0,1] };",
+      "description": "Stores neighbors for each node in a list.",
+      "useCases": ["Sparse graphs", "Efficient traversal"]
+    },
+    {
+      "title": "Adjacency Matrix",
+      "codeSnippet": "const matrix = [ [0,1,1], [1,0,1], [1,1,0] ];",
+      "description": "2D array to represent edge presence between nodes.",
+      "useCases": ["Dense graphs", "Quick edge lookup"]
+    },
+    {
+      "title": "Depth-First Search (DFS)",
+      "codeSnippet": "function dfs(node, visited) { visited.add(node); for (let nei of graph[node]) { if (!visited.has(nei)) dfs(nei, visited); } }",
+      "description": "Explores as far as possible along each branch before backtracking.",
+      "useCases": ["Connected components", "Cycle detection"]
+    },
+    {
+      "title": "Breadth-First Search (BFS)",
+      "codeSnippet": "function bfs(start) { const queue = [start], visited = new Set([start]); while (queue.length) { const node = queue.shift(); for (let nei of graph[node]) { if (!visited.has(nei)) { visited.add(nei); queue.push(nei); } } } }",
+      "description": "Explores all neighbors at the current depth before moving deeper.",
+      "useCases": ["Shortest path", "Level order traversal"]
+    }
+  ],
+  "codeSnippet": {
+    "language": "javascript",
+    "code": "const graph = { 0: [1,2], 1: [0,2], 2: [0,1] }; // Undirected graph"
+  },
+  "usedFor": [
+    "Network modeling",
+    "Pathfinding algorithms",
+    "Social networks"
+  ]
+}

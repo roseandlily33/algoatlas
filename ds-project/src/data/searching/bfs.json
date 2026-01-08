@@ -1,0 +1,22 @@
+{
+  "title": "Breadth-First Search (BFS)",
+  "description": "BFS explores the graph level by level, visiting all neighbors at the current depth before moving to the next level. It uses a queue.",
+  "usedFor": ["Shortest path in unweighted graphs", "Level order traversal", "Connected components"],
+  "code": {
+    "language": "javascript",
+    "code": "function bfs(graph, start) {\n  const queue = [start], visited = new Set([start]);\n  while (queue.length) {\n    const node = queue.shift();\n    for (let nei of graph[node]) {\n      if (!visited.has(nei)) {\n        visited.add(nei);\n        queue.push(nei);\n      }\n    }\n  }\n}"
+  },
+  "timeComplexity": "O(V + E)",
+  "spaceComplexity": "O(V)",
+  "keyPoints": [
+    "Uses a queue to manage nodes.",
+    "Finds shortest path in unweighted graphs.",
+    "Can be used for level order traversal in trees."
+  ],
+  "pseudocode": "1. Enqueue the start node and mark as visited.\n2. While queue not empty, dequeue node and visit neighbors.\n3. Enqueue unvisited neighbors and mark as visited.",
+  "edgeCases": [
+    "Disconnected graphs",
+    "Cycles (avoid revisiting nodes)",
+    "Empty graph"
+  ]
+}

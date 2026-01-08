@@ -1,0 +1,61 @@
+{
+  "type": "Linked List",
+  "title": "Linked List – Pointer Manipulation",
+  "description": "A linked list consists of nodes connected by pointers.",
+  "coreMentalModel": [
+    "You move pointers, not indices.",
+    "Always track previous, current, next."
+  ],
+  "keyPoints": [
+    "No random access.",
+    "Insert/delete is O(1) if pointer known.",
+    "Traversal is O(n)."
+  ],
+  "corePatterns": [
+    {
+      "pattern": "Two Pointers",
+      "recognition": [
+        "Middle",
+        "Cycle",
+        "Nth from end"
+      ],
+      "mentalModel": "Fast moves twice, slow moves once.",
+      "commonProblems": [
+        "Middle of Linked List",
+        "Linked List Cycle"
+      ]
+    },
+    {
+      "pattern": "Two Pointers path equalization",
+      "description": "Walk you list, then walk mine - if we share a path, we'll meet",
+      "recognition": [
+        "Intersection"
+      ],
+      "mentalModel": "Equalize path lengths by switching heads.",
+      "commonProblems": [
+        "Intersection of Two Linked Lists"
+      ]
+    },
+    {
+      "pattern": "Reversal",
+      "recognition": [
+        "Reverse list",
+        "Reverse portion"
+      ],
+      "mentalModel": "Flip pointers one by one.",
+      "commonProblems": [
+        "Reverse Linked List",
+        "Reverse Linked List II"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Losing reference to next node",
+    "Not handling head properly"
+  ],
+  "usedFor": [
+    "Stacks",
+    "Queues",
+    "Pointer-based algorithms"
+  ]
+}

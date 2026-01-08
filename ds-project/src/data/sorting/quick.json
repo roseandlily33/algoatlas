@@ -1,0 +1,21 @@
+{
+  "title": "Quick Sort",
+  "description": "Quick sort is a divide-and-conquer algorithm that selects a pivot and partitions the array into elements less than and greater than the pivot, then recursively sorts the partitions.",
+  "usedFor": ["Efficient general-purpose sorting", "In-place sorting"],
+  "code": {
+    "language": "javascript",
+    "code": "function quickSort(arr) {\n  if (arr.length <= 1) return arr;\n  const pivot = arr[arr.length - 1];\n  const left = [], right = [];\n  for (let i = 0; i < arr.length - 1; i++) {\n    if (arr[i] < pivot) left.push(arr[i]);\n    else right.push(arr[i]);\n  }\n  return [...quickSort(left), pivot, ...quickSort(right)];\n}"
+  },
+  "timeComplexity": "O(n log n) (average)",
+  "spaceComplexity": "O(log n) (in-place, recursive stack)",
+  "keyPoints": [
+    "Divide and conquer approach.",
+    "Not stable by default.",
+    "In-place with careful implementation."
+  ],
+  "pseudocode": "1. Choose a pivot element.\n2. Partition the array into two subarrays.\n3. Recursively sort the subarrays.\n4. Combine the results.",
+  "edgeCases": [
+    "Already sorted array (worst case)",
+    "Array with all equal elements"
+  ]
+}

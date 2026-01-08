@@ -1,0 +1,87 @@
+.progressSection {
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #2d3748;
+}
+
+.noProgress {
+  color: #888;
+  font-size: 1.1rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+  padding: 1.2rem 1.5rem;
+  min-width: 220px;
+  max-width: 260px;
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(44, 62, 80, 0.16);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.7rem;
+}
+
+.date {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.total {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #3182ce;
+  background: #ebf8ff;
+  border-radius: 8px;
+  padding: 0.2rem 0.7rem;
+}
+
+.breakdown {
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.typeRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.98rem;
+  color: #2d3748;
+  padding: 0.15rem 0;
+}
+
+.type {
+  font-weight: 500;
+}
+
+.count {
+  font-weight: 600;
+  color: #805ad5;
+}

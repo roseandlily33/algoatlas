@@ -1,0 +1,32 @@
+{
+  "type": "Doubly Linked List",
+  "title": "Doubly Linked List",
+  "description": "A doubly linked list is a linked list in which each node contains a reference to both the next and previous node.",
+  "keyPoints": [
+    "Each node has next and prev pointers.",
+    "Allows traversal in both directions.",
+    "More memory usage than singly linked list."
+  ],
+  "techniques": [
+    {
+      "title": "Insert at Head",
+      "codeSnippet": "const newNode = new Node(val); newNode.next = head; if (head) head.prev = newNode; head = newNode;",
+      "description": "Insert a new node at the beginning of a doubly linked list.",
+      "useCases": ["Efficient insertions at head"]
+    },
+    {
+      "title": "Delete a Node",
+      "codeSnippet": "if (node.prev) node.prev.next = node.next; if (node.next) node.next.prev = node.prev;",
+      "description": "Remove a node from a doubly linked list.",
+      "useCases": ["Efficient deletions"]
+    }
+  ],
+  "codeSnippet": {
+    "language": "javascript",
+    "code": "class Node { constructor(val) { this.val = val; this.next = null; this.prev = null; } }"
+  },
+  "usedFor": [
+    "Implementing LRU cache",
+    "Undo/redo functionality"
+  ]
+}

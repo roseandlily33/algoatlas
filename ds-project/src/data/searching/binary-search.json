@@ -1,0 +1,22 @@
+{
+  "title": "Binary Search",
+  "description": "Binary search efficiently finds the position of a target value within a sorted array by repeatedly dividing the search interval in half.",
+  "usedFor": ["Searching in sorted arrays", "Finding boundaries", "Optimization problems (searching answer space)", "Peak finding"],
+  "code": {
+    "language": "javascript",
+    "code": "function binarySearch(arr, target) {\n  let left = 0, right = arr.length - 1;\n  while (left <= right) {\n    let mid = Math.floor((left + right) / 2);\n    if (arr[mid] === target) return mid;\n    else if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}"
+  },
+  "timeComplexity": "O(log n)",
+  "spaceComplexity": "O(1)",
+  "keyPoints": [
+    "Requires sorted input.",
+    "Can be adapted for lower/upper bound, first/last occurrence, etc.",
+    "Divide and conquer approach."
+  ],
+  "pseudocode": "1. Set left and right pointers.\n2. While left <= right, check the middle element.\n3. If target found, return index.\n4. If target < mid, search left half; else, search right half.",
+  "edgeCases": [
+    "Empty array",
+    "Target not present",
+    "Duplicates (find first/last occurrence)"
+  ]
+}

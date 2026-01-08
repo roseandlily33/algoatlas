@@ -1,0 +1,21 @@
+{
+  "title": "Heap Sort",
+  "description": "Heap sort builds a heap from the input data and repeatedly extracts the maximum (or minimum) element to produce a sorted array.",
+  "usedFor": ["Sorting large datasets", "In-place sorting"],
+  "code": {
+    "language": "javascript",
+    "code": "function heapSort(arr) {\n  let n = arr.length;\n  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) heapify(arr, n, i);\n  for (let i = n - 1; i > 0; i--) {\n    [arr[0], arr[i]] = [arr[i], arr[0]];\n    heapify(arr, i, 0);\n  }\n  return arr;\n}\nfunction heapify(arr, n, i) {\n  let largest = i, l = 2 * i + 1, r = 2 * i + 2;\n  if (l < n && arr[l] > arr[largest]) largest = l;\n  if (r < n && arr[r] > arr[largest]) largest = r;\n  if (largest !== i) {\n    [arr[i], arr[largest]] = [arr[largest], arr[i]];\n    heapify(arr, n, largest);\n  }\n}"
+  },
+  "timeComplexity": "O(n log n)",
+  "spaceComplexity": "O(1)",
+  "keyPoints": [
+    "Uses a binary heap data structure.",
+    "In-place and not stable.",
+    "Good worst-case performance."
+  ],
+  "pseudocode": "1. Build a max heap from the array.\n2. Swap the root with the last element.\n3. Reduce heap size and heapify the root.\n4. Repeat until sorted.",
+  "edgeCases": [
+    "Array with all equal elements",
+    "Already sorted array"
+  ]
+}

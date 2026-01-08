@@ -1,0 +1,147 @@
+.masteredAlgo {
+  border: 2px solid var(--success, #2a8331);
+  box-shadow: 0 2px 8px 0 rgba(42, 131, 49, 0.1);
+  border-radius: 1.1rem;
+}
+.weeklyPlanSection {
+  margin: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-family: var(--font-main);
+  color: var(--purple-700);
+  margin-bottom: 1.5rem;
+}
+
+.tabsRow {
+  display: flex;
+  overflow-y: scroll;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.tabBtn {
+  background: var(--purple-100);
+  color: var(--purple-700);
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.tabActive {
+  background: var(--purple-300);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(160, 85, 247, 0.12);
+}
+
+.subTabsRow {
+  display: flex;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.subTabBtn {
+  background: var(--indigo-100);
+  color: var(--indigo-700);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.subTabActive {
+  background: var(--indigo-400);
+  color: var(--white);
+}
+
+.tabContent {
+  background: var(--gray-100);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 1px 6px rgba(160, 85, 247, 0.06);
+}
+
+.patternContent {
+  margin-bottom: 1.5rem;
+}
+.patternTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--purple-600);
+  margin-bottom: 0.7rem;
+}
+.patternDates {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--gray-700);
+}
+.patternDateLabel {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+.patternDateValue {
+  background: var(--purple-50);
+  color: var(--purple-700);
+  border-radius: 6px;
+  padding: 0.2rem 0.7rem;
+  font-weight: 500;
+}
+.patternSummary {
+  margin-bottom: 1.2rem;
+  padding-left: 1.2rem;
+  color: var(--gray-800);
+  font-size: 1rem;
+}
+.algosHeader {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--indigo-600);
+  margin-bottom: 0.7rem;
+}
+.algoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+.algoItem {
+  margin-bottom: 0.5rem;
+}
+.algoBtn {
+  background: var(--white);
+  color: var(--purple-700);
+  border: 1px solid var(--purple-200);
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.algoBtn:hover {
+  background: var(--purple-100);
+  border-color: var(--purple-400);
+}
+.algoPending {
+  color: var(--gray-500);
+  font-size: 1rem;
+  font-style: italic;
+  background: var(--gray-200);
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+}
+.checkmark {
+  margin-left: 0.4rem;
+  display: inline-flex;
+  vertical-align: middle;
+}

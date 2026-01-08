@@ -1,0 +1,46 @@
+{
+  "type": "Map",
+  "title": "Map – Counting & Fast Lookup",
+  "description": "Maps store key-value pairs for fast access and counting.",
+  "coreMentalModel": [
+    "Maps answer: how many times?",
+    "Maps connect value → information."
+  ],
+  "keyPoints": [
+    "Keys are unique.",
+    "Values can be anything.",
+    "Average O(1) operations."
+  ],
+  "corePatterns": [
+    {
+      "pattern": "Frequency Counting",
+      "recognition": [
+        "Counts",
+        "Anagrams",
+        "Duplicates"
+      ],
+      "mentalModel": "Increment counts as you scan.",
+      "commonProblems": [
+        "Valid Anagram",
+        "Top K Frequent Elements"
+      ]
+    },
+    {
+      "pattern": "Index Mapping",
+      "recognition": [
+        "Lookup previous index"
+      ],
+      "mentalModel": "Store index for future reference.",
+      "commonProblems": [
+        "Two Sum",
+        "Longest Substring"
+      ]
+    }
+  ],
+  "usedFor": [
+    "Counting",
+    "Caching",
+    "Fast lookup"
+  ]
+}
+

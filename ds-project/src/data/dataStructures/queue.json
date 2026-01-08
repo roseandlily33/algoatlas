@@ -1,0 +1,189 @@
+{
+  "type": "Core Concept",
+  "title": "Graphs – Mental Models, Representations, and Traversal Patterns",
+  "description": "A graph is a collection of nodes (vertices) connected by edges. Graph problems are about traversing connections, detecting structure, or propagating information.",
+  "coreMentalModel": [
+    "Graphs are about relationships, not positions.",
+    "A node represents an entity; an edge represents a relationship.",
+    "Traversal answers questions like: Can I reach this? How many groups exist? Is there a cycle?"
+  ],
+  "graphTypes": [
+    {
+      "type": "Undirected Graph",
+      "description": "Edges go both ways.",
+      "examples": ["Number of Provinces (547)", "Number of Islands (200)"]
+    },
+    {
+      "type": "Directed Graph",
+      "description": "Edges have direction.",
+      "examples": ["Course Schedule (207)", "Find the Town Judge (997)"]
+    },
+    {
+      "type": "Weighted Graph",
+      "description": "Edges have costs or weights.",
+      "examples": ["Dijkstra", "Minimum Spanning Tree"]
+    }
+  ],
+  "representations": [
+    {
+      "type": "Adjacency List",
+      "description": "Each node stores a list of neighbors.",
+      "mentalModel": "A phone book: who can I call from here?",
+      "example": {
+        "graph": "{ 1: [2,3], 2: [1], 3: [2] }",
+        "visual": "1 → 2,3 | 2 → 1 | 3 → 2"
+      },
+      "usedWhen": [
+        "Sparse graphs",
+        "Traversal problems",
+        "Most LeetCode problems"
+      ]
+    },
+    {
+      "type": "Adjacency Matrix",
+      "description": "2D matrix showing direct connections.",
+      "mentalModel": "Connection table: do i and j connect?",
+      "example": "isConnected[i][j] === 1 means connected",
+      "usedWhen": [
+        "Dense graphs",
+        "Input is already a matrix",
+        "Provinces (547)"
+      ]
+    }
+  ],
+  "visitedTracking": {
+    "purpose": "Prevents infinite loops and repeated work.",
+    "rules": [
+      "Graphs can have cycles; visited is required.",
+      "Trees do NOT require visited arrays.",
+      "Mark visited as soon as you enter a node."
+    ],
+    "forms": [
+      "visited array",
+      "visited set",
+      "mutating the grid or graph"
+    ]
+  },
+  "dfs": {
+    "fullName": "Depth-First Search",
+    "mentalModel": [
+      "Go as deep as possible before backing up.",
+      "Like exploring a maze by always choosing one path."
+    ],
+    "whenToUse": [
+      "Connected components",
+      "Cycle detection",
+      "Flood fill",
+      "Backtracking"
+    ],
+    "template": "function dfs(node) { visited[node] = true; for (let nei of graph[node]) { if (!visited[nei]) dfs(nei); } }",
+    "commonProblems": [
+      "200 Number of Islands",
+      "547 Number of Provinces",
+      "733 Flood Fill",
+      "1020 Number of Enclaves"
+    ]
+  },
+  "bfs": {
+    "fullName": "Breadth-First Search",
+    "mentalModel": [
+      "Explore layer by layer.",
+      "Like ripples spreading outward."
+    ],
+    "whenToUse": [
+      "Shortest path",
+      "Level order traversal",
+      "Topological sort"
+    ],
+    "requires": [
+      "Queue",
+      "Visited tracking"
+    ],
+    "template": "queue.push(start); visited[start] = true; while(queue.length) { let node = queue.shift(); for (let nei of graph[node]) { if (!visited[nei]) { visited[nei] = true; queue.push(nei); } } }"
+  },
+  "connectedComponents": {
+    "mentalModel": "Each DFS/BFS from an unvisited node finds one group.",
+    "keyInsight": "Increment count when you START a new traversal, not inside it.",
+    "examples": [
+      "200 Number of Islands",
+      "547 Number of Provinces"
+    ]
+  },
+  "indegreeOutdegree": {
+    "definitions": {
+      "indegree": "Number of edges coming INTO a node.",
+      "outdegree": "Number of edges going OUT of a node."
+    },
+    "memoryTrick": [
+      "Arrow points TO indegree.",
+      "Arrow comes FROM outdegree."
+    ],
+    "example997": {
+      "trust": "[a, b]",
+      "meaning": "a trusts b",
+      "outDegree": "a++",
+      "inDegree": "b++"
+    },
+    "usedIn": [
+      "Topological sort",
+      "Course Schedule (207)",
+      "Find the Town Judge (997)"
+    ]
+  },
+  "topologicalSort": {
+    "mentalModel": [
+      "Start with nodes that depend on nothing.",
+      "Remove them and update dependencies."
+    ],
+    "requirements": [
+      "Directed graph",
+      "Indegree tracking"
+    ],
+    "keyRules": [
+      "Only nodes with indegree 0 can be processed.",
+      "If nodes remain unprocessed, a cycle exists."
+    ],
+    "example": "207 Course Schedule"
+  },
+  "gridAsGraph": {
+    "mentalModel": [
+      "Each cell is a node.",
+      "Neighbors are up/down/left/right."
+    ],
+    "directions": [
+      "[1,0]",
+      "[-1,0]",
+      "[0,1]",
+      "[0,-1]"
+    ],
+    "commonProblems": [
+      "200",
+      "733",
+      "1020"
+    ]
+  },
+  "storyBuilding": {
+    "rule": "Every graph problem should be explainable as a story.",
+    "examples": [
+      "Islands = land masses",
+      "Courses = dependencies",
+      "Employees = information flow",
+      "Cities = connections"
+    ]
+  },
+  "commonMistakes": [
+    "Incrementing count inside DFS instead of at entry",
+    "Reversing indegree and outdegree",
+    "Forgetting visited",
+    "Confusing graph direction"
+  ],
+  "problemDifficultyInsight": {
+    "easy": "Connected components, traversal",
+    "medium": "Topological sort, cycle detection",
+    "hard": "Weighted graphs, DP on graphs"
+  },
+  "universalGraphTemplates": {
+    "countComponents": "for each node: if not visited → dfs() → count++",
+    "topoSort": "build graph + indegree → queue indegree 0 → process"
+  }
+}

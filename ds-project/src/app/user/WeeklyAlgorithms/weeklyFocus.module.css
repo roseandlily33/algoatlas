@@ -1,0 +1,194 @@
+.section {
+  background: var(--purple-50);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px 0 rgba(160, 85, 247, 0.1);
+  border: 2.5px solid var(--purple-200);
+  padding: 1.3rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.section h3 {
+  font-family: var(--font-main);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--purple-700);
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 4px var(--purple-50);
+  display: flex;
+  align-items: center;
+}
+
+.algoList {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: scroll;
+  padding-bottom: 0.5rem;
+}
+
+.algoCard {
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 1px 8px 0 rgba(160, 85, 247, 0.1);
+  padding: 2.7rem 1.3rem 1.2rem 1.3rem; /* extra top padding for buttons */
+  width: 260px;
+  max-width: 260px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: box-shadow 0.2s, border 0.2s;
+  border: 2px solid var(--purple-100);
+  position: relative;
+  /* border: 2px solid red; */
+}
+.algoCard:hover {
+  box-shadow: 0 4px 16px 0 rgba(160, 85, 247, 0.18);
+  border-color: var(--purple-300);
+}
+
+.algoInfo {
+  flex: 1 1 auto;
+}
+.algoTitle {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--purple-700);
+  margin-bottom: 0.3rem;
+  font-family: var(--font-main);
+}
+.statusRow {
+  display: flex;
+  gap: 1.1rem;
+  font-size: 0.98rem;
+  color: var(--gray-700);
+}
+.rank {
+  color: var(--indigo-500);
+  font-weight: 500;
+}
+.status {
+  color: var(--purple-500);
+  font-weight: 500;
+}
+.arrowBtn {
+  background: var(--purple-300);
+  border: none;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s;
+  margin-left: 1rem;
+}
+.arrowBtn:hover {
+  background: var(--purple-500);
+}
+.arrow {
+  font-size: 1.3rem;
+  color: var(--white);
+  font-weight: bold;
+}
+.removeBtn {
+  background: linear-gradient(135deg, var(--error) 60%, var(--purple-400) 100%);
+  border: none;
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 1.25rem;
+  font-family: var(--font-main);
+  width: 2.1rem;
+  height: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px 0 rgba(239, 68, 68, 0.1);
+  margin-left: 0.3rem;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+.removeBtn:hover {
+  background: linear-gradient(135deg, var(--error) 80%, var(--purple-600) 100%);
+  box-shadow: 0 4px 16px 0 rgba(239, 68, 68, 0.18);
+  transform: scale(1.08) rotate(-8deg);
+}
+.moveBtn {
+  background: linear-gradient(
+    135deg,
+    var(--purple-200) 60%,
+    var(--purple-400) 100%
+  );
+  border: none;
+  border-radius: 50%;
+  color: var(--purple-700);
+  font-size: 1.15rem;
+  font-family: var(--font-main);
+  width: 2.1rem;
+  height: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.3rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.12s;
+  box-shadow: 0 2px 8px 0 rgba(160, 85, 247, 0.1);
+}
+.moveBtn:hover {
+  background: linear-gradient(
+    135deg,
+    var(--purple-400) 80%,
+    var(--purple-600) 100%
+  );
+  color: var(--white);
+  transform: scale(1.08) rotate(8deg);
+}
+.lastPracticed {
+  font-size: 0.92rem;
+  color: var(--gray-500);
+  margin-top: 0.4rem;
+  font-family: var(--font-main);
+}
+.dropdown {
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.7rem;
+  border: 2px solid var(--purple-200);
+  background: var(--purple-50);
+  color: var(--purple-700);
+  font-family: var(--font-main);
+  min-width: 200px;
+}
+.dropdown:focus {
+  outline: none;
+  border-color: var(--purple-400);
+}
+.emptySlot {
+  width: 260px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--purple-100);
+  border-radius: 1rem;
+  border: 2px dashed var(--purple-300);
+}
+@media (max-width: 900px) {
+  .algoList {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  .algoCard,
+  .emptySlot {
+    width: 98vw;
+    max-width: 340px;
+    height: 170px;
+    padding: 1rem 0.7rem;
+  }
+}

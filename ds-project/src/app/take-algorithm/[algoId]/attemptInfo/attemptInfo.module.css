@@ -1,0 +1,109 @@
+/* Flex row layout for each field */
+.attemptInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  /* background: var(
+    --gradient-bg,
+    linear-gradient(120deg, #f8f6ff 0%, #e3e0ff 100%)
+  ); */
+  background: #fff;
+  border-radius: 1.2rem;
+  padding: 2rem 2.2rem 1.5rem 2.2rem;
+  box-shadow: 0 2px 16px 0 rgba(120, 80, 200, 0.1);
+  border: 2.5px solid var(--purple-200);
+  width: 100%;
+}
+.flexRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+.label {
+  min-width: 120px;
+  font-weight: 500;
+  color: var(--purple-700, #4b2673);
+  font-size: 1.08rem;
+  text-align: left;
+}
+.value {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+.star {
+  color: #bdbdbd;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.starFilled {
+  color: #ffb300;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.rankValue {
+  margin-left: 0.7rem;
+  font-size: 1.08rem;
+  color: #7a5be4;
+  font-weight: 500;
+}
+.statusIcon {
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+}
+.statusSelect {
+  border-radius: 0.7rem;
+  border: 1.5px solid var(--purple-200, #b9a6e3);
+  padding: 0.3rem 0.7rem;
+  font-size: 1rem;
+  background: #fff;
+  color: #4b2673;
+}
+.attemptsInput {
+  width: 4.5rem;
+  border-radius: 0.7rem;
+  border: 1.5px solid var(--purple-200, #b9a6e3);
+  padding: 0.3rem 0.7rem;
+  font-size: 1rem;
+}
+.notesTextarea {
+  width: 100%;
+  min-height: 3.2rem;
+  border-radius: 0.9rem;
+  border: 1.5px solid var(--purple-200, #b9a6e3);
+  padding: 0.7rem 1rem;
+  font-size: 1.08rem;
+  background: #f7f4ff;
+  color: #4b2673;
+  resize: vertical;
+  box-shadow: 0 1px 6px 0 rgba(120, 80, 200, 0.06);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.notesTextarea:focus {
+  border: 1.5px solid #7a5be4;
+  outline: none;
+  box-shadow: 0 2px 12px 0 rgba(120, 80, 200, 0.13);
+}
+.submitBtn {
+  background: linear-gradient(90deg, #7a5be4 0%, #b9a6e3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.9rem;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(120, 80, 200, 0.1);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

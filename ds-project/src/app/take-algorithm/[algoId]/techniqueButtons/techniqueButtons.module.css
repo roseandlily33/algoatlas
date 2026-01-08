@@ -1,0 +1,43 @@
+/* Modal Cheat Sheet Content Styles */
+.modalCheatSheetContent {
+  border-radius: 1.2rem;
+  padding: 2.2rem 2.5rem 2.2rem 2.5rem;
+  color: #222;
+  min-width: 420px;
+  max-width: 600px;
+  min-height: 220px;
+  font-size: 1.13rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modalCheatSheetDescription {
+  font-weight: 500;
+  font-size: 1.08em;
+}
+
+.modalCheatSheetKeyPoints {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1.01em;
+}
+
+.modalCheatSheetKeyPointItem {
+  margin-bottom: 0.3rem;
+}
+
+.modalCheatSheetCodeSnippet {
+  border-radius: 0.7rem;
+  padding: 1.1rem 1.2rem;
+  margin: 0;
+  font-size: 1.01em;
+  overflow-x: auto;
+}
+
+.modalCheatSheetUsedFor {
+  color: #7a6a2f;
+  font-size: 1.01em;
+}

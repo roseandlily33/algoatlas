@@ -1,0 +1,22 @@
+{
+  "title": "Depth-First Search (DFS)",
+  "description": "DFS explores as far as possible along each branch before backtracking. It can be implemented recursively or with a stack.",
+  "usedFor": ["Connected components", "Cycle detection", "Topological sorting", "Pathfinding"],
+  "code": {
+    "language": "javascript",
+    "code": "function dfs(graph, node, visited = new Set()) {\n  visited.add(node);\n  for (let nei of graph[node]) {\n    if (!visited.has(nei)) dfs(graph, nei, visited);\n  }\n}"
+  },
+  "timeComplexity": "O(V + E)",
+  "spaceComplexity": "O(V)",
+  "keyPoints": [
+    "Can be implemented recursively or iteratively (with a stack).",
+    "Useful for exploring all nodes in a component.",
+    "Can be used for topological sort, cycle detection, etc."
+  ],
+  "pseudocode": "1. Mark the current node as visited.\n2. For each unvisited neighbor, recursively call DFS.\n3. Backtrack when all neighbors are visited.",
+  "edgeCases": [
+    "Disconnected graphs",
+    "Cycles (avoid revisiting nodes)",
+    "Empty graph"
+  ]
+}

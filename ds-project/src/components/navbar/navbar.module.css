@@ -1,0 +1,55 @@
+.navbar {
+  background: var(--purple-100);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px 0 rgba(130, 90, 255, 0.06);
+  border-bottom: 1px solid var(--purple-100);
+}
+
+.navList {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+}
+
+.navList a {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--indigo-700);
+  padding: 0.38em 1.1em;
+  border-radius: 1.1rem;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  position: relative;
+  text-decoration: none;
+  outline: none;
+}
+.navList a:hover,
+.navList a:focus {
+  background: var(--purple-300);
+  color: var(--purple-900);
+  box-shadow: 0 2px 8px 0 rgba(80, 40, 160, 0.1);
+}
+.navList .active {
+  background: var(--purple-700) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 12px 0 rgba(80, 40, 160, 0.13);
+  font-weight: 900;
+  border-radius: 1.1rem;
+  z-index: 1;
+}
+
+.navbar h2 {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--indigo-700);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* Remove duplicate navList a rules and keep only the modernized version above */

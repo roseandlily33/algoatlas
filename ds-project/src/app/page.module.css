@@ -1,141 +1,102 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
+.heroMain {
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
-}
-
-.main {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
-}
-
-.intro {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+  align-items: stretch;
+  background: var(--background);
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
-}
-
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
-}
-
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
+.heroImgWrap {
+  position: relative;
+  width: 100vw;
+  min-height: 60vh;
+  max-height: 70vh;
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
+  justify-content: center;
+}
+
+.heroImg {
+  object-fit: cover;
+  z-index: 1;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.92) 80%
+  );
+  z-index: 2;
+}
+
+.heroContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 2.5rem 1.5rem;
+}
+
+.heroTitle {
+  font-family: var(--font-main);
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--purple-700);
+  letter-spacing: 0.01em;
+  margin-bottom: 1.1rem;
+  text-shadow: 0 2px 16px var(--indigo-100);
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: var(--indigo-700);
   font-weight: 500;
+  margin-bottom: 2.2rem;
+  line-height: 1.6;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.heroBtn {
+  font-size: 1.18rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 2px 12px 0 rgba(120, 80, 200, 0.13);
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.infoSection {
+  background: var(--indigo-50);
+  border-top: 2.5px solid var(--indigo-200);
+  padding: 3.5rem 1.5rem 2.5rem 1.5rem;
+  text-align: center;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.infoSection h2 {
+  font-family: var(--font-main);
+  font-size: 2.1rem;
+  color: var(--purple-700);
+  font-weight: 800;
+  margin-bottom: 1.2rem;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-
-  .page {
-    --background: #000;
-    --foreground: #000;
-
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 1.13rem;
+  color: var(--indigo-700);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
 }

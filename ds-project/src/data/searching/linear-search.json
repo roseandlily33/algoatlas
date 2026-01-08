@@ -1,0 +1,22 @@
+{
+  "title": "Linear Search",
+  "description": "Linear search checks each element in a list sequentially until the target value is found or the list ends.",
+  "usedFor": ["Searching unsorted arrays", "Small datasets", "Finding first occurrence"],
+  "code": {
+    "language": "javascript",
+    "code": "function linearSearch(arr, target) {\n  for (let i = 0; i < arr.length; i++) {\n    if (arr[i] === target) return i;\n  }\n  return -1;\n}"
+  },
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1)",
+  "keyPoints": [
+    "Works on unsorted data.",
+    "Simple but inefficient for large datasets.",
+    "Returns first match found."
+  ],
+  "pseudocode": "1. Iterate through each element.\n2. If element equals target, return index.\n3. If end reached, return -1.",
+  "edgeCases": [
+    "Empty array",
+    "Target not present",
+    "Multiple occurrences (returns first)"
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "type": "Core Concept",
+  "title": "Recursion – Mental Model, Stack Frames, and Patterns",
+  "description": "Recursion is a technique where a function calls itself to solve smaller instances of the same problem. It relies on the call stack to track progress and is commonly used in trees, graphs, DFS, backtracking, and dynamic programming.",
+  "coreMentalModel": [
+    "Every recursive call creates a new stack frame.",
+    "Each stack frame has its own local variables and parameters.",
+    "Recursive calls go deeper until a base case is hit.",
+    "Return values flow back up the call stack."
+  ],
+  "stackFrameVisualization": {
+    "whatIsAStackFrame": "A stack frame is a snapshot of a function call, containing parameters, local variables, and the return address.",
+    "visualAnalogy": [
+      "Think of stack frames like plates stacked vertically.",
+      "Each recursive call adds a plate on top.",
+      "Returning from a function removes the top plate."
+    ],
+    "importantNotes": [
+      "Only one stack frame runs at a time.",
+      "Deeper calls must finish before higher calls resume.",
+      "This is why recursion feels 'backwards' at first."
+    ]
+  },
+  "baseCase": {
+    "definition": "The condition where recursion stops.",
+    "rules": [
+      "Every recursive function must have at least one base case.",
+      "The base case should handle the smallest possible input.",
+      "Hitting the base case prevents infinite recursion."
+    ],
+    "examples": [
+      "node === null in tree problems",
+      "index === array.length in array recursion",
+      "out of bounds in grid problems"
+    ]
+  },
+  "recursiveCase": {
+    "definition": "The part of the function that breaks the problem into smaller subproblems.",
+    "rules": [
+      "Each recursive call must move closer to the base case.",
+      "The subproblem must be strictly smaller or simpler."
+    ]
+  },
+  "topDownVsBottomUp": [
+    {
+      "type": "Top-Down Recursion",
+      "description": "Information flows from the parent call to child calls.",
+      "mentalModel": "Carry state downward.",
+      "usedWhen": [
+        "Tracking paths",
+        "Passing constraints",
+        "Accumulating values"
+      ],
+      "examples": [
+        "Path Sum",
+        "Validate BST (with min/max bounds)",
+        "Backtracking problems"
+      ],
+      "template": "function dfs(node, state) { if (baseCase) return; dfs(child, updatedState); }"
+    },
+    {
+      "type": "Bottom-Up Recursion",
+      "description": "Information flows from child calls back to the parent.",
+      "mentalModel": "Compute results from children.",
+      "usedWhen": [
+        "Finding maximum or minimum",
+        "Computing depth or time",
+        "Aggregating results"
+      ],
+      "examples": [
+        "Max Depth",
+        "Diameter of Binary Tree",
+        "Time Needed to Inform Employees"
+      ],
+      "template": "function dfs(node) { if (baseCase) return value; let left = dfs(leftChild); let right = dfs(rightChild); return combine(left, right); }"
+    }
+  ],
+  "commonRecursionPatterns": [
+    {
+      "pattern": "Traversal Only",
+      "description": "Visit every element or node.",
+      "examples": ["Tree traversal", "Graph DFS"],
+      "returnsValue": false
+    },
+    {
+      "pattern": "Compute and Return",
+      "description": "Each call returns a value used by the parent.",
+      "examples": ["Max depth", "Diameter", "Time propagation"],
+      "returnsValue": true
+    },
+    {
+      "pattern": "Backtracking",
+      "description": "Explore choices and undo changes.",
+      "examples": ["Permutations", "Combinations", "Subsets"],
+      "returnsValue": false
+    }
+  ],
+  "visitedVsState": {
+    "visitedArray": {
+      "usedIn": ["Graphs", "Grids"],
+      "purpose": "Prevents cycles and repeated work."
+    },
+    "implicitVisited": {
+      "usedIn": ["Trees"],
+      "purpose": "Trees have no cycles, so visited tracking is unnecessary."
+    },
+    "stateMutation": {
+      "description": "Sometimes changing the input marks visited nodes.",
+      "example": "Flood Fill changing color"
+    }
+  },
+  "howToWriteRecursiveCode": [
+    "Define what the recursive function represents.",
+    "Write the base case first.",
+    "Assume recursive calls work correctly.",
+    "Combine results or propagate state.",
+    "Return the correct value."
+  ],
+  "debuggingRecursion": [
+    "Print the function parameters at each call.",
+    "Indent logs based on recursion depth.",
+    "Dry-run with very small inputs.",
+    "Trace the call stack manually."
+  ],
+  "commonMistakes": [
+    "Forgetting to return a value.",
+    "Changing global state incorrectly.",
+    "Confusing traversal logic with computation logic.",
+    "Incrementing counts at the wrong recursion level."
+  ],
+  "recursionVsIteration": [
+    "Recursion uses the call stack implicitly.",
+    "Iteration uses an explicit stack or queue.",
+    "DFS recursion ≈ DFS with an explicit stack.",
+    "BFS usually requires iteration with a queue."
+  ],
+  "performanceNotes": [
+    "Recursive depth equals call stack depth.",
+    "Deep recursion may cause stack overflow.",
+    "Tail recursion is not reliably optimized in JavaScript."
+  ],
+  "universalTemplates": {
+    "basicRecursive": "function recurse(input) { if (baseCase) return; recurse(smallerInput); }",
+    "recursiveWithReturn": "function recurse(input) { if (baseCase) return baseValue; let result = recurse(smallerInput); return combine(result); }"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "type": "Set",
+  "title": "Set – Membership & Uniqueness Tool",
+  "description": "A set stores unique elements and excels at fast membership checks.",
+  "coreMentalModel": [
+    "A set answers: have I seen this before?",
+    "No ordering, no indexing."
+  ],
+  "keyPoints": [
+    "No duplicates allowed.",
+    "Average O(1) add, delete, has.",
+    "Ideal for visited tracking."
+  ],
+  "corePatterns": [
+    {
+      "pattern": "Duplicate Detection",
+      "recognition": [
+        "Contains duplicate?",
+        "Seen before?"
+      ],
+      "mentalModel": "If already in set → duplicate.",
+      "commonProblems": [
+        "Contains Duplicate",
+        "Longest Substring Without Repeating Characters"
+      ]
+    },
+    {
+      "pattern": "Visited Tracking",
+      "recognition": [
+        "Graph traversal",
+        "Avoid cycles"
+      ],
+      "mentalModel": "Mark when seen to avoid revisiting.",
+      "commonProblems": [
+        "Graph DFS/BFS",
+        "Number of Islands"
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Trying to store duplicates",
+    "Using when order matters"
+  ],
+  "usedFor": [
+    "Membership testing",
+    "Removing duplicates",
+    "Cycle prevention"
+  ]
+}

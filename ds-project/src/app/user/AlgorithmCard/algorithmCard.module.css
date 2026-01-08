@@ -1,0 +1,80 @@
+.algoCard {
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 1px 8px 0 rgba(160, 85, 247, 0.1);
+  padding: 1.2rem 1.3rem;
+  /* width: 100%; */
+  min-height: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: box-shadow 0.2s, border 0.2s;
+  border: 2px solid var(--purple-100);
+  position: relative;
+  padding-top: 3rem;
+}
+.algoCard:hover {
+  box-shadow: 0 4px 16px 0 rgba(160, 85, 247, 0.18);
+  border-color: var(--purple-300);
+}
+
+.algoInfo {
+  flex: 1 1 auto;
+}
+.algoTitle {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--purple-700);
+  margin-bottom: 0.3rem;
+  font-family: var(--font-main);
+}
+.statusRow {
+  display: flex;
+  gap: 1.1rem;
+  font-size: 0.98rem;
+  color: var(--gray-700);
+}
+.rank {
+  color: var(--indigo-500);
+  font-weight: 500;
+}
+.status {
+  color: var(--purple-500);
+  font-weight: 500;
+}
+.statusWord {
+  font-weight: 600;
+}
+.statusDeep {
+  color: #e74c3c; /* red */
+}
+.statusReview {
+  color: #f7b731; /* yellow */
+}
+.statusMastered {
+  color: #27ae60; /* green */
+}
+.arrowBtn {
+  background: var(--purple-300);
+  border: none;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s;
+  margin-left: 1rem;
+}
+.arrowBtn:hover {
+  background: var(--purple-500);
+}
+.arrow {
+  font-size: 1.3rem;
+  color: var(--white);
+  font-weight: bold;
+}

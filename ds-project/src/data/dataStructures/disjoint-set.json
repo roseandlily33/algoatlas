@@ -1,0 +1,27 @@
+{
+  "type": "Disjoint Set",
+  "title": "Disjoint Set (Union-Find)",
+  "description": "A disjoint set is a data structure that keeps track of a partition of a set into disjoint (non-overlapping) subsets. Supports efficient union and find operations.",
+  "keyPoints": [
+    "Supports union and find in nearly constant time.",
+    "Used in Kruskal's algorithm, connected components, etc.",
+    "Often implemented with path compression and union by rank."
+  ],
+  "techniques": [
+    {
+      "title": "Union by Rank & Path Compression",
+      "codeSnippet": "function find(x) { if (parent[x] !== x) parent[x] = find(parent[x]); return parent[x]; } function union(x, y) { parent[find(x)] = find(y); }",
+      "description": "Optimizes the union-find structure for fast queries.",
+      "useCases": ["Kruskal's MST", "Connected components"]
+    }
+  ],
+  "codeSnippet": {
+    "language": "javascript",
+    "code": "const parent = Array(n).fill(0).map((_, i) => i); // Union-Find initialization"
+  },
+  "usedFor": [
+    "Kruskal's algorithm",
+    "Connected components",
+    "Cycle detection in graphs"
+  ]
+}
