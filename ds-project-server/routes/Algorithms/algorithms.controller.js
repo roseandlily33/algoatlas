@@ -41,7 +41,7 @@ async function updateAlgorithmById(req, res) {
       },
       { new: true }
     );
-    console.log("Algorithm updated:", algo);
+    console.log("Algorithm updated:", algo?.title);
     if (!algo) return res.status(404).json({ error: "Algorithm not found" });
     return res.status(200).json(algo);
   } catch (err) {
@@ -85,7 +85,7 @@ async function createAlgorithm(req, res) {
       theory,
     });
     await algo.save();
-    console.log("Algorithm created:", algo);
+    console.log("Algorithm created:", algo?.title);
     return res.status(201).json(algo);
   } catch (err) {
     return res.status(400).json({ error: err.message });

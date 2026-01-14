@@ -63,7 +63,7 @@ async function getMe(req, res) {
       console.log("User not found for userId:", req.userId);
       return res.status(404).json({ error: "User not found" });
     }
-    console.log("Returning user info:", user);
+    console.log("Returning user info:", user?.firstName);
     return res.json({ loggedIn: true, user });
   } catch (err) {
     console.error("Error in /me:", err);

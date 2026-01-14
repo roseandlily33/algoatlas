@@ -33,11 +33,13 @@ export default function LoginPage() {
       setStatus("Server error");
     }
   }
+  console.log("End", process.env.NEXT_PUBLIC_API_URL);
 
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleLogin}>
         <h2>Login</h2>
+        <p>URL: {process.env.NEXT_PUBLIC_API_URL}</p>
         <input
           type="email"
           placeholder="Email"

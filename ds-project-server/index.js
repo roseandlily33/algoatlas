@@ -25,6 +25,10 @@ app.use(cookieParser());
 //   console.log("Hitting the test");
 //   res.json({ message: "CORS works!" });
 // });
+// Give me something to display when I hit the base route
+app.get("/", (req, res) => {
+  res.send("Welcome to the AlgoAtlas API");
+});
 app.use("/api", apiRoutes);
 console.log(" process.env.FE_ROUTE", process.env.FE_ROUTE);
 mongoose.connect(process.env.MONGO_URI);

@@ -33,7 +33,17 @@ function isPracticedToday(lastPracticed) {
   );
 }
 
-// Static plan data (expanded for months 5 & 6 and future focus)
+// Helper to get current week index based on today's date and startDate
+function getCurrentWeekIndex(startDate) {
+  const now = new Date();
+  const start = new Date(startDate);
+  const diffDays = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+  // Each plan tab is 2 weeks (14 days)
+  const weekIdx = Math.floor(diffDays / 14);
+  // Clamp to valid range
+  return Math.max(0, Math.min(weekIdx, PLAN.length - 1));
+}
+
 const PLAN = [
   {
     key: "week1-2",
@@ -112,7 +122,6 @@ const PLAN = [
     recommended: [703, 1046],
   },
 
-
   // Future Focus
   {
     key: "future-focus",
@@ -187,14 +196,22 @@ const SUBPATTERNS = [
     mainAlgos: [222, 543, 530, 617],
     recommended: [236, 124],
   },
-  
 ];
 
 function WeeklyPlan({ algorithms = [], progress = [], handleGoToAlgo }) {
-  // Tabs: all PLAN tabs, subTab for SUBPATTERNS
-  const [mainTab, setMainTab] = useState(0);
-  const [subTab, setSubTab] = useState(null);
   const startDate = new Date("2025-12-28");
+  const [mainTab, setMainTab] = useState(getCurrentWeekIndex(startDate));
+  const [subTab, setSubTab] = useState(null);
+  // Auto-update mainTab if the week changes (e.g., at midnight)
+  React.useEffect(() => {
+    const updateWeek = () => {
+      const idx = getCurrentWeekIndex(startDate);
+      setMainTab(idx);
+    };
+    // Check every hour
+    const interval = setInterval(updateWeek, 60 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, [startDate]);
 
   // Map leetcodeNumber to algo object
   const algoMap = {};
@@ -310,7 +327,7 @@ function WeeklyPlan({ algorithms = [], progress = [], handleGoToAlgo }) {
         ))}
       </div>
       <div className={styles.tabContent}>
-        {!subTab && (
+        {subTab === null && (
           <div className={styles.patternContent}>
             <div className={styles.patternTitle}>{main.pattern}</div>
             {!isFutureFocus && (

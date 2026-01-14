@@ -70,9 +70,11 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
       )
     : groups;
 
+  const done = total - statusCounts["Not Started"];
+
   return (
     <aside className={styles.sidebar}>
-      <h3 className={styles.sidebarTitle}>All Algorithms</h3>
+      <h3 className={styles.sidebarTitle}>All Algorithms :)</h3>
       <div
         style={{ marginBottom: "0.7rem", fontWeight: 500, fontSize: "1.08rem" }}
       >
@@ -86,7 +88,7 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
       <button
         style={{
           marginBottom: "1rem",
-          background: "#3182ce",
+          background: "#86aed3",
           color: "#fff",
           border: "none",
           borderRadius: "6px",
@@ -120,32 +122,59 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
       </button>
       <div className={styles.sidebarSummary}>
         <div className={styles.sidebarSummaryRow}>
-          <span className={styles.sidebarSummaryLabel}>Total:</span>
-          <span className={styles.sidebarSummaryValue}>{total}</span>
+          <span className={styles.sidebarSummaryLabel}>Done/Total:</span>
+          <span className={styles.sidebarSummaryValue}>
+            {done}/{total}
+          </span>
         </div>
-        {statusList.map((status) => (
-          <div key={status} className={styles.sidebarSummaryRow}>
-            <button
-              className={
-                styles.sidebarSummaryFilterBtn +
-                (filterStatus === status
-                  ? " " + styles.sidebarSummaryFilterActive
-                  : "")
-              }
-              onClick={() =>
-                setFilterStatus(filterStatus === status ? null : status)
-              }
-            >
-              {status}
-            </button>
-            <span className={styles.sidebarSummaryValue}>
-              {statusCounts[status]}
-              {total > 0
-                ? ` (${Math.round((statusCounts[status] / total) * 100)}%)`
-                : ""}
-            </span>
-          </div>
-        ))}
+        {statusList.map((status) => {
+          if (status === "Not Started") {
+            return (
+              <div key={status} className={styles.sidebarSummaryRow}>
+                <button
+                  className={
+                    styles.sidebarSummaryFilterBtn +
+                    (filterStatus === status
+                      ? " " + styles.sidebarSummaryFilterActive
+                      : "")
+                  }
+                  onClick={() =>
+                    setFilterStatus(filterStatus === status ? null : status)
+                  }
+                >
+                  {status}
+                </button>
+                <span className={styles.sidebarSummaryValue}>
+                  {statusCounts[status]}
+                </span>
+              </div>
+            );
+          } else {
+            return (
+              <div key={status} className={styles.sidebarSummaryRow}>
+                <button
+                  className={
+                    styles.sidebarSummaryFilterBtn +
+                    (filterStatus === status
+                      ? " " + styles.sidebarSummaryFilterActive
+                      : "")
+                  }
+                  onClick={() =>
+                    setFilterStatus(filterStatus === status ? null : status)
+                  }
+                >
+                  {status}
+                </button>
+                <span className={styles.sidebarSummaryValue}>
+                  {statusCounts[status]}
+                  {total > 0 && statusCounts[status] > 0
+                    ? ` (${Math.round((statusCounts[status] / total) * 100)}%)`
+                    : ""}
+                </span>
+              </div>
+            );
+          }
+        })}
       </div>
       <div className={styles.sidebarList}>
         {Object.entries(filteredGroups).map(

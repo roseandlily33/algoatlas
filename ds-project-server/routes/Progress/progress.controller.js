@@ -80,7 +80,7 @@ async function postProgress(req, res) {
       commonMistake: commonMistake ?? "",
     });
     await progress.save();
-    console.log("User progress updated:", progress);
+    // console.log("User progress updated:", progress);
     res.json(progress);
   } catch (err) {
     res.status(400).json({ error: err.message });

@@ -7,7 +7,7 @@ async function getWeeklyFocus(req, res) {
     console.log("Fetching weekly focus for userId:", req.userId);
     const user = await User.findById(req.userId).populate("weeklyFocus");
     if (!user) return res.status(404).json({ error: "User not found" });
-    console.log("User weekly focus", user);
+    console.log("User weekly focus", user?.firstName);
     return res.status(200).json({
       weeklyFocus: user.weeklyFocus,
       weeklyFocusStartDate: user.weeklyFocusStartDate,
@@ -25,8 +25,8 @@ async function updateWeeklyFocus(req, res) {
     console.log(
       "Updating weekly focus for userId:",
       req.userId,
-      weeklyFocus,
-      weeklyFocusStartDate
+      // weeklyFocus,
+      // weeklyFocusStartDate
     );
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ error: "User not found" });
