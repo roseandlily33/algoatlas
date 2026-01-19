@@ -1,5 +1,64 @@
 # AlgoAtlas
-Deployed at: https://algoatlas.onrender.com
 
-## Description
-A leetcode like application where I made desired changes to fit how I would like to learn. When I came up with the idea I had about 5 different files containing alogrithms from different parts of my learning journey, always wanting to revist not see the answer right away from those and getting confused on the amount of notes that some files were getting I decided to compartimentalize everything having algorithms within a leetcode style, I wanted to be able to track my progress, type in my answer, review, see techniques and have it all in a centralized location to continuously review and not just have notes upon notes. 
+**Live Demo:** [https://algoatlas.onrender.com](https://algoatlas.onrender.com)
+
+## Overview
+
+AlgoAtlas is a personalized LeetCode-style platform designed to help you master algorithms and data structures in a way that fits your learning style. Inspired by my own journey—juggling multiple files, scattered notes, and the need for structured review—I built AlgoAtlas to centralize everything: algorithm problems, solutions, notes, progress tracking, and more.
+
+## Features
+
+- **Centralized Algorithm Library:** Organize all your algorithms in one place, categorized and searchable.
+- **Custom Progress Tracking:** Mark problems as Not Started, Reviewing, Mastered, or Deep Practice to monitor your growth.
+- **Interactive Practice:** Type and submit your own solutions without seeing the answer right away.
+- **Technique & Theory Reference:** Quickly review key techniques, patterns, and theoretical notes for each algorithm.
+- **Personal Notes:** Add and update your own notes for every problem.
+- **Review Scheduling:** Built-in reminders and review cycles to help you revisit and reinforce concepts.
+- **User Authentication:** Secure login and personalized dashboard.
+
+## Why I Built AlgoAtlas
+
+While learning algorithms, I found myself overwhelmed by scattered notes and files. I wanted a tool that would let me:
+
+- Practice algorithms without being tempted by the answer.
+- Track my progress and focus on weak areas.
+- Keep concise, organized notes and revisit them easily.
+- See techniques and theory at a glance for each problem.
+
+AlgoAtlas is my solution—a platform that brings structure, focus, and efficiency to algorithm practice.
+
+## Getting Started
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/algoatlas.git
+   cd algoatlas
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+3. **Start the development server:**
+   ```sh
+   npm run dev
+   ```
+4. **Visit:** [http://localhost:3000](http://localhost:3000)
+
+## Tech Stack
+
+- **Frontend:** Next.js, React
+- **Backend:** Node.js, Express, MongoDB
+- **Styling:** CSS Modules
+- **Authentication:** JWT
+
+## Usage
+
+If you do decide to use this program, you will not be able to delete your account. 
+
+## Contributing
+
+Contributions are not welcome, everything that I have done to it so far is to my specifications on how I would like to learn
+
+## License
+
+MIT

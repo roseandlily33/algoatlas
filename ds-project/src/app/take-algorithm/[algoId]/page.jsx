@@ -1,10 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-// import Prism from "prismjs";
-// import "prismjs/components/prism-javascript";
-// import "prismjs/themes/prism.css";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import styles from "./page.module.css";
 import { fetchAlgorithm } from "./hooks/fetchAlgorithm";
 import { submitProgress } from "./hooks/submitProgress";
@@ -15,13 +11,7 @@ import AttemptInfo from "./attemptInfo/attemptInfo.component";
 
 const statusOptions = ["Mastered", "Reviewing", "Deep Practice"];
 
-// Dynamically import react-simple-code-editor to avoid SSR issues
-const SimpleCodeEditor = dynamic(() => import("react-simple-code-editor"), {
-  ssr: false,
-});
-
 const TakeAlgorithmPage = () => {
-  const router = useRouter();
   const { algoId } = useParams();
   typeof window !== "undefined"
     ? window.location.pathname.split("/").pop()
@@ -71,7 +61,7 @@ const TakeAlgorithmPage = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/api/progress/${algoId}/history`,
           {
             credentials: "include",
-          }
+          },
         );
         let history = [];
         let latest = null;
@@ -79,7 +69,7 @@ const TakeAlgorithmPage = () => {
           history = await res.json();
           // Sort by lastPracticed descending to ensure latest is first
           history.sort(
-            (a, b) => new Date(b.lastPracticed) - new Date(a.lastPracticed)
+            (a, b) => new Date(b.lastPracticed) - new Date(a.lastPracticed),
           );
           setProgressHistory(history);
           const latest = history.length > 0 ? history[0] : null;
@@ -154,14 +144,14 @@ const TakeAlgorithmPage = () => {
           },
           credentials: "include",
           body: JSON.stringify({ theory }),
-        }
+        },
       );
       // Refresh history
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/progress/${algoId}/history`,
         {
           credentials: "include",
-        }
+        },
       );
       if (res.ok) {
         const newHistory = await res.json();
@@ -276,17 +266,12 @@ const TakeAlgorithmPage = () => {
           </div>
           <div className={styles.answerSolutionFlex}>
             <div style={{ width: "100%" }}>
-              <SimpleCodeEditor
+              <textarea
                 value={answer}
-                onValueChange={setAnswer}
-                highlight={(code) =>
-                  Prism.highlight(
-                    code,
-                    Prism.languages.javascript,
-                    "javascript"
-                  )
-                }
-                padding={12}
+                onChange={(e) => setAnswer(e.target.value)}
+                rows={10}
+                placeholder="Write your code here..."
+                className={styles.codeTextarea}
                 style={{
                   fontFamily:
                     'var(--font-mono, "Fira Mono", "Menlo", "Monaco", "Consolas", "monospace")',
@@ -300,29 +285,10 @@ const TakeAlgorithmPage = () => {
                   boxSizing: "border-box",
                   marginBottom: 0,
                   transition: "border 0.2s",
+                  resize: "vertical",
                 }}
-                textareaId="code-editor"
-                textareaClassName={styles.codeTextarea}
-                placeholder="Write your code here..."
-                tabSize={2}
-                insertSpaces={true}
-                onKeyDown={(e) => {
-                  // Auto-pair braces
-                  if (e.key === "{") {
-                    const start = e.target.selectionStart;
-                    const end = e.target.selectionEnd;
-                    setAnswer(
-                      answer.slice(0, start) + "{}" + answer.slice(end)
-                    );
-                    setTimeout(() => {
-                      const textarea = document.getElementById("code-editor");
-                      if (textarea)
-                        textarea.selectionStart = textarea.selectionEnd =
-                          start + 1;
-                    }, 0);
-                    e.preventDefault();
-                  }
-                }}
+                id="code-editor"
+                tabIndex={0}
               />
             </div>
             {showSolution && (
