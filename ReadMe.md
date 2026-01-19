@@ -2,6 +2,8 @@
 
 **Live Demo:** [https://algoatlas.onrender.com](https://algoatlas.onrender.com)
 
+![Screenshot of AlgoAtlas](public/AlgoAtlas.png)
+
 ## Overview
 
 AlgoAtlas is a personalized LeetCode-style platform designed to help you master algorithms and data structures in a way that fits your learning style. Inspired by my own journey—juggling multiple files, scattered notes, and the need for structured review—I built AlgoAtlas to centralize everything: algorithm problems, solutions, notes, progress tracking, and more.
@@ -57,6 +59,7 @@ Please note: Account deletion is not currently supported.
 This project is intended for personal use and learning. If you are interested in exploring the platform, be aware that your progress and data will remain in the system.
 
 ### Privacy note:
+
 AlgoAtlas is designed as a private study and review tool. If you are considering using it to view my algorithm knowledge or progress, please respect that this is a personal learning resource and not intended for external assessment or quizzing.
 
 ## Contributing
