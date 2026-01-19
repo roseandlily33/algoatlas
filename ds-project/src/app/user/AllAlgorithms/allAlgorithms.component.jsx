@@ -74,7 +74,7 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
 
   return (
     <aside className={styles.sidebar}>
-      <h3 className={styles.sidebarTitle}>All Algorithms :)</h3>
+      <h3 className={styles.sidebarTitle}>All Algorithms</h3>
       <div
         style={{ marginBottom: "0.7rem", fontWeight: 500, fontSize: "1.08rem" }}
       >

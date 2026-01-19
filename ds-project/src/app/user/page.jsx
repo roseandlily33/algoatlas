@@ -6,8 +6,8 @@ import styles from "./page.module.css";
 import { fetchUserDashboardData } from "./dashboardData";
 import AllAlgorithms from "./AllAlgorithms/allAlgorithms.component";
 import WeeklyFocus from "./WeeklyAlgorithms/weeklyFocus.component";
-import RandomFive from "./RandomFive/randomFive.component";
-import ProgressReport from "./ProgressReport/ProgressReport.component";
+// import RandomFive from "./RandomFive/randomFive.component";
+// import ProgressReport from "./ProgressReport/ProgressReport.component";
 import WeeklyPlan from "./WeeklyPlan/WeeklyPlan.component";
 import AlgorithmPracticeSteps from "./PracticeTheory/PracticeTheory.component";
 
@@ -32,7 +32,7 @@ const UserPage = () => {
   const [algorithms, setAlgorithms] = useState([]);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [randomFive, setRandomFive] = useState([]);
+  // const [randomFive, setRandomFive] = useState([]);
   const auth = useAuth() || {};
   const user = auth.user;
   const authLoading = auth.loading;
@@ -48,11 +48,11 @@ const UserPage = () => {
         .then(({ algorithms, progress }) => {
           setAlgorithms(algorithms);
           setProgress(progress);
-          setRandomFive(
-            algorithms.length > 5
-              ? [...algorithms].sort(() => 0.5 - Math.random()).slice(0, 5)
-              : algorithms
-          );
+          // setRandomFive(
+          //   algorithms.length > 5
+          //     ? [...algorithms].sort(() => 0.5 - Math.random()).slice(0, 5)
+          //     : algorithms
+          // );
           setLoading(false);
         })
         .catch(() => setLoading(false));
@@ -71,15 +71,15 @@ const UserPage = () => {
     // Use Next.js router for client-side navigation
     router.push(`/take-algorithm/${algoId}`);
   }
-  console.log("Algorithms:", algorithms);
-  console.log("Progress:", progress);
-  function handleRandomFive() {
-    if (algorithms.length > 5) {
-      setRandomFive(
-        [...algorithms].sort(() => 0.5 - Math.random()).slice(0, 5)
-      );
-    }
-  }
+  // console.log("Algorithms:", algorithms);
+  // console.log("Progress:", progress);
+  // function handleRandomFive() {
+  //   if (algorithms.length > 5) {
+  //     setRandomFive(
+  //       [...algorithms].sort(() => 0.5 - Math.random()).slice(0, 5)
+  //     );
+  //   }
+  // }
 
   if (loading || authLoading)
     return (
@@ -114,7 +114,7 @@ const UserPage = () => {
           progressMap={progressMap}
           handleGoToAlgo={handleGoToAlgo}
         /> */}
-        <ProgressReport progress={progress} />
+        {/* <ProgressReport progress={progress} /> */}
       </main>
     </div>
   );
