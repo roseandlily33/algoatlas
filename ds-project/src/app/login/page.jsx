@@ -39,7 +39,6 @@ export default function LoginPage() {
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleLogin}>
         <h2>Login</h2>
-        <p>URL: {process.env.NEXT_PUBLIC_API_URL}</p>
         <input
           type="email"
           placeholder="Email"
