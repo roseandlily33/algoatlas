@@ -53,11 +53,16 @@ AlgoAtlas is my solution—a platform that brings structure, focus, and efficien
 
 ## Usage
 
-If you do decide to use this program, you will not be able to delete your account. 
+Please note: Account deletion is not currently supported.
+This project is intended for personal use and learning. If you are interested in exploring the platform, be aware that your progress and data will remain in the system.
+
+### Privacy note:
+AlgoAtlas is designed as a private study and review tool. If you are considering using it to view my algorithm knowledge or progress, please respect that this is a personal learning resource and not intended for external assessment or quizzing.
 
 ## Contributing
 
-Contributions are not welcome, everything that I have done to it so far is to my specifications on how I would like to learn
+At this time, I am not accepting external contributions.
+AlgoAtlas is tailored specifically to my learning style and needs, and all features and content are developed with that in mind.
 
 ## License
 
