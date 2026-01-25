@@ -4,7 +4,6 @@ import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { fetchUserDashboardData } from "./dashboardData";
-import axios from "axios";
 import AllAlgorithms from "./AllAlgorithms/allAlgorithms.component";
 import WeeklyFocus from "./WeeklyAlgorithms/weeklyFocus.component";
 // import RandomFive from "./RandomFive/randomFive.component";
