@@ -1,39 +1,79 @@
 .progressSection {
-  margin: 2rem 0;
-  padding: 0 1rem;
+  margin: 2.5rem 0;
+  padding: 1.5rem 1.2rem;
+  background: var(--purple-50);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px 0 rgba(160, 85, 247, 0.08);
+  border: 2.5px solid var(--purple-200);
+  font-family: var(--font-main);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .title {
-  font-size: 1.7rem;
-  font-weight: 700;
-  margin-bottom: 1.2rem;
-  color: #2d3748;
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+  color: var(--purple-700);
+  font-family: var(--font-main);
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 4px var(--purple-50);
+  display: flex;
+  align-items: center;
 }
 
 .noProgress {
-  color: #888;
+  color: var(--gray-500);
   font-size: 1.1rem;
   padding: 1.5rem;
   text-align: center;
+  font-family: var(--font-main);
 }
 
 .cardsContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 0.5rem;
+  scrollbar-width: auto;
+  scrollbar-color: var(--purple-300) var(--purple-50);
+  border-radius: 1.2rem;
+}
+
+/* Always show scrollbar (Webkit browsers) */
+.cardsContainer::-webkit-scrollbar {
+  height: 14px;
+}
+.cardsContainer::-webkit-scrollbar-thumb {
+  background: var(--purple-300);
+  border-radius: 8px;
+}
+.cardsContainer::-webkit-scrollbar-track {
+  background: var(--purple-50);
+  border-radius: 8px;
 }
 
 .card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
-  padding: 1.2rem 1.5rem;
-  min-width: 220px;
-  max-width: 260px;
-  flex: 1 1 220px;
+  background: var(--white);
+  border-radius: 1.2rem;
+  box-shadow: 0 1px 8px 0 rgba(160, 85, 247, 0.10);
+  padding: 1.3rem 1.2rem 1.1rem 1.2rem;
+  min-width: 260px;
+  max-width: 340px;
+  flex: 0 0 260px;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, border 0.2s;
+  border: 2px solid var(--purple-100);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-main);
+}
+.card:hover {
+  box-shadow: 0 4px 16px 0 rgba(160, 85, 247, 0.18);
+  border-color: var(--purple-300);
 }
 
 .card:hover {
@@ -42,24 +82,28 @@
 
 .cardHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
   margin-bottom: 0.7rem;
+  font-family: var(--font-main);
 }
 
 .date {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--purple-600);
+  font-family: var(--font-main);
 }
 
 .total {
   font-size: 1rem;
   font-weight: 500;
-  color: #3182ce;
-  background: #ebf8ff;
+  color: var(--purple-700);
+  background: var(--purple-100);
   border-radius: 8px;
   padding: 0.2rem 0.7rem;
+  font-family: var(--font-main);
 }
 
 .breakdown {
@@ -67,21 +111,42 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  font-family: var(--font-main);
+}
+
+@media (max-width: 900px) {
+  .cardsContainer {
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-start;
+    padding-bottom: 0.5rem;
+  }
+  .card {
+    min-width: 90vw;
+    max-width: 98vw;
+    padding: 1rem 0.7rem;
+  }
 }
 
 .typeRow {
   display: flex;
   justify-content: space-between;
   font-size: 0.98rem;
-  color: #2d3748;
+  color: var(--purple-700);
   padding: 0.15rem 0;
+  font-family: var(--font-main);
 }
 
 .type {
   font-weight: 500;
+  font-family: var(--font-main);
 }
 
 .count {
   font-weight: 600;
-  color: #805ad5;
+  color: var(--purple-500);
+  font-family: var(--font-main);
 }

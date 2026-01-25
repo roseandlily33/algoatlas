@@ -32,44 +32,39 @@ const ProgressReport = ({ progress }) => {
     );
   }
 
-  // Group progress by day
-  const progressByDay = {};
-  for (const entry of progress) {
-    // entry.date should be a string like "2025-12-25"
-    const date = entry.date?.slice(0, 10);
-    if (!date) continue;
-    if (!progressByDay[date]) progressByDay[date] = [];
-    progressByDay[date].push(entry.algorithm);
-  }
-
-  // Sort days descending (most recent first)
-  const sortedDays = Object.keys(progressByDay).sort((a, b) =>
-    b.localeCompare(a)
-  );
+  // progress is now [{ date, algorithms: [...] }], already grouped and sorted by backend
+  const sortedDays = Array.isArray(progress) ? progress : [];
 
   return (
     <section className={styles.progressSection}>
       <h2 className={styles.title}>Progress Report</h2>
       <div className={styles.cardsContainer}>
-        {sortedDays.map((date) => {
-          const algos = progressByDay[date];
-          const typeBreakdown = groupByType(algos);
+        {sortedDays?.map((day) => {
+          const algos = day.algorithms || [];
           return (
-            <div className={styles.card} key={date}>
+            <div className={styles.card} key={day.date}>
               <div className={styles.cardHeader}>
-                <span className={styles.date}>{formatDate(date)}</span>
+                <span className={styles.date}>{formatDate(day.date)}</span>
                 <span className={styles.total}>
-                  {algos.length}{" "}
-                  {algos.length === 1 ? "algorithm" : "algorithms"}
+                  {algos.length} {algos.length === 1 ? "algorithm" : "algorithms"}
                 </span>
               </div>
               <div className={styles.breakdown}>
-                {Object.entries(typeBreakdown).map(([type, count]) => (
-                  <div className={styles.typeRow} key={type}>
-                    <span className={styles.type}>{type}</span>
-                    <span className={styles.count}>{count}</span>
-                  </div>
-                ))}
+                {algos?.map((algo, idx) => {
+                  const name = algo?.name || algo?.title || "Unnamed Algorithm";
+                  const id = algo?._id || algo?.id || algo;
+                  return (
+                    <div className={styles.typeRow} key={id || idx}>
+                      <a
+                        className={styles.type}
+                        href={`/take-algorithm/${id}`}
+                        style={{ textDecoration: "underline", color: "#0070f3", cursor: "pointer" }}
+                      >
+                        {name}
+                      </a>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );

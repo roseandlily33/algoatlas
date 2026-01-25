@@ -8,8 +8,10 @@ const {
   postProgress,
   resetProgress,
   getStats,
+  getWeeklyProgress,
 } = require("./progress.controller");
 
+router.get("/progress/weekly", authMiddleware, getWeeklyProgress);
 router.get("/progress/:algoId", authMiddleware, getProgressByAlgo);
 router.get("/progress/:algoId/history", authMiddleware, getProgressHistory);
 router.get("/progress", authMiddleware, getAllProgress);

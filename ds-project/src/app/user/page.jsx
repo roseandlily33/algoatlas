@@ -4,10 +4,11 @@ import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { fetchUserDashboardData } from "./dashboardData";
+import axios from "axios";
 import AllAlgorithms from "./AllAlgorithms/allAlgorithms.component";
 import WeeklyFocus from "./WeeklyAlgorithms/weeklyFocus.component";
 // import RandomFive from "./RandomFive/randomFive.component";
-// import ProgressReport from "./ProgressReport/ProgressReport.component";
+import ProgressReport from "./ProgressReport/ProgressReport.component";
 import WeeklyPlan from "./WeeklyPlan/WeeklyPlan.component";
 import AlgorithmPracticeSteps from "./PracticeTheory/PracticeTheory.component";
 
@@ -22,7 +23,7 @@ function groupAlgorithms(algorithms) {
   // Sort each group by title or leetcodeNumber
   for (const group in groups) {
     groups[group].sort(
-      (a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0)
+      (a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0),
     );
   }
   return groups;
@@ -31,6 +32,7 @@ function groupAlgorithms(algorithms) {
 const UserPage = () => {
   const [algorithms, setAlgorithms] = useState([]);
   const [progress, setProgress] = useState([]);
+  const [weeklyProgress, setWeeklyProgress] = useState([]);
   const [loading, setLoading] = useState(true);
   // const [randomFive, setRandomFive] = useState([]);
   const auth = useAuth() || {};
@@ -45,14 +47,23 @@ const UserPage = () => {
       router.replace("/");
     } else if (user) {
       fetchUserDashboardData()
-        .then(({ algorithms, progress }) => {
+        .then(async ({ algorithms, progress }) => {
           setAlgorithms(algorithms);
           setProgress(progress);
-          // setRandomFive(
-          //   algorithms.length > 5
-          //     ? [...algorithms].sort(() => 0.5 - Math.random()).slice(0, 5)
-          //     : algorithms
-          // );
+          // Fetch weekly progress from new endpoint
+          try {
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/api/progress/weekly`,
+              {
+                method: "GET",
+                credentials: "include",
+              },
+            );
+            const data = await res.json();
+            setWeeklyProgress(data);
+          } catch (e) {
+            setWeeklyProgress([]);
+          }
           setLoading(false);
         })
         .catch(() => setLoading(false));
@@ -114,7 +125,7 @@ const UserPage = () => {
           progressMap={progressMap}
           handleGoToAlgo={handleGoToAlgo}
         /> */}
-        {/* <ProgressReport progress={progress} /> */}
+        <ProgressReport progress={weeklyProgress} />
       </main>
     </div>
   );

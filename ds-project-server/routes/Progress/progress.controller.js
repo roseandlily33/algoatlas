@@ -1,3 +1,42 @@
+// Get user progress for the past week, grouped by day, unique algorithms per day
+async function getWeeklyProgress(req, res) {
+  try {
+    const now = new Date();
+    const weekAgo = new Date(now);
+    weekAgo.setDate(now.getDate() - 6); // includes today
+
+    // Find all progress in the last 7 days
+    const progress = await UserProgress.find({
+      user: req.userId,
+      lastPracticed: { $gte: weekAgo, $lte: now },
+    }).populate("algorithm");
+
+    // Group by date (YYYY-MM-DD), and for each day, collect unique algorithms
+    const progressByDay = {};
+    for (const entry of progress) {
+      const dateStr = entry.lastPracticed.toISOString().slice(0, 10);
+      if (!progressByDay[dateStr]) progressByDay[dateStr] = new Map();
+      const algoId = entry.algorithm?._id?.toString() || entry.algorithm + "";
+      if (!progressByDay[dateStr].has(algoId)) {
+        progressByDay[dateStr].set(algoId, entry.algorithm);
+      }
+    }
+
+    // Convert maps to arrays for output
+    const result = Object.entries(progressByDay).map(([date, algoMap]) => ({
+      date,
+      algorithms: Array.from(algoMap.values()),
+    }));
+
+    // Sort by date descending
+    result.sort((a, b) => b.date.localeCompare(a.date));
+    console.log('Weekly progress fetched for userId:', req.userId, result.length);
+
+    return res.status(200).json(result);
+  } catch (err) {
+    return res.status(500).json({ error: "Server error" });
+  }
+}
 const { UserProgress } = require("../../models/DS.js");
 
 // Get user progress for a single algorithm (latest)
@@ -33,12 +72,12 @@ async function getProgressHistory(req, res) {
 async function getAllProgress(req, res) {
   try {
     const progress = await UserProgress.find({ user: req.userId }).populate(
-      "algorithm"
+      "algorithm",
     );
     console.log(
       "User progress fetched for userId:",
       req.userId,
-      progress.length
+      progress.length,
     );
     return res.status(200).json(progress);
   } catch (err) {
@@ -105,7 +144,7 @@ async function getStats(req, res) {
     const mastered = progress.filter((p) => p.status === "Mastered").length;
     const reviewing = progress.filter((p) => p.status === "Reviewing").length;
     const deepPractice = progress.filter(
-      (p) => p.status === "Deep Practice"
+      (p) => p.status === "Deep Practice",
     ).length;
     const avgRank = progress.length
       ? progress.reduce((sum, p) => sum + (p.rank || 0), 0) / progress.length
@@ -129,4 +168,5 @@ module.exports = {
   postProgress,
   resetProgress,
   getStats,
+  getWeeklyProgress,
 };
