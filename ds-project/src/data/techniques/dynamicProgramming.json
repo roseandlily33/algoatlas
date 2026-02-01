@@ -1,0 +1,59 @@
+{
+  "type": "Technique",
+  "title": "Dynamic Programming – Patterns, Mental Models, and Traps",
+  "description": "Dynamic Programming (DP) is a method for solving complex problems by breaking them down into simpler subproblems and storing the results of subproblems to avoid redundant work.",
+  "coreMentalModel": [
+    "Break the problem into overlapping subproblems.",
+    "Store results of subproblems (memoization or tabulation).",
+    "Build up the solution from base cases."
+  ],
+  "keyPoints": [
+    "Optimal substructure and overlapping subproblems are required.",
+    "Memoization (top-down) vs Tabulation (bottom-up).",
+    "State definition is the hardest part."
+  ],
+  "corePatterns": [
+    {
+      "pattern": "1D DP",
+      "recognition": ["Fibonacci", "Climbing Stairs", "House Robber"],
+      "mentalModel": "dp[i] = best answer for i-th subproblem.",
+      "template": "for (let i = 0; i < n; i++) { dp[i] = ... }",
+      "commonProblems": ["Climbing Stairs", "House Robber"]
+    },
+    {
+      "pattern": "2D DP (Grid)",
+      "recognition": ["Unique Paths", "Edit Distance", "Coin Change"],
+      "mentalModel": "dp[i][j] = best answer for subproblem (i, j).",
+      "template": "for (let i = 0; i < m; i++) { for (let j = 0; j < n; j++) { dp[i][j] = ... } }",
+      "commonProblems": ["Unique Paths", "Edit Distance"]
+    },
+    {
+      "pattern": "DP on Subsequences",
+      "recognition": ["Longest Increasing Subsequence", "Knapsack"],
+      "mentalModel": "dp[i] = best answer using first i elements.",
+      "template": "for (let i = 0; i < n; i++) { ... }",
+      "commonProblems": ["Longest Increasing Subsequence", "Knapsack"]
+    }
+  ],
+  "mutationRules": {
+    "whyMemoize": "Avoid recomputation of the same subproblem.",
+    "commonFix": "Use a cache (object or array) to store results."
+  },
+  "commonMistakes": [
+    "Incorrect base case.",
+    "Not memoizing all states.",
+    "Overlapping subproblems not identified."
+  ],
+  "debugChecklist": [
+    "What is the state?",
+    "What is the base case?",
+    "Are all subproblems covered?",
+    "Is the cache/memo correct?"
+  ],
+  "usedFor": [
+    "Optimization problems",
+    "Counting problems",
+    "Path finding",
+    "String/sequence analysis"
+  ]
+}
