@@ -27,6 +27,7 @@ function isPracticedToday(lastPracticed) {
 
 const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
   const [filterStatus, setFilterStatus] = useState(null);
+  const [filterMonth, setFilterMonth] = useState(null);
   // Flatten all algorithms for summary
   const allAlgos = Object.values(groups).flat();
   const total = allAlgos.length;
@@ -38,6 +39,8 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
     "Not Started": 0,
   };
   let practicedTodayCount = 0;
+  // For month grouping
+  const monthMap = {};
   allAlgos.forEach((algo) => {
     const userProgress = progressMap?.[algo._id] || {};
     const status = userProgress.status || "Not Started";
@@ -47,6 +50,24 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
     if (isPracticedToday(userProgress.lastPracticed)) {
       practicedTodayCount++;
     }
+    // Month grouping
+    let monthKey = "Never";
+    if (userProgress.lastPracticed) {
+      const d = new Date(userProgress.lastPracticed);
+      monthKey = d.toLocaleString(undefined, {
+        month: "long",
+        year: "numeric",
+      });
+    }
+    if (!monthMap[monthKey]) monthMap[monthKey] = [];
+    monthMap[monthKey].push(algo);
+  });
+
+  // Get all months sorted descending (most recent first, "Never" last)
+  const monthKeys = Object.keys(monthMap).sort((a, b) => {
+    if (a === "Never") return 1;
+    if (b === "Never") return -1;
+    return new Date(b + " 1") - new Date(a + " 1");
   });
 
   // Get current date string
@@ -56,19 +77,26 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
     day: "numeric",
   });
 
-  // Filtered groups by status
-  const filteredGroups = filterStatus
-    ? Object.fromEntries(
-        Object.entries(groups).map(([group, algos]) => [
-          group,
-          algos.filter((algo) => {
-            const userProgress = progressMap?.[algo._id] || {};
-            const status = userProgress.status || "Not Started";
-            return status === filterStatus;
-          }),
-        ])
-      )
-    : groups;
+  // Filtered groups by status or month (separately)
+  let filteredGroups = groups;
+  if (filterStatus) {
+    filteredGroups = Object.fromEntries(
+      Object.entries(groups).map(([group, algos]) => [
+        group,
+        algos.filter((algo) => {
+          const userProgress = progressMap?.[algo._id] || {};
+          const status = userProgress.status || "Not Started";
+          return status === filterStatus;
+        }),
+      ]),
+    );
+  } else if (filterMonth) {
+    // Only show algorithms from the selected month
+    const algosInMonth = monthMap[filterMonth] || [];
+    filteredGroups = {
+      [filterMonth]: algosInMonth,
+    };
+  }
 
   const done = total - statusCounts["Not Started"];
 
@@ -84,6 +112,39 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
           Practiced today: <b>{practicedTodayCount}</b>
         </span>
       </div>
+      {/* Month filter UI */}
+      <div style={{ marginBottom: "1.1rem" }}>
+        <div style={{ fontWeight: 600, marginBottom: 4 }}>Filter by Month:</div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          {monthKeys.map((month) => (
+            <button
+              key={month}
+              style={{
+                background: filterMonth === month ? "#d8b4fe" : "#f3e8ff",
+                color: filterMonth === month ? "#6d28d9" : "#3730a3",
+                border: "none",
+                borderRadius: 8,
+                padding: "0.3rem 0.9rem",
+                fontWeight: 500,
+                fontSize: "1rem",
+                cursor: "pointer",
+                boxShadow:
+                  filterMonth === month ? "0 2px 8px #d8b4fe55" : "none",
+                outline: filterMonth === month ? "2px solid #a855f7" : "none",
+                transition: "all 0.15s",
+              }}
+              onClick={() =>
+                setFilterMonth(filterMonth === month ? null : month)
+              }
+            >
+              {month}{" "}
+              <span style={{ color: "#888", fontWeight: 400 }}>
+                ({monthMap[month].length})
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
       {/* Button to copy info for all algorithms */}
       <button
         style={{
@@ -98,19 +159,22 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
           fontSize: "1rem",
         }}
         onClick={async () => {
-          const info = allAlgos
-            .filter((algo) => {
-              if (!filterStatus) return true;
+          let algosToCopy = allAlgos;
+          if (filterMonth) {
+            algosToCopy = monthMap[filterMonth] || [];
+          } else if (filterStatus) {
+            algosToCopy = allAlgos.filter((algo) => {
               const userProgress = progressMap?.[algo._id] || {};
               const status = userProgress.status || "Not Started";
               return status === filterStatus;
-            })
+            });
+          }
+          const info = algosToCopy
             .map((algo) => {
               const userProgress = progressMap?.[algo._id] || {};
               const status = userProgress.status || "Not Started";
-              return `#${algo.leetcodeNumber ?? "-"}: ${
-                algo.title
-              } [${status}]`;
+              return `#${algo.leetcodeNumber ?? "-"}: ${algo.title
+                } [${status}]`;
             })
             .join("\n");
           if (info) {
@@ -118,7 +182,7 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
           }
         }}
       >
-        Copy {filterStatus ? filterStatus + " " : ""}Algorithm Info
+        Copy {filterMonth ? filterMonth + " " : filterStatus ? filterStatus + " " : ""}Algorithm Info
       </button>
       <div className={styles.sidebarSummary}>
         <div className={styles.sidebarSummaryRow}>
@@ -127,54 +191,30 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
             {done}/{total}
           </span>
         </div>
-        {statusList.map((status) => {
-          if (status === "Not Started") {
-            return (
-              <div key={status} className={styles.sidebarSummaryRow}>
-                <button
-                  className={
-                    styles.sidebarSummaryFilterBtn +
-                    (filterStatus === status
-                      ? " " + styles.sidebarSummaryFilterActive
-                      : "")
-                  }
-                  onClick={() =>
-                    setFilterStatus(filterStatus === status ? null : status)
-                  }
-                >
-                  {status}
-                </button>
-                <span className={styles.sidebarSummaryValue}>
-                  {statusCounts[status]}
-                </span>
-              </div>
-            );
-          } else {
-            return (
-              <div key={status} className={styles.sidebarSummaryRow}>
-                <button
-                  className={
-                    styles.sidebarSummaryFilterBtn +
-                    (filterStatus === status
-                      ? " " + styles.sidebarSummaryFilterActive
-                      : "")
-                  }
-                  onClick={() =>
-                    setFilterStatus(filterStatus === status ? null : status)
-                  }
-                >
-                  {status}
-                </button>
-                <span className={styles.sidebarSummaryValue}>
-                  {statusCounts[status]}
-                  {total > 0 && statusCounts[status] > 0
-                    ? ` (${Math.round((statusCounts[status] / total) * 100)}%)`
-                    : ""}
-                </span>
-              </div>
-            );
-          }
-        })}
+        {statusList.map((status) => (
+          <div key={status} className={styles.sidebarSummaryRow}>
+            <button
+              className={
+                styles.sidebarSummaryFilterBtn +
+                (filterStatus === status
+                  ? " " + styles.sidebarSummaryFilterActive
+                  : "")
+              }
+              onClick={() =>
+                setFilterStatus(filterStatus === status ? null : status)
+              }
+              disabled={!!filterMonth}
+            >
+              {status}
+            </button>
+            <span className={styles.sidebarSummaryValue}>
+              {statusCounts[status]}
+              {total > 0 && statusCounts[status] > 0
+                ? ` (${Math.round((statusCounts[status] / total) * 100)}%)`
+                : ""}
+            </span>
+          </div>
+        ))}
       </div>
       <div className={styles.sidebarList}>
         {Object.entries(filteredGroups).map(
@@ -199,7 +239,7 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
                         : "-";
                     const statusClass = getStatusClass(status);
                     const practicedToday = isPracticedToday(
-                      userProgress.lastPracticed
+                      userProgress.lastPracticed,
                     );
                     return (
                       <li
@@ -289,14 +329,14 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
                             Last practiced:{" "}
                             {userProgress?.lastPracticed
                               ? new Date(
-                                  userProgress.lastPracticed
-                                ).toLocaleString(undefined, {
-                                  year: "numeric",
-                                  month: "short",
-                                  day: "2-digit",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                })
+                                userProgress.lastPracticed,
+                              ).toLocaleString(undefined, {
+                                year: "numeric",
+                                month: "short",
+                                day: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })
                               : "-"}
                           </div>
                         </button>
@@ -305,7 +345,7 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
                   })}
                 </ul>
               </div>
-            )
+            ),
         )}
       </div>
     </aside>
