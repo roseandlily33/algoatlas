@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import styles from "./WeeklyPlan.module.css";
 
 // Helper to get week date ranges
-function getWeekRange(startDate, weekOffset) {
-  const start = new Date(startDate);
-  start.setDate(start.getDate() + weekOffset * 14);
-  const end = new Date(start);
+function getWeekRange(weekIdx) {
+  let start, end;
+  if (weekIdx < 3) {
+    // Weeks 1–6: use original startDate
+    start = new Date("2025-12-28");
+    start.setDate(start.getDate() + weekIdx * 14);
+  } else {
+    // Weeks 7–8 and after: use week7StartDate as base
+    start = new Date("2026-02-23");
+    start.setDate(start.getDate() + (weekIdx - 3) * 14);
+  }
+  end = new Date(start);
   end.setDate(start.getDate() + 13);
   return {
     start: start.toLocaleDateString(undefined, {
@@ -34,14 +42,24 @@ function isPracticedToday(lastPracticed) {
 }
 
 // Helper to get current week index based on today's date and startDate
-function getCurrentWeekIndex(startDate) {
+function getCurrentWeekIndex() {
   const now = new Date();
-  const start = new Date(startDate);
-  const diffDays = Math.floor((now - start) / (1000 * 60 * 60 * 24));
-  // Each plan tab is 2 weeks (14 days)
-  const weekIdx = Math.floor(diffDays / 14);
-  // Clamp to valid range
-  return Math.max(0, Math.min(weekIdx, PLAN.length - 1));
+  // Weeks 1–6
+  for (let i = 0; i < 3; i++) {
+    const range = getWeekRange(i);
+    if (now >= new Date(range.start) && now <= new Date(range.end)) {
+      return i;
+    }
+  }
+  // Weeks 7–8 and after
+  for (let i = 3; i < PLAN.length - 1; i++) {
+    const range = getWeekRange(i);
+    if (now >= new Date(range.start) && now <= new Date(range.end)) {
+      return i;
+    }
+  }
+  // Default to last
+  return PLAN.length - 1;
 }
 
 const PLAN = [
@@ -96,8 +114,8 @@ const PLAN = [
   },
   // Months 5 & 6
   {
-    key: "week17-18",
-    label: "Weeks 17–18",
+    key: "week9-10",
+    label: "Weeks 9–10",
     pattern: "Graphs (Advanced Traversal + Variants)",
     summary: [
       "DFS vs BFS choice is automatic",
@@ -109,8 +127,8 @@ const PLAN = [
     recommended: [417, 1091, 785],
   },
   {
-    key: "week19-20",
-    label: "Weeks 19–20",
+    key: "week11-12",
+    label: "Weeks 11–12",
     pattern: "Heap + Streaming / Selection Problems",
     summary: [
       "Min vs max heap instinct",
@@ -164,7 +182,7 @@ const SUBPATTERNS = [
     recommended: [70],
   },
   {
-    key: "week17-20-sliding",
+    key: "week9-10-sliding",
     label: "Sliding Window (Polish & Speed)",
     pattern: "Sliding Window (Polish & Speed)",
     summary: [
@@ -177,7 +195,7 @@ const SUBPATTERNS = [
     recommended: [424, 1004],
   },
   {
-    key: "week19-20-linkedlist",
+    key: "week11-12-linkedlist",
     label: "Linked Lists (Complex Pointer Work)",
     pattern: "Linked Lists (Complex Pointer Work)",
     summary: [
@@ -189,7 +207,7 @@ const SUBPATTERNS = [
     recommended: [138],
   },
   {
-    key: "week19-20-trees",
+    key: "week11-12-trees",
     label: "Trees (Advanced Reasoning)",
     pattern: "Trees (Advanced Reasoning)",
     summary: ["Trees should feel familiar by now — this is refinement."],
@@ -199,19 +217,21 @@ const SUBPATTERNS = [
 ];
 
 function WeeklyPlan({ algorithms = [], progress = [], handleGoToAlgo }) {
-  const startDate = new Date("2025-12-28");
-  const [mainTab, setMainTab] = useState(getCurrentWeekIndex(startDate));
+  const startDate = new Date("2025-12-28"); // For weeks 1–6
+  const week7StartDate = new Date("2026-02-23"); // For week 7–8 and after
+
+  const [mainTab, setMainTab] = useState(getCurrentWeekIndex());
   const [subTab, setSubTab] = useState(null);
   // Auto-update mainTab if the week changes (e.g., at midnight)
   React.useEffect(() => {
     const updateWeek = () => {
-      const idx = getCurrentWeekIndex(startDate);
+      const idx = getCurrentWeekIndex();
       setMainTab(idx);
     };
     // Check every hour
     const interval = setInterval(updateWeek, 60 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [startDate]);
+  }, []);
 
   // Map leetcodeNumber to algo object
   const algoMap = {};
@@ -291,7 +311,7 @@ function WeeklyPlan({ algorithms = [], progress = [], handleGoToAlgo }) {
   const main = PLAN[mainTab];
   // For week tabs, show date range; for future focus, omit dates
   const isFutureFocus = main.key === "future-focus";
-  const weekRange = isFutureFocus ? null : getWeekRange(startDate, mainTab);
+  const weekRange = isFutureFocus ? null : getWeekRange(mainTab);
 
   return (
     <section className={styles.weeklyPlanSection}>

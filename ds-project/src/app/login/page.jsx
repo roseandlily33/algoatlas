@@ -8,6 +8,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const { setUser } = useAuth() || {};
 
@@ -24,7 +25,7 @@ export default function LoginPage() {
       const data = await res.json();
       if (res.ok) {
         setStatus("Login successful! Redirecting...");
-        if (setUser && data.user) setUser(data.user);
+        if (setUser && data.userId) setUser(data.userId);
         router.push("/user");
       } else {
         setStatus(data.error || "Login failed");
@@ -46,13 +47,37 @@ export default function LoginPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div style={{ position: "relative" }}>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ paddingRight: "2.5rem" }}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((v) => !v)}
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              height: "100%",
+              background: "none",
+              border: "none",
+              color: "#6d28d9",
+              fontWeight: 600,
+              cursor: "pointer",
+              fontSize: "1rem",
+              padding: "0 0.7rem",
+            }}
+            tabIndex={-1}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
         <button type="submit">Login</button>
         <div className={styles.status}>{status}</div>
         <div className={styles.switch}>

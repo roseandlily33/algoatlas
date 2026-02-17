@@ -12,6 +12,7 @@ export default function Navbar() {
   const user = auth.user;
   const loading = auth.loading;
   const setUser = auth.setUser;
+  console.log("User", user);
   async function handleLogout() {
     try {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/logout`, {
@@ -70,16 +71,18 @@ export default function Navbar() {
                 Data Structures
               </Link>
             </li>
-            <li>
-              <Link
-                href="/edit-algorithm"
-                className={
-                  pathname.startsWith("/edit-algorithm") ? styles.active : ""
-                }
-              >
-                Edit Algorithms
-              </Link>
-            </li>
+            {user._id === process.env.NEXT_PUBLIC_USER_ID && (
+              <li>
+                <Link
+                  href="/edit-algorithm"
+                  className={
+                    pathname.startsWith("/edit-algorithm") ? styles.active : ""
+                  }
+                >
+                  Edit Algorithms
+                </Link>
+              </li>
+            )}
             <li>
               <button
                 onClick={handleLogout}
