@@ -10,6 +10,7 @@ import WeeklyFocus from "./WeeklyAlgorithms/weeklyFocus.component";
 import ProgressReport from "./ProgressReport/ProgressReport.component";
 import WeeklyPlan from "./WeeklyPlan/WeeklyPlan.component";
 import AlgorithmPracticeSteps from "./PracticeTheory/PracticeTheory.component";
+import StarredAlgs from "./StarredAlgs/starredAlgs.component";
 
 function groupAlgorithms(algorithms) {
   // Example: group by type if available, else all in one group
@@ -115,6 +116,11 @@ const UserPage = () => {
         <WeeklyFocus
           algorithms={algorithms}
           // weeklyFive={weeklyFive}
+          progressMap={progressMap}
+          handleGoToAlgo={handleGoToAlgo}
+        />
+        <StarredAlgs
+          algorithms={algorithms}
           progressMap={progressMap}
           handleGoToAlgo={handleGoToAlgo}
         />

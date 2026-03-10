@@ -1,3 +1,26 @@
+const { UserProgress } = require("../../models/DS.js");
+
+// Update starTier for a user's algorithm progress
+async function updateStarTier(req, res) {
+  try {
+    const { algoId } = req.params;
+    const { starTier } = req.body;
+    if (!starTier || !["High", "Medium", "Low", "None"].includes(starTier)) {
+      return res.status(400).json({ error: "Invalid tier value" });
+    }
+    // Find latest progress for this user and algorithm
+    const progress = await UserProgress.findOne({
+      user: req.userId,
+      algorithm: algoId,
+    }).sort({ lastPracticed: -1 });
+    if (!progress) return res.status(404).json({ error: "Progress not found" });
+    progress.starTier = starTier;
+    await progress.save();
+    return res.status(200).json(progress);
+  } catch (err) {
+    return res.status(500).json({ error: "Server error" });
+  }
+}
 // Get user progress for the past week, grouped by day, unique algorithms per day
 async function getWeeklyProgress(req, res) {
   try {
@@ -30,14 +53,17 @@ async function getWeeklyProgress(req, res) {
 
     // Sort by date descending
     result.sort((a, b) => b.date.localeCompare(a.date));
-    console.log('Weekly progress fetched for userId:', req.userId, result.length);
+    console.log(
+      "Weekly progress fetched for userId:",
+      req.userId,
+      result.length,
+    );
 
     return res.status(200).json(result);
   } catch (err) {
     return res.status(500).json({ error: "Server error" });
   }
 }
-const { UserProgress } = require("../../models/DS.js");
 
 // Get user progress for a single algorithm (latest)
 async function getProgressByAlgo(req, res) {
@@ -169,4 +195,5 @@ module.exports = {
   resetProgress,
   getStats,
   getWeeklyProgress,
+  updateStarTier,
 };

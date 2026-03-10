@@ -107,6 +107,11 @@ const UserProgressSchema = new mongoose.Schema({
     default: "Reviewing",
   },
   isStarred: { type: Boolean, default: false },
+  starTier: {
+    type: String,
+    enum: ["High", "Medium", "Low", "None"],
+    default: "None",
+  },
   attemptsToday: { type: Number, min: 0, default: 0 },
   lastPracticed: { type: Date, default: Date.now },
   pattern: { type: String, default: "" },
