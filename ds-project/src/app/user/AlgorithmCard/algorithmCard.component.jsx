@@ -13,6 +13,16 @@ function isToday(date) {
 
 function AlgorithmCard({ algo, progress, onGoTo }) {
   const practicedToday = isToday(progress?.lastPracticed);
+  // Format lastPracticed date
+  let lastDone = "Never";
+  if (progress?.lastPracticed) {
+    const d = new Date(progress.lastPracticed);
+    lastDone = d.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
   return (
     <div
       className={styles.algoCard}
@@ -40,10 +50,10 @@ function AlgorithmCard({ algo, progress, onGoTo }) {
               (progress?.status === "Deep Practice"
                 ? styles.statusDeep
                 : progress?.status === "Reviewing"
-                ? styles.statusReview
-                : progress?.status === "Mastered"
-                ? styles.statusMastered
-                : "")
+                  ? styles.statusReview
+                  : progress?.status === "Mastered"
+                    ? styles.statusMastered
+                    : "")
             }
           >
             Status: {progress?.status || "-"}
@@ -51,6 +61,10 @@ function AlgorithmCard({ algo, progress, onGoTo }) {
         </div>
         <div className={styles.status}>
           <span className={styles.status}>Type: {algo.type || "-"}</span>
+        </div>
+        {/* Last Done Date */}
+        <div className={styles.status}>
+          <span className={styles.status}>Last Done: {lastDone}</span>
         </div>
       </div>
       <button
