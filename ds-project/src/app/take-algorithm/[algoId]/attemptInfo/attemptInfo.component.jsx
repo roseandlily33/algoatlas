@@ -20,7 +20,6 @@ const AttemptInfo = ({
   setCommonMistake,
   submitting,
 }) => {
-  // ...existing code...
   return (
     <div className={styles.attemptInfoContainer}>
       {/* ...existing fields... */}

@@ -13,6 +13,7 @@ export async function submitProgress(
     coreInvariant,
     baseCases,
     commonMistake,
+    starTier,
   }
 ) {
   const res = await fetch(
@@ -34,6 +35,7 @@ export async function submitProgress(
         coreInvariant,
         baseCases,
         commonMistake,
+        starTier,
       }),
     }
   );

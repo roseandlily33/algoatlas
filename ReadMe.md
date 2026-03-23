@@ -70,3 +70,6 @@ AlgoAtlas is tailored specifically to my learning style and needs, and all featu
 ## License
 
 MIT
+
+
+PORT for front end: npm run dev -- -p 3001

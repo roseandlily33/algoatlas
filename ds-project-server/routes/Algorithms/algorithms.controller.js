@@ -26,6 +26,7 @@ async function updateAlgorithmById(req, res) {
       leetcodeNumber,
       examples,
       theory,
+      starTier,
     } = req.body;
     const algo = await Algorithm.findByIdAndUpdate(
       algoId,
@@ -38,6 +39,7 @@ async function updateAlgorithmById(req, res) {
         leetcodeNumber,
         examples,
         theory,
+        starTier,
       },
       { new: true }
     );

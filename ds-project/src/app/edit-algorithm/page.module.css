@@ -149,7 +149,7 @@
 .sidebar {
   width: 25%;
   padding: 1rem;
-  background-color: var(--indigo-200);
+  background-color: var(--gray-200);
   overflow-y: scroll;
 }
 .sidebarAlgoBtn {
@@ -159,7 +159,7 @@
   text-align: left;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--indigo-700);
+  color: var(--gray-300);
   border-radius: 25px;
   border: 1px solid var(--indigo-500);
   background-color: var(--white);

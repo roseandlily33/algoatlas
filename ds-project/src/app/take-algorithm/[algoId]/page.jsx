@@ -29,6 +29,7 @@ const TakeAlgorithmPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [notes, setNotes] = useState("");
+  const [starTier, setStarTier] = useState("None");
   // New fields
   const [pattern, setPattern] = useState("");
   const [dataStructure, setDataStructure] = useState("");
@@ -85,6 +86,7 @@ const TakeAlgorithmPage = () => {
           setBaseCases(latest?.baseCases || "");
           setCommonMistake(latest?.commonMistake || "");
           setTheory(algo?.theory || "");
+          setStarTier(latest?.starTier || "None");
         } else {
           setProgressHistory([]);
           setIsStarred(false);
@@ -133,6 +135,8 @@ const TakeAlgorithmPage = () => {
         coreInvariant,
         baseCases,
         commonMistake,
+        theory,
+        starTier,
       });
       // Update theory for the algorithm (PATCH/PUT to /api/algorithms/:algoId)
       await fetch(
@@ -194,6 +198,17 @@ const TakeAlgorithmPage = () => {
           >
             {isStarred ? "⭐" : "☆"}
           </span>
+          {/* I want to select the tier star ranking here */}
+          <select
+            className={styles.starTierSelect}
+            value={starTier}
+            onChange={(e) => setStarTier(e.target.value)}
+          >
+            <option value="None">No Star</option>
+            <option value="Low">Low ⭐</option>
+            <option value="Medium">Medium ⭐⭐</option>
+            <option value="High">High ⭐⭐⭐</option>
+          </select>
         </div>
       </div>
 

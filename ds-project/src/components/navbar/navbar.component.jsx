@@ -12,7 +12,7 @@ export default function Navbar() {
   const user = auth.user;
   const loading = auth.loading;
   const setUser = auth.setUser;
-  console.log("User", user);
+  // console.log("User", user);
   async function handleLogout() {
     try {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/logout`, {

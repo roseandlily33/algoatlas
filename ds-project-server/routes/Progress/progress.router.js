@@ -9,6 +9,7 @@ const {
   resetProgress,
   getStats,
   getWeeklyProgress,
+  updateStarTier,
 } = require("./progress.controller");
 
 router.get("/progress/weekly", authMiddleware, getWeeklyProgress);
@@ -16,11 +17,7 @@ router.get("/progress/:algoId", authMiddleware, getProgressByAlgo);
 router.get("/progress/:algoId/history", authMiddleware, getProgressHistory);
 router.get("/progress", authMiddleware, getAllProgress);
 router.post("/progress/:algoId", authMiddleware, postProgress);
-router.post(
-  "/progress/:algoId/tier",
-  authMiddleware,
-  require("./progress.controller").updateStarTier,
-);
+router.post("/progress/:algoId/tier", authMiddleware, updateStarTier);
 router.post("/progress/:algoId/reset", authMiddleware, resetProgress);
 router.get("/stats", authMiddleware, getStats);
 
