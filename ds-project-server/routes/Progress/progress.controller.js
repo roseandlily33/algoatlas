@@ -125,6 +125,7 @@ async function postProgress(req, res) {
       traversalOrTechnique,
       coreInvariant,
       baseCases,
+      starTier,
       commonMistake,
     } = req.body;
     const { algoId } = req.params;
@@ -142,13 +143,14 @@ async function postProgress(req, res) {
       traversalOrTechnique: traversalOrTechnique ?? "",
       coreInvariant: coreInvariant ?? "",
       baseCases: baseCases ?? "",
+      starTier: starTier ?? "None",
       commonMistake: commonMistake ?? "",
     });
     await progress.save();
     // console.log("User progress updated:", progress);
-    res.json(progress);
+    return res.status(200).json(progress);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message });
   }
 }
 
@@ -157,9 +159,9 @@ async function resetProgress(req, res) {
   try {
     const { algoId } = req.params;
     await UserProgress.deleteOne({ user: req.userId, algorithm: algoId });
-    res.json({ message: "Progress reset" });
+    return res.status(200).json({ message: "Progress reset" });
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 }
 
@@ -175,7 +177,7 @@ async function getStats(req, res) {
     const avgRank = progress.length
       ? progress.reduce((sum, p) => sum + (p.rank || 0), 0) / progress.length
       : 0;
-    res.json({
+    return res.status(200).json({
       total: progress.length,
       mastered,
       reviewing,
@@ -183,7 +185,7 @@ async function getStats(req, res) {
       avgRank: Number(avgRank.toFixed(2)),
     });
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 }
 

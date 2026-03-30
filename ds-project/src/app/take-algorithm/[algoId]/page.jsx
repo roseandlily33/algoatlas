@@ -209,6 +209,7 @@ const TakeAlgorithmPage = () => {
             <option value="Medium">Medium ⭐⭐</option>
             <option value="High">High ⭐⭐⭐</option>
           </select>
+          <p>Star Tier: {starTier}</p>
         </div>
       </div>
 

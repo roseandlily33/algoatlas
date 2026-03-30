@@ -23,6 +23,12 @@ const StarredAlgs = ({ algorithms = [], progressMap = {}, handleGoToAlgo }) => {
   const tierGroups = {};
   for (const tier of TIERS) tierGroups[tier] = [];
   for (const algo of starred) {
+    const progress = progressMap[algo._id];
+    // If status is Deep Practice, always put in High tier
+    if (progress?.status === "Deep Practice") {
+      tierGroups["High"].push(algo);
+      continue;
+    }
     const tier = localTiers[algo._id] || "Low";
     if (TIERS.includes(tier)) tierGroups[tier].push(algo);
   }

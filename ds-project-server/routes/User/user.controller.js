@@ -33,12 +33,12 @@ async function updateWeeklyFocus(req, res) {
     if (Array.isArray(weeklyFocus)) user.weeklyFocus = weeklyFocus;
     if (weeklyFocusStartDate) user.weeklyFocusStartDate = weeklyFocusStartDate;
     await user.save();
-    res.json({
+    return res.status(200).json({
       weeklyFocus: user.weeklyFocus,
       weeklyFocusStartDate: user.weeklyFocusStartDate,
     });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message });
   }
 }
 
