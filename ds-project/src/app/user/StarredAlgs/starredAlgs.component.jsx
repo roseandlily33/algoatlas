@@ -69,7 +69,7 @@ const StarredAlgs = ({ algorithms = [], progressMap = {}, handleGoToAlgo }) => {
               marginBottom: "0.7rem",
             }}
           >
-            {tier} Attention
+            {tier} Attention ({tierGroups[tier].length})
           </div>
           <div className={styles.algoList}>
             {tierGroups[tier].length === 0 ? (

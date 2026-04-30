@@ -1,43 +1,104 @@
 /* Modal Cheat Sheet Content Styles */
 .modalCheatSheetContent {
-  border-radius: 1.2rem;
-  padding: 2.2rem 2.5rem 2.2rem 2.5rem;
-  color: #222;
+  border-radius: 1.5rem;
+  padding: 3rem;
+  color: var(--gray-900);
   min-width: 420px;
   max-width: 600px;
   min-height: 220px;
   font-size: 1.13rem;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 180, 216, 0.13);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px) saturate(1.2);
+  border: 2.5px solid #00b4d8;
+  /* blue/teal accent border */
 }
 
 .modalCheatSheetDescription {
-  font-weight: 500;
-  font-size: 1.08em;
+  font-weight: 600;
+  font-size: 1.09em;
+  color: #0077b6;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+  font-family: "JetBrains Mono", "Fira Mono", "Menlo", monospace;
 }
 
 .modalCheatSheetKeyPoints {
   margin: 0;
   padding-left: 1.5rem;
   font-size: 1.01em;
+  color: #0096c7;
+  font-family: "JetBrains Mono", "Fira Mono", "Menlo", monospace;
 }
 
 .modalCheatSheetKeyPointItem {
   margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 1.1em;
+}
+.modalCheatSheetKeyPointItem:before {
+  content: "💡";
+  position: absolute;
+  left: 0;
+  color: #48cae4;
+  font-size: 1em;
+  top: 0.05em;
 }
 
 .modalCheatSheetCodeSnippet {
-  border-radius: 0.7rem;
+  border-radius: 1.1rem;
   padding: 1.1rem 1.2rem;
   margin: 0;
   font-size: 1.01em;
   overflow-x: auto;
+  background: rgba(0, 212, 255, 0.07);
+  border: 2px solid #90e0ef;
+  box-shadow: 0 1px 8px 0 #caf0f8;
+  color: #0077b6;
+  font-family: "JetBrains Mono", "Fira Mono", "Menlo", monospace;
 }
 
 .modalCheatSheetUsedFor {
-  color: #7a6a2f;
+  color: #00b4d8;
   font-size: 1.01em;
+  background: rgba(0, 212, 255, 0.13);
+  border-radius: 0.7rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  box-shadow: 0 1px 4px 0 #caf0f8;
+}
+
+/* Sleek, glassy, blue/teal techy pill buttons */
+.pill {
+  background: linear-gradient(90deg, #48cae4 60%, #90e0ef 100%);
+  color: #023e8a;
+  border: 1.5px solid #00b4d8;
+  border-radius: 1.3rem;
+  padding: 0.5rem 1.4rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: "JetBrains Mono", "Fira Mono", "Menlo", monospace;
+  box-shadow: 0 2px 12px 0 rgba(0, 180, 216, 0.1);
+  cursor: pointer;
+  margin-right: 0.3rem;
+  margin-bottom: 0.1rem;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    box-shadow 0.18s,
+    transform 0.13s;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(2px);
+}
+.pill:hover {
+  background: linear-gradient(90deg, #00b4d8 60%, #48cae4 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px 0 #00b4d8;
+  transform: scale(1.07) rotate(-1.5deg);
+  border-color: #0096c7;
 }

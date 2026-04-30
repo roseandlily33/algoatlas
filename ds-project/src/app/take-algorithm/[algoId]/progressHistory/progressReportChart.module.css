@@ -1,0 +1,27 @@
+.reportChartBlock {
+  /* margin-top: 1.5rem; */
+  padding: 0rem 1.5rem 1.1rem 1.5rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.reportTitle {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--purple-700);
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+.reportGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem 1.2rem;
+  font-size: 1.04rem;
+  color: var(--gray-800);
+}
+@media (max-width: 600px) {
+  .reportGrid {
+    grid-template-columns: 1fr;
+  }
+}

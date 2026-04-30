@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./progressHistory.module.css";
+import ProgressReportChart from "./progressReportChart.component";
 
 const ProgressHistory = ({ progressHistory }) => {
   const [openIdx, setOpenIdx] = useState(null);
@@ -8,6 +9,8 @@ const ProgressHistory = ({ progressHistory }) => {
       <div className={styles.historyTitle}>
         Progress History ({progressHistory.length} attempts):
       </div>
+      <ProgressReportChart progressHistory={progressHistory} />
+
       <table className={styles.historyTable}>
         <thead>
           <tr>
@@ -94,7 +97,6 @@ const ProgressHistory = ({ progressHistory }) => {
                             <b>Common Mistake:</b> {h.commonMistake}
                           </div>
                         )}
-                        {/* Add more fields as needed */}
                       </div>
                     </td>
                   </tr>
