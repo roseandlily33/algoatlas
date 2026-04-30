@@ -1,15 +1,53 @@
 .footer {
   width: 100%;
-  background: var(--indigo-100);
+  max-width: 1150px;
+  margin: 2.7rem auto 1.5rem auto;
+  background: rgba(255, 255, 255, 0.82);
   color: var(--indigo-800);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.1rem 2.2rem;
-  box-shadow: 0 -2px 8px 0 rgba(130, 90, 255, 0.06);
+  padding: 1.2rem 2.7rem 1.2rem 2.1rem;
+  box-shadow:
+    0 8px 32px 0 rgba(80, 40, 160, 0.13),
+    0 -2px 0 var(--purple-50),
+    0 0 0 4px rgba(160, 85, 247, 0.07);
+  border: 2.5px solid var(--purple-100);
+  border-radius: 2.2rem;
   font-family: var(--font-main);
   font-size: 1.08rem;
-  z-index: 10;
+  z-index: 20;
+  position: relative;
+  overflow: visible;
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 2.7rem;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 40% 60%,
+    var(--purple-100) 0%,
+    var(--indigo-100) 60%,
+    transparent 100%
+  );
+  opacity: 0.7;
+  filter: blur(12px);
+  animation: footerGlow 7s ease-in-out infinite alternate;
+}
+
+@keyframes footerGlow {
+  0% {
+    opacity: 0.7;
+    filter: blur(12px) brightness(1.1);
+    background-position: 40% 60%;
+  }
+  100% {
+    opacity: 0.9;
+    filter: blur(18px) brightness(1.2);
+    background-position: 60% 80%;
+  }
 }
 .left {
   display: flex;
@@ -31,17 +69,36 @@
   display: flex;
   align-items: center;
   gap: 1.1rem;
+  z-index: 2;
 }
 .iconLink {
   color: var(--indigo-700);
-  transition: color 0.18s;
+  transition:
+    color 0.18s,
+    background 0.18s,
+    box-shadow 0.18s,
+    transform 0.13s;
   display: flex;
   align-items: center;
   border-radius: 50%;
   padding: 0.2rem;
+  background: linear-gradient(
+    90deg,
+    var(--purple-50) 60%,
+    var(--indigo-50) 100%
+  );
+  box-shadow: 0 1px 8px 0 var(--purple-50);
+  border: 1.5px solid transparent;
 }
 .iconLink:hover,
 .iconLink:focus {
   color: var(--purple-700);
-  background: var(--purple-200);
+  background: linear-gradient(
+    90deg,
+    var(--purple-200) 60%,
+    var(--indigo-100) 100%
+  );
+  box-shadow: 0 2px 12px 0 var(--purple-100);
+  border: 1.5px solid var(--purple-200);
+  transform: scale(1.08) rotate(-2deg);
 }

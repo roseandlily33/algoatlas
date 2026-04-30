@@ -32,11 +32,13 @@ function AlgorithmCard({ algo, progress, onGoTo }) {
           : undefined
       }
     >
+      <div className={styles.algoHeader}>
+        {algo.leetcodeNumber && (
+          <span className={styles.algoNumber}>{algo.leetcodeNumber}.</span>
+        )}
+        <span className={styles.algoTitle}>{algo.title}</span>
+      </div>
       <div className={styles.algoInfo}>
-        <div className={styles.algoTitle}>
-          {algo.leetcodeNumber ? `${algo.leetcodeNumber}. ` : ""}
-          {algo.title}
-        </div>
         <div className={styles.statusRow}>
           <span className={styles.rank}>
             Rank: {progress?.rank !== undefined ? progress.rank : "-"}
@@ -62,7 +64,6 @@ function AlgorithmCard({ algo, progress, onGoTo }) {
         <div className={styles.status}>
           <span className={styles.status}>Type: {algo.type || "-"}</span>
         </div>
-        {/* Last Done Date */}
         <div className={styles.status}>
           <span className={styles.status}>Last Done: {lastDone}</span>
         </div>
