@@ -1,106 +1,308 @@
 .algoCard {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 1.3rem;
-  box-shadow: 0 4px 18px 0 rgba(80, 40, 160, 0.1);
-  padding: 1.5rem 1.3rem 1.3rem 1.3rem;
-  min-height: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  transition:
-    box-shadow 0.18s,
-    border 0.18s,
-    transform 0.13s;
-  border: 1.5px solid var(--gray-200);
   position: relative;
   overflow: hidden;
+
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  flex: 0 0 260px;
+
+  min-height: 315px;
+
+  padding: 2.65rem 1rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.9rem;
+
+  border-radius: 1.35rem;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(216, 180, 254, 0.18),
+      transparent 38%
+    ),
+    rgba(255, 255, 255, 0.78);
+
+  border: 1px solid rgba(216, 180, 254, 0.5);
+
+  box-shadow:
+    0 10px 24px rgba(109, 40, 217, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+
+  font-family: var(--font-main);
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
 }
-.algoCard::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0.32rem;
-  background: linear-gradient(
-    90deg,
-    var(--purple-400) 0%,
-    var(--indigo-300) 100%
-  );
-  border-radius: 1.3rem 1.3rem 0 0;
-  z-index: 1;
-}
+
 .algoCard:hover {
-  box-shadow: 0 8px 28px 0 rgba(160, 85, 247, 0.13);
-  border-color: var(--purple-200);
-  transform: translateY(-2px) scale(1.025);
+  transform: translateY(-2px);
+  border-color: rgba(192, 132, 252, 0.72);
+
+  box-shadow:
+    0 16px 34px rgba(109, 40, 217, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.practicedToday {
+  border-color: rgba(34, 197, 94, 0.38);
+
+  box-shadow:
+    0 14px 30px rgba(34, 197, 94, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.todayBadge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+
+  padding: 0.34rem 0.55rem;
+  border-radius: 999px;
+
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.24);
+
+  color: #166534;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .algoInfo {
-  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-left: 0;
 }
 .algoTitle {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--purple-700);
-  margin-bottom: 0.3rem;
-  font-family: var(--font-main);
-  letter-spacing: 0.01em;
-}
-.statusRow {
+  padding-right: 0;
+
   display: flex;
-  gap: 1.1rem;
-  font-size: 0.98rem;
-  color: var(--gray-700);
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  color: var(--gray-900);
+  font-size: 1rem;
+  line-height: 1.22;
+  font-weight: 900;
+  letter-spacing: -0.025em;
 }
-.rank {
-  color: var(--indigo-500);
-  font-weight: 500;
-}
-.status {
-  color: var(--purple-500);
-  font-weight: 500;
-}
-.statusWord {
-  font-weight: 600;
-}
-.statusDeep {
-  color: #e74c3c; /* red */
-}
-.statusReview {
-  color: #f7b731; /* yellow */
-}
-.statusMastered {
-  color: #27ae60; /* green */
-}
-.arrowBtn {
-  background: var(--purple-100);
-  border: none;
-  border-radius: 50%;
-  width: 2.1rem;
-  height: 2.1rem;
-  display: flex;
+
+.leetcodeNumber {
+  flex-shrink: 0;
+
+  min-width: 2rem;
+  height: 2rem;
+
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  border-radius: 999px;
+
+  background: rgba(245, 232, 255, 0.9);
+  border: 1px solid rgba(216, 180, 254, 0.75);
+
+  color: var(--purple-700);
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.metaItem,
+.lastDone,
+.lastPracticed,
+.statusBlock {
+  padding: 0.68rem 0.72rem;
+
+  border-radius: 1rem;
+
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(216, 180, 254, 0.42);
+
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.metaItem span,
+.lastDone span,
+.lastPracticed span,
+.metaLabel {
+  display: block;
+
+  margin-bottom: 0.25rem;
+
+  color: var(--gray-500);
+  font-size: 0.66rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metaItem strong,
+.lastDone strong,
+.lastPracticed strong {
+  color: var(--gray-900);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.statusBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.statusBlock .metaLabel {
+  margin-bottom: 0;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.38rem 0.62rem;
+  border-radius: 999px;
+
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+
+  color: var(--gray-600);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Softer status colours */
+.statusDeep {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.2);
+  color: #991b1b;
+}
+
+.statusReview {
+  background: rgba(251, 191, 36, 0.13);
+  border-color: rgba(251, 191, 36, 0.24);
+  color: #92400e;
+}
+
+.statusMastered {
+  background: rgba(74, 222, 128, 0.12);
+  border-color: rgba(74, 222, 128, 0.24);
+  color: #166534;
+}
+
+.dateGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.55rem;
+}
+
+.arrowBtn {
+  align-self: flex-end;
+
+  width: 2.35rem;
+  height: 2.35rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 999px;
+
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(255, 255, 255, 0.38),
+      transparent 26%
+    ),
+    linear-gradient(135deg, var(--purple-600), var(--indigo-500));
+
+  color: white;
   cursor: pointer;
+
+  box-shadow:
+    0 10px 22px rgba(109, 40, 217, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
   transition:
-    background 0.15s,
-    box-shadow 0.15s,
-    transform 0.13s;
-  margin-left: 1rem;
-  box-shadow: 0 1px 4px 0 var(--purple-50);
+    transform 0.16s ease,
+    box-shadow 0.18s ease;
 }
+
 .arrowBtn:hover {
-  background: var(--purple-400);
-  box-shadow: 0 2px 8px 0 var(--purple-100);
-  transform: scale(1.08);
+  transform: translateY(-1px) scale(1.06);
+
+  box-shadow:
+    0 14px 28px rgba(109, 40, 217, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
+
 .arrow {
   font-size: 1.2rem;
-  color: var(--white);
-  font-weight: bold;
+  font-weight: 900;
+  line-height: 1;
+}
+.algoTitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.leetcodeNumber {
+  width: fit-content;
+
+  padding: 0.28rem 0.52rem;
+  border-radius: 999px;
+
+  background: rgba(245, 232, 255, 0.72);
+  border: 1px solid rgba(216, 180, 254, 0.45);
+
+  color: var(--purple-600);
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.algoTitle {
+  margin: 0;
+  padding-right: 0;
+
+  color: var(--gray-900);
+  font-size: 1rem;
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+.practicedToday {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(74, 222, 128, 0.13),
+      transparent 38%
+    ),
+    rgba(255, 255, 255, 0.82);
+
+  border-color: rgba(74, 222, 128, 0.28);
+
+  box-shadow:
+    0 14px 30px rgba(34, 197, 94, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }

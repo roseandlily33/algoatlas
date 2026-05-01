@@ -46,20 +46,7 @@ const RandomFive = ({
                 progress={progress}
                 onGoTo={() => handleGoToAlgo(algo._id)}
               />
-              <div
-                style={{ fontSize: "0.9rem", color: "#888", marginTop: 2 }}
-              >
-                Last practiced:{" "}
-                {progress?.lastPracticed
-                  ? new Date(progress.lastPracticed).toLocaleString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                  : "-"}
-              </div>
+         
             </div>
           );
         })}

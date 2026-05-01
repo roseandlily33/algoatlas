@@ -18,7 +18,9 @@
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.18s, color 0.18s;
+  transition:
+    background 0.18s,
+    color 0.18s;
   box-shadow: 0 1px 4px 0 rgba(160, 85, 247, 0.07);
 }
 .activeTab {
@@ -149,8 +151,101 @@
 .sidebar {
   width: 25%;
   padding: 1rem;
-  background-color: var(--gray-200);
+  background-color: var(--purple-50);
   overflow-y: scroll;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 8px 0 rgba(160, 85, 247, 0.07);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.sidebarTitle {
+  color: var(--purple-700);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.01em;
+  font-family: var(--font-main);
+}
+.sidebarSearch {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 0.7rem;
+  border: 1.5px solid var(--indigo-200);
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  background: var(--white);
+  color: var(--gray-800);
+  transition: border 0.18s;
+}
+.sidebarSearch:focus {
+  outline: none;
+  border-color: var(--purple-400);
+}
+.sidebarList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.sidebarGroup {
+  margin-bottom: 1.5rem;
+}
+.sidebarGroupTitleBtn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  width: 100%;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--purple-700);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+  font-family: var(--font-main);
+  cursor: pointer;
+  padding: 0;
+  justify-content: space-between;
+  transition: color 0.18s;
+}
+.sidebarGroupTitleBtn:hover {
+  color: var(--purple-400);
+}
+.sidebarAlgoList {
+  margin-top: 0.2rem;
+  padding-left: 0;
+}
+.sidebarAlgoItem {
+  list-style: none;
+  margin-bottom: 0.5rem;
+}
+.sidebarAlgoBtn {
+  padding: 0.7rem 1rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--indigo-700);
+  border-radius: 25px;
+  border: 1px solid var(--indigo-200);
+  background-color: var(--white);
+  transition: all 0.18s;
+  box-shadow: 0 1px 4px 0 rgba(160, 85, 247, 0.07);
+  cursor: pointer;
+}
+.sidebarAlgoBtn:hover {
+  background: var(--purple-100);
+  color: var(--purple-700);
+  border-color: var(--purple-400);
+}
+.selectedAlgo .sidebarAlgoBtn,
+.sidebarAlgoBtn.selected {
+  background: var(--purple-400);
+  color: var(--white);
+  border: 2px solid var(--purple-400);
+  font-weight: 700;
+  box-shadow: 0 2px 8px 0 rgba(160, 85, 247, 0.13);
 }
 .sidebarAlgoBtn {
   padding: 1rem 0.5rem;

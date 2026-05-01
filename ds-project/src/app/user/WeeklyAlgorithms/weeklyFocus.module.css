@@ -1,200 +1,359 @@
-.section {
-  border-radius: 1rem;
-  box-shadow: 0 2px 12px 0 rgba(160, 85, 247, 0.08);
-  border: 1.5px solid var(--purple-200);
-  padding: 0.9rem 1.1rem 1.1rem 1.1rem;
+.weeklyFocusSection {
+  position: relative;
+  overflow: hidden;
+  padding: 1.35rem;
   margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
+  border-radius: 1.8rem;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(129, 140, 248, 0.22),
+      transparent 32%
+    ),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(245, 232, 255, 0.5));
+  border: 1px solid rgba(216, 180, 254, 0.58);
+  box-shadow:
+    0 18px 45px rgba(109, 40, 217, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  font-family: var(--font-main);
 }
 
-.section h3 {
-  font-family: var(--font-main);
-  font-size: 1.35rem;
-  font-weight: 700;
+.weeklyFocusSection::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+}
+
+.weeklyFocusHeader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.weeklyFocusEyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--purple-500);
+}
+
+.weeklyFocusTitle {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  color: var(--gray-900);
+}
+
+.weeklyFocusDate {
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  padding: 0.6rem 0.85rem;
+  border-radius: 1.1rem;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(216, 180, 254, 0.55);
+
+  box-shadow:
+    0 8px 20px rgba(109, 40, 217, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.weeklyFocusDate span {
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--purple-500);
+}
+
+.weeklyFocusDate strong {
   color: var(--purple-700);
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.01em;
-  text-shadow: none;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.weeklyFocusMeta {
+  position: relative;
+  z-index: 1;
+
   display: flex;
   align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+
+  margin-bottom: 1rem;
+}
+
+.weeklyFocusMeta span {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.42rem 0.72rem;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(216, 180, 254, 0.5);
+
+  color: var(--gray-600);
+  font-size: 0.78rem;
+  font-weight: 850;
+
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .algoList {
+ position: relative;
+  z-index: 1;
+
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+
   overflow-x: auto;
-  padding-bottom: 0.2rem;
+  overflow-y: visible;
+
+  padding: 0.2rem 0.15rem 0.85rem;
+
+  scroll-snap-type: x proximity;
 }
 
-.algoCard {
-  background: var(--white);
-  border-radius: 0.7rem;
-  box-shadow: 0 1px 4px 0 rgba(160, 85, 247, 0.07);
-  padding: 1.2rem 0.8rem 0.7rem 0.8rem;
-  width: 210px;
-  max-width: 210px;
-  height: 130px;
+.focusSlot {
+  position: relative;
+  flex: 0 0 auto;
+  width: 260px;
+  min-width: 260px;
+
+  padding-top: 1.15rem;
+  scroll-snap-align: start;
+}
+
+.focusSlotNumber {
+  position: absolute;
+  top: 0;
+  left: 0.75rem;
+  z-index: 3;
+
+  width: 1.9rem;
+  height: 1.9rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(255, 255, 255, 0.42),
+      transparent 26%
+    ),
+    linear-gradient(135deg, var(--purple-600), var(--indigo-500));
+
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 900;
+
+  box-shadow: 0 8px 18px rgba(109, 40, 217, 0.24);
+}
+
+.focusCardActions {
+  position: absolute;
+  top: 1.45rem;
+  right: 0.55rem;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  padding: 0.2rem;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(216, 180, 254, 0.45);
+
+  box-shadow:
+    0 8px 18px rgba(109, 40, 217, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.removeBtn,
+.moveBtn {
+  width: 1.55rem;
+  height: 1.55rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 999px;
+
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.14s ease,
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.removeBtn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.removeBtn:hover {
+  background: #ef4444;
+  color: white;
+  transform: scale(1.07);
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.22);
+}
+
+.moveBtn {
+  background: rgba(245, 232, 255, 0.88);
+  color: var(--purple-700);
+}
+
+.moveBtn:hover {
+  background: var(--purple-600);
+  color: white;
+  transform: scale(1.07);
+  box-shadow: 0 6px 14px rgba(109, 40, 217, 0.18);
+}
+
+.lastPracticed {
+  margin-top: 0.45rem;
+  padding: 0 0.2rem;
+
+  color: var(--gray-500);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+.emptyFocusSlot {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  min-height: 255px;
+
+  padding: 1rem;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  transition:
-    box-shadow 0.18s,
-    border 0.18s;
-  border: 1.5px solid var(--purple-100);
-  position: relative;
-}
-.algoCard:hover {
-  box-shadow: 0 2px 8px 0 rgba(160, 85, 247, 0.13);
-  border-color: var(--purple-300);
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+
+  border-radius: 1.35rem;
+
+  background:
+    radial-gradient(circle at top, rgba(216, 180, 254, 0.18), transparent 44%),
+    rgba(255, 255, 255, 0.52);
+
+  border: 1.5px dashed rgba(192, 132, 252, 0.65);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 8px 20px rgba(109, 40, 217, 0.05);
 }
 
-.algoInfo {
-  flex: 1 1 auto;
+.emptySlotIcon {
+  width: 2.35rem;
+  height: 2.35rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(216, 180, 254, 0.58);
+
+  color: var(--purple-600);
+  font-size: 1.2rem;
+  font-weight: 900;
+
+  box-shadow: 0 8px 18px rgba(109, 40, 217, 0.08);
 }
-.algoTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--purple-700);
-  margin-bottom: 0.18rem;
-  font-family: var(--font-main);
-}
-.statusRow {
-  display: flex;
-  gap: 0.7rem;
-  font-size: 0.92rem;
+
+.emptySlotLabel {
   color: var(--gray-700);
+  font-size: 0.82rem;
+  font-weight: 900;
 }
-.rank {
-  color: var(--indigo-500);
-  font-weight: 500;
-}
-.status {
-  color: var(--purple-500);
-  font-weight: 500;
-}
-.arrowBtn {
-  background: var(--purple-300);
-  border: none;
-  border-radius: 50%;
-  width: 1.7rem;
-  height: 1.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.15s;
-  margin-left: 0.7rem;
-}
-.arrowBtn:hover {
-  background: var(--purple-500);
-}
-.arrow {
-  font-size: 1.1rem;
-  color: var(--white);
-  font-weight: bold;
-}
-.removeBtn {
-  background: linear-gradient(135deg, var(--error) 60%, var(--purple-400) 100%);
-  border: none;
-  border-radius: 50%;
-  color: var(--white);
-  font-size: 1rem;
-  font-family: var(--font-main);
-  width: 1.5rem;
-  height: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 1px 4px 0 rgba(239, 68, 68, 0.08);
-  margin-left: 0.2rem;
-  cursor: pointer;
-  transition:
-    background 0.13s,
-    box-shadow 0.13s,
-    transform 0.09s;
-}
-.removeBtn:hover {
-  background: linear-gradient(135deg, var(--error) 80%, var(--purple-600) 100%);
-  box-shadow: 0 2px 8px 0 rgba(239, 68, 68, 0.13);
-  transform: scale(1.06) rotate(-6deg);
-}
-.moveBtn {
-  background: linear-gradient(
-    135deg,
-    var(--purple-200) 60%,
-    var(--purple-400) 100%
-  );
-  border: none;
-  border-radius: 50%;
-  color: var(--purple-700);
-  font-size: 0.95rem;
-  font-family: var(--font-main);
-  width: 1.5rem;
-  height: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 0.2rem;
-  cursor: pointer;
-  transition:
-    background 0.13s,
-    color 0.13s,
-    transform 0.09s;
-  box-shadow: 0 1px 4px 0 rgba(160, 85, 247, 0.08);
-}
-.moveBtn:hover {
-  background: linear-gradient(
-    135deg,
-    var(--purple-400) 80%,
-    var(--purple-600) 100%
-  );
-  color: var(--white);
-  transform: scale(1.06) rotate(6deg);
-}
-.lastPracticed {
-  font-size: 0.85rem;
-  color: var(--gray-500);
-  margin-top: 0.2rem;
-  font-family: var(--font-main);
-}
+
 .dropdown {
-  font-size: 0.95rem;
-  padding: 0.4rem 0.7rem;
-  border-radius: 0.5rem;
-  border: 1.5px solid var(--purple-200);
-  background: var(--purple-50);
+  width: 100%;
+  max-width: 190px;
+
+  padding: 0.55rem 0.7rem;
+
+  border-radius: 999px;
+  border: 1px solid rgba(216, 180, 254, 0.72);
+
+  background: rgba(255, 255, 255, 0.82);
   color: var(--purple-700);
+
   font-family: var(--font-main);
-  min-width: 120px;
+  font-size: 0.82rem;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 6px 14px rgba(109, 40, 217, 0.06);
 }
+
 .dropdown:focus {
   outline: none;
-  border-color: var(--purple-400);
+  border-color: var(--purple-500);
+  box-shadow:
+    0 0 0 3px rgba(216, 180, 254, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
-.emptySlot {
-  width: 210px;
-  height: 130px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--purple-100);
-  border-radius: 0.7rem;
-  border: 1.5px dashed var(--purple-300);
-}
+
 @media (max-width: 900px) {
-  .algoList {
-    flex-direction: column;
-    gap: 0.7rem;
-    align-items: center;
+  .weeklyFocusSection {
+    padding: 1rem;
+    border-radius: 1.45rem;
   }
-  .algoCard,
-  .emptySlot {
-    width: 96vw;
-    max-width: 270px;
-    height: 130px;
-    padding: 0.7rem 0.5rem;
+
+  .weeklyFocusHeader {
+    flex-direction: column;
+  }
+
+  .weeklyFocusDate {
+    align-items: flex-start;
+  }
+
+  .algoList {
+    grid-auto-columns: minmax(240px, 82vw);
   }
 }

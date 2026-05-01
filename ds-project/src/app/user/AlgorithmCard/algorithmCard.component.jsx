@@ -25,55 +25,84 @@ function AlgorithmCard({ algo, progress, onGoTo }) {
   }
   return (
     <div
-      className={styles.algoCard}
-      style={
-        practicedToday
-          ? { border: "2.5px solid #7be495", boxShadow: "0 0 0 2px #eafff2" }
-          : undefined
-      }
+      className={`${styles.algoCard} ${
+        practicedToday ? styles.practicedToday : ""
+      }`}
     >
-      <div className={styles.algoHeader}>
-        {algo.leetcodeNumber && (
-          <span className={styles.algoNumber}>{algo.leetcodeNumber}.</span>
-        )}
-        <span className={styles.algoTitle}>{algo.title}</span>
-      </div>
+      {practicedToday && <span className={styles.todayBadge}>✓ Today</span>}
+
       <div className={styles.algoInfo}>
-        <div className={styles.statusRow}>
-          <span className={styles.rank}>
-            Rank: {progress?.rank !== undefined ? progress.rank : "-"}
-          </span>
+        <div className={styles.algoTitleBlock}>
+          {algo.leetcodeNumber ? (
+            <span className={styles.leetcodeNumber}>
+              #{algo.leetcodeNumber}
+            </span>
+          ) : null}
+
+          <h4 className={styles.algoTitle}>{algo.title}</h4>
         </div>
-        <div className={styles.status}>
+
+        <div className={styles.metaGrid}>
+          <div className={styles.metaItem}>
+            <span>Rank</span>
+            <strong>
+              {progress?.rank !== undefined ? progress.rank : "-"}
+            </strong>
+          </div>
+
+          <div className={styles.metaItem}>
+            <span>Type</span>
+            <strong>{algo.type || "-"}</strong>
+          </div>
+        </div>
+
+        <div className={styles.statusBlock}>
+          <span className={styles.metaLabel}>Status</span>
+
           <span
-            className={
-              styles.statusWord +
-              " " +
-              (progress?.status === "Deep Practice"
+            className={`${styles.statusPill} ${
+              progress?.status === "Deep Practice"
                 ? styles.statusDeep
                 : progress?.status === "Reviewing"
                   ? styles.statusReview
                   : progress?.status === "Mastered"
                     ? styles.statusMastered
-                    : "")
-            }
+                    : ""
+            }`}
           >
-            Status: {progress?.status || "-"}
+            {progress?.status || "-"}
           </span>
         </div>
-        <div className={styles.status}>
-          <span className={styles.status}>Type: {algo.type || "-"}</span>
-        </div>
-        <div className={styles.status}>
-          <span className={styles.status}>Last Done: {lastDone}</span>
+
+        <div className={styles.dateGrid}>
+          <div className={styles.lastDone}>
+            <span>Last Done</span>
+            <strong>{lastDone}</strong>
+          </div>
+
+          <div className={styles.lastPracticed}>
+            <span>Last Practiced</span>
+            <strong>
+              {progress?.lastPracticed
+                ? new Date(progress.lastPracticed).toLocaleString(undefined, {
+                    year: "numeric",
+                    month: "short",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : "-"}
+            </strong>
+          </div>
         </div>
       </div>
+
       <button
         className={styles.arrowBtn}
         onClick={onGoTo}
         title="Go to practice"
       >
-        <span className={styles.arrow}>&rarr;</span>
+        <span className={styles.arrow}>→</span>
       </button>
     </div>
   );

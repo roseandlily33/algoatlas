@@ -3,66 +3,94 @@ import styles from "./PracticeTheory.module.css";
 
 export default function AlgorithmPracticeSteps() {
   return (
-    <div className={styles.practiceTheoryContainer}>
-      <h2 className={styles.practiceTheoryTitle}>Algorithm Practice Loop</h2>
+<div className={styles.practiceTheoryContainer}>
+  <div className={styles.practiceTheoryHeader}>
+    <p className={styles.practiceTheoryEyebrow}>Study System</p>
+    <h2 className={styles.practiceTheoryTitle}>Algorithm Practice Loop</h2>
+    <p className={styles.practiceTheoryIntro}>
+      Use this loop when reviewing, rebuilding, or testing whether you actually
+      understand the pattern.
+    </p>
+  </div>
 
-      <div className={styles.practiceTheoryStepsRow}>
-        <div className={styles.practiceTheoryStepCard}>
-          <span className={styles.practiceTheoryStepTitle}>
-            Pass 1 — Recognition & Story
-          </span>
-          <ul className={styles.practiceTheorySubList}>
-            <li>What pattern is this?</li>
-            <li>What is the story in plain English?</li>
-            <li>What state am I tracking?</li>
-          </ul>
-        </div>
-        <div className={styles.practiceTheoryStepCard}>
-          <span className={styles.practiceTheoryStepTitle}>
-            Pass 2 — Skeleton From Memory
-          </span>
-          <ul className={styles.practiceTheorySubList}>
-            <li>Write structure only (no syntax stress).</li>
-            <li>Loops, DFS/BFS shape, helpers.</li>
-          </ul>
-        </div>
-        <div className={styles.practiceTheoryStepCard}>
-          <span className={styles.practiceTheoryStepTitle}>
-            Pass 3 — Full Code + Walkthrough
-          </span>
-          <ul className={styles.practiceTheorySubList}>
-            <li>Write full solution.</li>
-            <li>Walk through one example by hand.</li>
-            <li>Track pointers, visited, queue/stack.</li>
-          </ul>
-        </div>
-        <div className={styles.practiceTheoryStepCard}>
-          <span className={styles.practiceTheoryStepTitle}>
-            Pass 4 — Small Variations
-          </span>
-          <ul className={styles.practiceTheorySubList}>
-            <li>DFS ↔ BFS</li>
-            <li>Change data structure (Set → array).</li>
-            <li>Mentally flip edge direction or condition.</li>
-          </ul>
-        </div>
+  <div className={styles.practiceTheoryStepsRow}>
+    <div className={styles.practiceTheoryStepCard}>
+      <span className={styles.practiceTheoryStepNumber}>01</span>
+      <span className={styles.practiceTheoryStepTitle}>
+        Recognition & Story
+      </span>
+      <ul className={styles.practiceTheorySubList}>
+        <li>What pattern is this?</li>
+        <li>What is the story in plain English?</li>
+        <li>What state am I tracking?</li>
+      </ul>
+    </div>
+
+    <div className={styles.practiceTheoryStepCard}>
+      <span className={styles.practiceTheoryStepNumber}>02</span>
+      <span className={styles.practiceTheoryStepTitle}>
+        Skeleton From Memory
+      </span>
+      <ul className={styles.practiceTheorySubList}>
+        <li>Write structure only.</li>
+        <li>No syntax stress.</li>
+        <li>Loops, DFS/BFS shape, helpers.</li>
+      </ul>
+    </div>
+
+    <div className={styles.practiceTheoryStepCard}>
+      <span className={styles.practiceTheoryStepNumber}>03</span>
+      <span className={styles.practiceTheoryStepTitle}>
+        Full Code + Walkthrough
+      </span>
+      <ul className={styles.practiceTheorySubList}>
+        <li>Write full solution.</li>
+        <li>Walk through one example by hand.</li>
+        <li>Track pointers, visited, queue/stack.</li>
+      </ul>
+    </div>
+
+    <div className={styles.practiceTheoryStepCard}>
+      <span className={styles.practiceTheoryStepNumber}>04</span>
+      <span className={styles.practiceTheoryStepTitle}>
+        Small Variations
+      </span>
+      <ul className={styles.practiceTheorySubList}>
+        <li>DFS ↔ BFS</li>
+        <li>Change data structure.</li>
+        <li>Flip edge direction or condition.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div className={styles.practiceTheoryBottomGrid}>
+    <div className={styles.practiceTheoryRulesCard}>
+      <p className={styles.practiceTheoryRulesTitle}>Rules of Thumb</p>
+
+      <div className={styles.ruleRow}>
+        <span>New / Hard</span>
+        <strong>3–5 passes over 2 weeks</strong>
       </div>
 
-      <hr className={styles.practiceTheoryDivider} />
+      <div className={styles.ruleRow}>
+        <span>Medium</span>
+        <strong>2–3 passes</strong>
+      </div>
 
-      <p className={styles.practiceTheoryRulesTitle}>
-        <strong>Rules of Thumb</strong>
-      </p>
-      <ul className={styles.practiceTheoryRulesList}>
-        <li>New/Hard → 3–5 passes over 2 weeks</li>
-        <li>Medium → 2–3 passes</li>
-        <li>Mastered → 1 fast pass monthly</li>
-      </ul>
+      <div className={styles.ruleRow}>
+        <span>Mastered</span>
+        <strong>1 fast pass monthly</strong>
+      </div>
+    </div>
 
-      <p className={styles.practiceTheoryReminder}>
+    <div className={styles.practiceTheoryReminder}>
+      <span className={styles.reminderIcon}>✦</span>
+      <p>
         <strong>Reminder:</strong> Forgetting details is normal. Rebuilding the
         solution <em>is</em> the practice.
       </p>
     </div>
+  </div>
+</div>
   );
 }

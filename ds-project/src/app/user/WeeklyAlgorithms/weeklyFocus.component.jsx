@@ -106,124 +106,110 @@ const WeeklyFocus = ({ algorithms, progressMap, handleGoToAlgo }) => {
   if (loading) return <div>Loading weekly focus...</div>;
 
   return (
-    <section className={styles.section}>
-      <h3>
-        Weekly Focus
-        <span style={{ fontWeight: 400, fontSize: "1rem", marginLeft: 12 }}>
-          (Start:{" "}
-          {startDate.toLocaleDateString(undefined, {
-            year: "numeric",
-            month: "short",
-            day: "2-digit",
-          })}
-          )
-        </span>
-      </h3>
-      <div className={styles.algoList}>
-        {Array.from({ length: 8 }, (_, idx) => focusList[idx] || null).map(
-          (algo, idx) => {
-            if (algo) {
-              const progress = progressMap[algo._id];
-              return (
-                <div key={idx} style={{ position: "relative" }}>
-                  <AlgorithmCard
-                    algo={algo}
-                    progress={progress}
-                    onGoTo={() => handleGoToAlgo(algo._id)}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 8,
-                      right: 8,
-                      zIndex: 2,
-                      display: "flex",
-                    }}
-                  >
-                    <button
-                      className={styles.removeBtn}
-                      onClick={() => handleRemove(idx)}
-                      title="Remove"
-                    >
-                      ✕
-                    </button>
-                    {idx > 0 && (
-                      <button
-                        className={styles.moveBtn}
-                        onClick={() => handleReorder(idx, idx - 1)}
-                        title="Move up"
-                      >
-                        ↑
-                      </button>
-                    )}
-                    {idx < 7 && (
-                      <button
-                        className={styles.moveBtn}
-                        onClick={() => handleReorder(idx, idx + 1)}
-                        title="Move down"
-                      >
-                        ↓
-                      </button>
-                    )}
-                  </div>
-                  <div
-                    style={{ fontSize: "0.9rem", color: "#888", marginTop: 2 }}
-                  >
-                    Last practiced:{" "}
-                    {progress?.lastPracticed
-                      ? new Date(progress.lastPracticed).toLocaleString(
-                          undefined,
-                          {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          }
-                        )
-                      : "-"}
-                  </div>
-                </div>
-              );
-            } else {
-              // Empty slot: dropdown
-              const available = getAvailableAlgos();
-              return (
-                <div
-                  key={idx}
-                  className={styles.algoCard}
-                  style={{
-                    minHeight: 120,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+<section className={styles.weeklyFocusSection}>
+  <div className={styles.weeklyFocusHeader}>
+    <div>
+      <p className={styles.weeklyFocusEyebrow}>Current Rotation</p>
+      <h3 className={styles.weeklyFocusTitle}>Weekly Focus</h3>
+    </div>
+
+    <div className={styles.weeklyFocusDate}>
+      <span>Start</span>
+      <strong>
+        {startDate.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+        })}
+      </strong>
+    </div>
+  </div>
+
+  <div className={styles.weeklyFocusMeta}>
+    <span>8 focus slots</span>
+    <span>{focusList.filter(Boolean).length}/8 filled</span>
+  </div>
+
+  <div className={styles.algoList}>
+    {Array.from({ length: 8 }, (_, idx) => focusList[idx] || null).map(
+      (algo, idx) => {
+        if (algo) {
+          const progress = progressMap[algo._id];
+
+          return (
+            <div key={idx} className={styles.focusSlot}>
+              <div className={styles.focusSlotNumber}>{idx + 1}</div>
+
+              <div className={styles.focusCardActions}>
+                <button
+                  className={styles.removeBtn}
+                  onClick={() => handleRemove(idx)}
+                  title="Remove"
                 >
-                  <select
-                    value=""
-                    onChange={(e) => handleSelect(idx, e.target.value)}
-                    style={{
-                      fontSize: "1rem",
-                      padding: "0.5rem",
-                      width: "200px",
-                      borderRadius: 8,
-                    }}
+                  ✕
+                </button>
+
+                {idx > 0 && (
+                  <button
+                    className={styles.moveBtn}
+                    onClick={() => handleReorder(idx, idx - 1)}
+                    title="Move up"
                   >
-                    <option value="">Select algorithm...</option>
-                    {getAvailableAlgos()?.map((a) => (
-                      <option key={a._id} value={a._id}>
-                        {a?.leetcodeNumber ? `${a.leetcodeNumber}. ` : ""}
-                        {a.title} ({progressMap[a._id]?.status || "-"})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              );
-            }
-          }
-        )}
-      </div>
-    </section>
+                    ↑
+                  </button>
+                )}
+
+                {idx < 7 && (
+                  <button
+                    className={styles.moveBtn}
+                    onClick={() => handleReorder(idx, idx + 1)}
+                    title="Move down"
+                  >
+                    ↓
+                  </button>
+                )}
+              </div>
+
+              <AlgorithmCard
+                algo={algo}
+                progress={progress}
+                onGoTo={() => handleGoToAlgo(algo._id)}
+              />
+            </div>
+          );
+        }
+
+        return (
+          <div key={idx} className={styles.focusSlot}>
+            <div className={styles.focusSlotNumber}>{idx + 1}</div>
+
+            <div className={styles.emptyFocusSlot}>
+              <div className={styles.emptySlotIcon}>＋</div>
+
+              <label className={styles.emptySlotLabel}>
+                Add algorithm
+              </label>
+
+              <select
+                value=""
+                onChange={(e) => handleSelect(idx, e.target.value)}
+                className={styles.dropdown}
+              >
+                <option value="">Select algorithm...</option>
+                {getAvailableAlgos()?.map((a) => (
+                  <option key={a._id} value={a._id}>
+                    {a?.leetcodeNumber ? `${a.leetcodeNumber}. ` : ""}
+                    {a.title} ({progressMap[a._id]?.status || "-"})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        );
+      }
+    )}
+  </div>
+</section>
   );
 };
 

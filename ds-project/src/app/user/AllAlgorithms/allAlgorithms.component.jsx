@@ -101,254 +101,230 @@ const AllAlgorithms = ({ groups, handleGoToAlgo, progressMap }) => {
   const done = total - statusCounts["Not Started"];
 
   return (
-    <aside className={styles.sidebar}>
+<aside className={styles.sidebar}>
+  <div className={styles.sidebarHeader}>
+    <div>
+      <p className={styles.sidebarEyebrow}>Dashboard</p>
       <h3 className={styles.sidebarTitle}>All Algorithms</h3>
-      <div
-        style={{ marginBottom: "0.7rem", fontWeight: 500, fontSize: "1.08rem" }}
-      >
-        <span>Today:</span> {todayString}
-        <br />
-        <span>
-          Practiced today: <b>{practicedTodayCount}</b>
-        </span>
-      </div>
-      {/* Month filter UI */}
-      <div style={{ marginBottom: "1.1rem" }}>
-        <div style={{ fontWeight: 600, marginBottom: 4 }}>Filter by Month:</div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {monthKeys.map((month) => (
-            <button
-              key={month}
-              style={{
-                background: filterMonth === month ? "#d8b4fe" : "#f3e8ff",
-                color: filterMonth === month ? "#6d28d9" : "#3730a3",
-                border: "none",
-                borderRadius: 8,
-                padding: "0.3rem 0.9rem",
-                fontWeight: 500,
-                fontSize: "1rem",
-                cursor: "pointer",
-                boxShadow:
-                  filterMonth === month ? "0 2px 8px #d8b4fe55" : "none",
-                outline: filterMonth === month ? "2px solid #a855f7" : "none",
-                transition: "all 0.15s",
-              }}
-              onClick={() =>
-                setFilterMonth(filterMonth === month ? null : month)
-              }
-            >
-              {month}{" "}
-              <span style={{ color: "#888", fontWeight: 400 }}>
-                ({monthMap[month].length})
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-      {/* Button to copy info for all algorithms */}
-      <button
-        style={{
-          marginBottom: "1rem",
-          background: "#86aed3",
-          color: "#fff",
-          border: "none",
-          borderRadius: "6px",
-          padding: "0.5rem 1rem",
-          cursor: "pointer",
-          fontWeight: 500,
-          fontSize: "1rem",
-        }}
-        onClick={async () => {
-          let algosToCopy = allAlgos;
-          if (filterMonth) {
-            algosToCopy = monthMap[filterMonth] || [];
-          } else if (filterStatus) {
-            algosToCopy = allAlgos.filter((algo) => {
-              const userProgress = progressMap?.[algo._id] || {};
-              const status = userProgress.status || "Not Started";
-              return status === filterStatus;
-            });
+    </div>
+
+    <div className={styles.todayPill}>
+      <span>Today</span>
+      <strong>{todayString}</strong>
+    </div>
+  </div>
+
+  <div className={styles.sidebarStatsGrid}>
+    <div className={styles.statCard}>
+      <span>Practiced Today</span>
+      <strong>{practicedTodayCount}</strong>
+    </div>
+
+    <div className={styles.statCard}>
+      <span>Done / Total</span>
+      <strong>
+        {done}/{total}
+      </strong>
+    </div>
+  </div>
+
+  <section className={styles.sidebarPanel}>
+    <div className={styles.panelHeader}>
+      <h4>Status</h4>
+      {filterStatus && !filterMonth && (
+        <button
+          className={styles.clearBtn}
+          onClick={() => setFilterStatus(null)}
+        >
+          Clear
+        </button>
+      )}
+    </div>
+
+    <div className={styles.statusFilterList}>
+      {statusList.map((status) => (
+        <button
+          key={status}
+          className={`${styles.statusFilterBtn} ${
+            filterStatus === status ? styles.statusFilterActive : ""
+          }`}
+          onClick={() =>
+            setFilterStatus(filterStatus === status ? null : status)
           }
-          const info = algosToCopy
-            .map((algo) => {
-              const userProgress = progressMap?.[algo._id] || {};
-              const status = userProgress.status || "Not Started";
-              return `#${algo.leetcodeNumber ?? "-"}: ${algo.title
-                } [${status}]`;
-            })
-            .join("\n");
-          if (info) {
-            await navigator.clipboard.writeText(info);
+          disabled={!!filterMonth}
+        >
+          <span>{status}</span>
+          <strong>
+            {statusCounts[status]}
+            {total > 0 && statusCounts[status] > 0
+              ? ` · ${Math.round((statusCounts[status] / total) * 100)}%`
+              : ""}
+          </strong>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <section className={styles.sidebarPanel}>
+    <div className={styles.panelHeader}>
+      <h4>Filter by Month</h4>
+      {filterMonth && (
+        <button
+          className={styles.clearBtn}
+          onClick={() => setFilterMonth(null)}
+        >
+          Clear
+        </button>
+      )}
+    </div>
+
+    <div className={styles.monthFilterGrid}>
+      {monthKeys.map((month) => (
+        <button
+          key={month}
+          className={`${styles.monthFilterBtn} ${
+            filterMonth === month ? styles.monthFilterActive : ""
+          }`}
+          onClick={() =>
+            setFilterMonth(filterMonth === month ? null : month)
           }
-        }}
-      >
-        Copy {filterMonth ? filterMonth + " " : filterStatus ? filterStatus + " " : ""}Algorithm Info
-      </button>
-      <div className={styles.sidebarSummary}>
-        <div className={styles.sidebarSummaryRow}>
-          <span className={styles.sidebarSummaryLabel}>Done/Total:</span>
-          <span className={styles.sidebarSummaryValue}>
-            {done}/{total}
-          </span>
-        </div>
-        {statusList.map((status) => (
-          <div key={status} className={styles.sidebarSummaryRow}>
-            <button
-              className={
-                styles.sidebarSummaryFilterBtn +
-                (filterStatus === status
-                  ? " " + styles.sidebarSummaryFilterActive
-                  : "")
-              }
-              onClick={() =>
-                setFilterStatus(filterStatus === status ? null : status)
-              }
-              disabled={!!filterMonth}
-            >
-              {status}
-            </button>
-            <span className={styles.sidebarSummaryValue}>
-              {statusCounts[status]}
-              {total > 0 && statusCounts[status] > 0
-                ? ` (${Math.round((statusCounts[status] / total) * 100)}%)`
-                : ""}
-            </span>
-          </div>
-        ))}
-      </div>
-      <div className={styles.sidebarList}>
-        {Object.entries(filteredGroups).map(
-          ([group, algos]) =>
-            algos.length > 0 && (
-              <div key={group} className={styles.sidebarGroup}>
-                <div className={styles.sidebarGroupTitle}>
-                  {group}
-                  <span
-                    style={{ color: "#888", fontWeight: 500, marginLeft: 8 }}
-                  >
-                    ({algos.length})
-                  </span>
-                </div>
-                <ul className={styles.sidebarAlgoList}>
-                  {algos.map((algo) => {
-                    const userProgress = progressMap?.[algo._id] || {};
-                    const status = userProgress.status || "Not Started";
-                    const rank =
-                      typeof userProgress.rank !== "undefined"
-                        ? userProgress.rank
-                        : "-";
-                    const statusClass = getStatusClass(status);
-                    const practicedToday = isPracticedToday(
-                      userProgress.lastPracticed,
-                    );
-                    return (
-                      <li
-                        key={algo._id}
-                        className={styles.sidebarAlgoItem}
-                        style={{ listStyle: "none" }}
-                      >
-                        <button
-                          className={
-                            styles.sidebarAlgoBtn +
-                            (statusClass ? " " + styles[statusClass] : "")
-                          }
-                          onClick={() => handleGoToAlgo(algo._id)}
-                          title={algo.title}
-                        >
-                          {/* Star icon if isStarred */}
+        >
+          <span>{month}</span>
+          <strong>{monthMap[month].length}</strong>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <button
+    className={styles.copyBtn}
+    onClick={async () => {
+      let algosToCopy = allAlgos;
+
+      if (filterMonth) {
+        algosToCopy = monthMap[filterMonth] || [];
+      } else if (filterStatus) {
+        algosToCopy = allAlgos.filter((algo) => {
+          const userProgress = progressMap?.[algo._id] || {};
+          const status = userProgress.status || "Not Started";
+          return status === filterStatus;
+        });
+      }
+
+      const info = algosToCopy
+        .map((algo) => {
+          const userProgress = progressMap?.[algo._id] || {};
+          const status = userProgress.status || "Not Started";
+          return `#${algo.leetcodeNumber ?? "-"}: ${algo.title} [${status}]`;
+        })
+        .join("\n");
+
+      if (info) {
+        await navigator.clipboard.writeText(info);
+      }
+    }}
+  >
+    Copy{" "}
+    {filterMonth ? `${filterMonth} ` : filterStatus ? `${filterStatus} ` : ""}
+    Algorithm Info
+  </button>
+
+  <div className={styles.sidebarList}>
+    {Object.entries(filteredGroups).map(
+      ([group, algos]) =>
+        algos.length > 0 && (
+          <section key={group} className={styles.sidebarGroup}>
+            <div className={styles.sidebarGroupTitle}>
+              <span>{group}</span>
+              <strong>{algos.length}</strong>
+            </div>
+
+            <ul className={styles.sidebarAlgoList}>
+              {algos.map((algo) => {
+                const userProgress = progressMap?.[algo._id] || {};
+                const status = userProgress.status || "Not Started";
+                const rank =
+                  typeof userProgress.rank !== "undefined"
+                    ? userProgress.rank
+                    : "-";
+                const statusClass = getStatusClass(status);
+                const practicedToday = isPracticedToday(
+                  userProgress.lastPracticed
+                );
+
+                return (
+                  <li key={algo._id} className={styles.sidebarAlgoItem}>
+                    <button
+                      className={`${styles.sidebarAlgoBtn} ${
+                        statusClass ? styles[statusClass] : ""
+                      }`}
+                      onClick={() => handleGoToAlgo(algo._id)}
+                      title={algo.title}
+                    >
+                      <div className={styles.algoTopRow}>
+                        <span className={styles.algoTitle}>
                           {userProgress.isStarred && (
-                            <span
-                              className={styles.starIcon}
-                              title="Starred"
-                              style={{
-                                marginRight: 6,
-                                verticalAlign: "middle",
-                              }}
-                            >
-                              {/* SVG star, yellow fill */}
-                              <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                style={{ color: "#facc15", display: "inline" }}
-                                aria-hidden="true"
-                              >
-                                <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z" />
-                              </svg>
+                            <span className={styles.starIcon} title="Starred">
+                              ★
                             </span>
                           )}
                           {algo.leetcodeNumber
                             ? `${algo.leetcodeNumber}. `
                             : ""}
                           {algo.title}
-                          <div className={styles.sidebarAlgoStatusRow}>
-                            {rank !== "-" && (
-                              <span className={styles.sidebarAlgoRank}>
-                                Rank: {rank}
-                              </span>
-                            )}
-                            <span
-                              className={
-                                styles.sidebarAlgoStatus +
-                                (statusClass ? " " + styles[statusClass] : "")
-                              }
-                            >
-                              {status}
-                              {/* Green checkmark if practiced today */}
-                              {practicedToday && (
-                                <span
-                                  title="Practiced today"
-                                  style={{
-                                    marginLeft: 6,
-                                    color: "#22c55e",
-                                    verticalAlign: "middle",
-                                    display: "inline-flex",
-                                  }}
-                                >
-                                  {/* SVG checkmark */}
-                                  <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                    style={{ display: "inline" }}
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M16.707 6.293a1 1 0 00-1.414 0L9 12.586l-2.293-2.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </span>
-                              )}
-                            </span>
-                          </div>
-                          <div style={{ fontSize: "0.9rem", color: "#888" }}>
-                            Last practiced:{" "}
-                            {userProgress?.lastPracticed
-                              ? new Date(
-                                userProgress.lastPracticed,
-                              ).toLocaleString(undefined, {
+                        </span>
+                      </div>
+
+                      <div className={styles.sidebarAlgoStatusRow}>
+                        {rank !== "-" && (
+                          <span className={styles.sidebarAlgoRank}>
+                            Rank {rank}
+                          </span>
+                        )}
+
+                        <span
+                          className={`${styles.sidebarAlgoStatus} ${
+                            statusClass ? styles[statusClass] : ""
+                          }`}
+                        >
+                          {status}
+                        </span>
+
+                        {practicedToday && (
+                          <span
+                            className={styles.practicedBadge}
+                            title="Practiced today"
+                          >
+                            ✓ Today
+                          </span>
+                        )}
+                      </div>
+
+                      <div className={styles.lastPracticed}>
+                        Last practiced:{" "}
+                        {userProgress?.lastPracticed
+                          ? new Date(userProgress.lastPracticed).toLocaleString(
+                              undefined,
+                              {
                                 year: "numeric",
                                 month: "short",
                                 day: "2-digit",
                                 hour: "2-digit",
                                 minute: "2-digit",
-                              })
-                              : "-"}
-                          </div>
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ),
-        )}
-      </div>
-    </aside>
+                              }
+                            )
+                          : "-"}
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )
+    )}
+  </div>
+</aside>
   );
 };
 
