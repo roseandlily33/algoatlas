@@ -1,4 +1,5 @@
 import styles2 from "../modal/cheatSheetModal.module.css";
+import styles from './techniqueButtons.module.css';
 import arrayData from "../../../../data/dataStructures/array.json";
 import queueData from "../../../../data/dataStructures/queue.json";
 import segmentTreeData from "../../../../data/dataStructures/segment-tree.json";
@@ -40,163 +41,116 @@ const TechniqueButtons = ({
   setModalOpen,
 }) => {
   return (
-    <div
-      style={{
-        margin: "1.1rem 0.5rem 0.7rem 1.1rem",
-        display: "flex",
-        gap: "1.7rem",
-        alignItems: "center",
+<div className={styles.metaBar}>
+  <div className={styles.metaGroup}>
+    <span className={styles.metaLabel}>Type</span>
+
+    <button
+      type="button"
+      className={styles.metaPillPrimary}
+      onClick={async () => {
+        setModalTitle(algorithm.type);
+        const fileKey = algorithm.type.toLowerCase().replace(/ /g, "-");
+        const data = cheatSheetData[fileKey];
+
+        setModalContent(
+          <div className={styles2.modalCheatSheetContent}>
+            {data?.description && (
+              <div className={styles2.modalCheatSheetDescription}>
+                {data.description}
+              </div>
+            )}
+
+            {data?.keyPoints && (
+              <ul className={styles2.modalCheatSheetKeyPoints}>
+                {data.keyPoints.map((pt, i) => (
+                  <li key={i} className={styles2.modalCheatSheetKeyPointItem}>
+                    {pt}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {data?.codeSnippet && (
+              <pre className={styles2.modalCheatSheetCodeSnippet}>
+                <code>{data.codeSnippet.code}</code>
+              </pre>
+            )}
+
+            {data?.usedFor && (
+              <div className={styles2.modalCheatSheetUsedFor}>
+                <b>Used for:</b> {data.usedFor.join(", ")}
+              </div>
+            )}
+          </div>
+        );
+
+        setModalOpen(true);
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.7rem",
-        }}
-      >
-        <span
-          style={{
-            fontWeight: 600,
-            color: "var(--purple-600)",
-            fontSize: "1.04rem",
-          }}
-        >
-          Type:
-        </span>
-        <button
-          type="button"
-          className={styles2.pill}
-          onClick={async () => {
-            setModalTitle(algorithm.type);
-            const fileKey = algorithm.type.toLowerCase().replace(/ /g, "-");
-            const data = cheatSheetData[fileKey];
-            setModalContent(
-              <div className={styles2.modalCheatSheetContent}>
-                {/* Description */}
-                {data && data.description && (
-                  <div className={styles2.modalCheatSheetDescription}>
-                    {data.description}
-                  </div>
-                )}
-                {/* Key Points */}
-                {data && data.keyPoints && (
-                  <ul className={styles2.modalCheatSheetKeyPoints}>
-                    {data.keyPoints.map((pt, i) => (
-                      <li
-                        key={i}
-                        className={styles2.modalCheatSheetKeyPointItem}
-                      >
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {/* Code Snippet */}
-                {data && data.codeSnippet && (
-                  <pre className={styles2.modalCheatSheetCodeSnippet}>
-                    <code>{data.codeSnippet.code}</code>
-                  </pre>
-                )}
-                {/* Used For */}
-                {data && data.usedFor && (
-                  <div className={styles2.modalCheatSheetUsedFor}>
-                    <b>Used for:</b> {data.usedFor.join(", ")}
-                  </div>
-                )}
-              </div>
-            );
-            setModalOpen(true);
-          }}
-        >
-          {algorithm.type}
-        </button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.7rem",
-        }}
-      >
-        <span
-          style={{
-            fontWeight: 600,
-            color: "var(--purple-600)",
-            fontSize: "1.04rem",
-          }}
-        >
-          Techniques:
-        </span>
-        {algorithm?.techniques && algorithm.techniques.length > 0 ? (
-          algorithm?.techniques.map((tech, i) => (
-            <button
-              key={tech}
-              type="button"
-              className={styles2.pill}
-              onClick={() => {
-                setModalTitle(tech);
-                setModalContent(
-                  <div style={{ color: "var(--gray-500)" }}>Loading...</div>
+      {algorithm.type}
+    </button>
+  </div>
+
+  <div className={styles.metaGroup}>
+    <span className={styles.metaLabel}>Techniques</span>
+
+    <div className={styles.metaPillWrap}>
+      {algorithm?.techniques?.length > 0 ? (
+        algorithm.techniques.map((tech) => (
+          <button
+            key={tech}
+            type="button"
+            className={styles.metaPill}
+            onClick={() => {
+              setModalTitle(tech);
+              setModalOpen(true);
+
+              const fileKey = algorithm.type.toLowerCase().replace(/ /g, "-");
+              const data = cheatSheetData[fileKey];
+
+              const found =
+                data?.techniques?.find(
+                  (t) => t.title.toLowerCase() === tech.toLowerCase()
                 );
-                setModalOpen(true);
-                const fileKey = algorithm.type.toLowerCase().replace(/ /g, "-");
-                const data = cheatSheetData[fileKey];
-                const found =
-                  data &&
-                  data.techniques &&
-                  data.techniques.find(
-                    (t) => t.title.toLowerCase() === tech.toLowerCase()
-                  );
-                if (found) {
-                  setModalContent(
-                    <div>
-                      <div style={{ fontWeight: 600, marginBottom: "0.7rem" }}>
-                        {found.title}
+
+              if (found) {
+                setModalContent(
+                  <div className={styles.techniqueModal}>
+                    <div className={styles.techTitle}>{found.title}</div>
+                    <div className={styles.techDesc}>{found.description}</div>
+
+                    {found.codeSnippet && (
+                      <pre className={styles.techCode}>
+                        <code>{found.codeSnippet}</code>
+                      </pre>
+                    )}
+
+                    {found.useCases && (
+                      <div className={styles.techUse}>
+                        <b>Use cases:</b> {found.useCases.join(", ")}
                       </div>
-                      <div style={{ marginBottom: "0.7rem" }}>
-                        {found.description}
-                      </div>
-                      {found.codeSnippet && (
-                        <pre
-                          style={{
-                            background: "var(--gray-50)",
-                            borderRadius: "0.7rem",
-                            padding: "0.7rem",
-                            marginBottom: "0.7rem",
-                            fontSize: "0.98rem",
-                            overflowX: "auto",
-                          }}
-                        >
-                          <code>{found.codeSnippet}</code>
-                        </pre>
-                      )}
-                      {found.useCases && (
-                        <div style={{ marginBottom: "0.7rem" }}>
-                          <b>Use cases:</b> {found.useCases.join(", ")}
-                        </div>
-                      )}
-                    </div>
-                  );
-                } else {
-                  setModalContent(
-                    <div style={{ color: "var(--red-500)" }}>
-                      No info available for this technique.
-                    </div>
-                  );
-                }
-              }}
-            >
-              {tech}
-            </button>
-          ))
-        ) : (
-          <span style={{ color: "var(--gray-400)", fontSize: "0.98rem" }}>
-            None
-          </span>
-        )}
-      </div>
+                    )}
+                  </div>
+                );
+              } else {
+                setModalContent(
+                  <div className={styles.techError}>
+                    No info available.
+                  </div>
+                );
+              }
+            }}
+          >
+            {tech}
+          </button>
+        ))
+      ) : (
+        <span className={styles.metaEmpty}>None</span>
+      )}
     </div>
+  </div>
+</div>
   );
 };
 

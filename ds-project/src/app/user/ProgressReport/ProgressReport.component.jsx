@@ -37,29 +37,42 @@ const ProgressReport = ({ progress }) => {
 
   return (
     <section className={styles.progressSection}>
-      <h2 className={styles.title}>Progress Report</h2>
+      <div className={styles.progressHeader}>
+        <div>
+          <p className={styles.progressEyebrow}>Activity Log</p>
+          <h2 className={styles.title}>Progress Report</h2>
+        </div>
+
+        <div className={styles.progressCountPill}>
+          <span>Total Days</span>
+          <strong>{sortedDays?.length || 0}</strong>
+        </div>
+      </div>
+
       <div className={styles.cardsContainer}>
         {sortedDays?.map((day) => {
           const algos = day.algorithms || [];
+
           return (
             <div className={styles.card} key={day.date}>
               <div className={styles.cardHeader}>
-                <span className={styles.date}>{formatDate(day.date)}</span>
-                <span className={styles.total}>
-                  {algos.length} {algos.length === 1 ? "algorithm" : "algorithms"}
-                </span>
+                <div>
+                  <span className={styles.date}>{formatDate(day.date)}</span>
+                  <span className={styles.total}>
+                    {algos.length}{" "}
+                    {algos.length === 1 ? "algorithm" : "algorithms"}
+                  </span>
+                </div>
               </div>
+
               <div className={styles.breakdown}>
                 {algos?.map((algo, idx) => {
                   const name = algo?.name || algo?.title || "Unnamed Algorithm";
                   const id = algo?._id || algo?.id || algo;
+
                   return (
                     <div className={styles.typeRow} key={id || idx}>
-                      <a
-                        className={styles.type}
-                        href={`/take-algorithm/${id}`}
-                        style={{ textDecoration: "underline", color: "#0070f3", cursor: "pointer" }}
-                      >
+                      <a className={styles.type} href={`/take-algorithm/${id}`}>
                         {name}
                       </a>
                     </div>

@@ -314,92 +314,115 @@ function WeeklyPlan({ algorithms = [], progress = [], handleGoToAlgo }) {
   const weekRange = isFutureFocus ? null : getWeekRange(mainTab);
 
   return (
-    <section className={styles.weeklyPlanSection}>
+<section className={styles.weeklyPlanSection}>
+  <div className={styles.weeklyPlanHeader}>
+    <div>
+      <p className={styles.weeklyPlanEyebrow}>Study Roadmap</p>
       <h2 className={styles.title}>Weekly Plan</h2>
-      <div className={styles.tabsRow}>
-        {PLAN.map((tab, idx) => (
-          <button
-            key={tab.key}
-            className={
-              styles.tabBtn + (mainTab === idx ? " " + styles.tabActive : "")
-            }
-            onClick={() => {
-              setMainTab(idx);
-              setSubTab(null);
-            }}
-          >
-            {tab.label}
-          </button>
-        ))}
+    </div>
+
+    {!isFutureFocus && (
+      <div className={styles.weekRangePill}>
+        <span>Dates</span>
+        <strong>
+          {weekRange.start} – {weekRange.end}
+        </strong>
       </div>
-      <div className={styles.subTabsRow}>
-        {SUBPATTERNS.map((sub, idx) => (
-          <button
-            key={sub.key}
-            className={
-              styles.subTabBtn +
-              (subTab === idx ? " " + styles.subTabActive : "")
-            }
-            onClick={() => setSubTab(idx)}
-          >
-            {sub.label}
-          </button>
-        ))}
-      </div>
-      <div className={styles.tabContent}>
-        {subTab === null && (
-          <div className={styles.patternContent}>
+    )}
+  </div>
+
+  <div className={styles.tabsRow}>
+    {PLAN.map((tab, idx) => (
+      <button
+        key={tab.key}
+        className={`${styles.tabBtn} ${
+          mainTab === idx ? styles.tabActive : ""
+        }`}
+        onClick={() => {
+          setMainTab(idx);
+          setSubTab(null);
+        }}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+
+  <div className={styles.subTabsRow}>
+    {SUBPATTERNS.map((sub, idx) => (
+      <button
+        key={sub.key}
+        className={`${styles.subTabBtn} ${
+          subTab === idx ? styles.subTabActive : ""
+        }`}
+        onClick={() => setSubTab(idx)}
+      >
+        {sub.label}
+      </button>
+    ))}
+  </div>
+
+  <div className={styles.tabContent}>
+    {subTab === null && (
+      <div className={styles.patternContent}>
+        <div className={styles.patternHeader}>
+          <div>
+            <p className={styles.patternLabel}>Focus Pattern</p>
             <div className={styles.patternTitle}>{main.pattern}</div>
-            {!isFutureFocus && (
-              <div className={styles.patternDates}>
-                <span className={styles.patternDateLabel}>Dates:</span>
-                <span className={styles.patternDateValue}>
-                  {weekRange.start} – {weekRange.end}
-                </span>
-              </div>
-            )}
-            <ul className={styles.patternSummary}>
-              {main.summary.map((goal, i) => (
-                <li key={i}>{goal}</li>
-              ))}
-            </ul>
-            {isFutureFocus ? (
-              <div className={styles.algosHeader}>Topics</div>
-            ) : (
-              <div className={styles.algosHeader}>Algorithms</div>
-            )}
-            {isFutureFocus ? (
-              <ul className={styles.algoList}>
-                {main.summary.map((topic, i) => (
-                  <li key={i} className={styles.algoItem}>
-                    <span className={styles.algoPending}>{topic}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              renderAlgoList(main.mainAlgos, main.recommended)
-            )}
           </div>
+        </div>
+
+        <ul className={styles.patternSummary}>
+          {main.summary.map((goal, i) => (
+            <li key={i}>{goal}</li>
+          ))}
+        </ul>
+
+        <div className={styles.algosHeader}>
+          {isFutureFocus ? "Topics" : "Algorithms"}
+        </div>
+
+        {isFutureFocus ? (
+          <ul className={styles.plannedTopicList}>
+            {main.summary.map((topic, i) => (
+              <li key={i} className={styles.algoItem}>
+                <span className={styles.algoPending}>{topic}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          renderAlgoList(main.mainAlgos, main.recommended)
         )}
-        {subTab !== null && (
-          <div className={styles.patternContent}>
+      </div>
+    )}
+
+    {subTab !== null && (
+      <div className={styles.patternContent}>
+        <div className={styles.patternHeader}>
+          <div>
+            <p className={styles.patternLabel}>Subpattern</p>
             <div className={styles.patternTitle}>
               {SUBPATTERNS[subTab].label}
             </div>
-            <ul className={styles.patternSummary}>
-              {SUBPATTERNS[subTab].summary.map((goal, i) => (
-                <li key={i}>{goal}</li>
-              ))}
-            </ul>
-            <div className={styles.algosHeader}>Algorithms</div>
-            {renderAlgoList(
-              SUBPATTERNS[subTab].algos,
-              SUBPATTERNS[subTab].recommended || []
-            )}
           </div>
+        </div>
+
+        <ul className={styles.patternSummary}>
+          {SUBPATTERNS[subTab].summary.map((goal, i) => (
+            <li key={i}>{goal}</li>
+          ))}
+        </ul>
+
+        <div className={styles.algosHeader}>Algorithms</div>
+
+        {renderAlgoList(
+          SUBPATTERNS[subTab].algos,
+          SUBPATTERNS[subTab].recommended || []
         )}
       </div>
-    </section>
+    )}
+  </div>
+</section>
   );
 }
 

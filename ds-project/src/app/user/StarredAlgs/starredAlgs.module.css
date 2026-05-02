@@ -1,0 +1,257 @@
+.starredSection {
+  position: relative;
+  overflow: hidden;
+
+  padding: 1.35rem;
+  margin-bottom: 1.5rem;
+  border-radius: 1.8rem;
+
+  background:
+    radial-gradient(circle at top right, rgba(250, 204, 21, 0.16), transparent 30%),
+    radial-gradient(circle at top left, rgba(216, 180, 254, 0.26), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(245, 232, 255, 0.48));
+
+  border: 1px solid rgba(216, 180, 254, 0.58);
+
+  box-shadow:
+    0 18px 45px rgba(109, 40, 217, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  font-family: var(--font-main);
+}
+
+.starredSection::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+}
+
+.starredHeader {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+}
+
+.starredEyebrow {
+  margin: 0 0 0.25rem;
+
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+
+  color: var(--purple-500);
+}
+
+.starredTitle {
+  margin: 0;
+
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+
+  color: var(--gray-900);
+}
+
+.starredCountPill {
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  padding: 0.6rem 0.85rem;
+  border-radius: 1.1rem;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(216, 180, 254, 0.55);
+
+  box-shadow:
+    0 8px 20px rgba(109, 40, 217, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.starredCountPill span {
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--purple-500);
+}
+
+.starredCountPill strong {
+  color: var(--gray-900);
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.starredTierList {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.starredTier {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.starredTierHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: 0.7rem 0.85rem;
+  border-radius: 1rem;
+
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(216, 180, 254, 0.45);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 6px 16px rgba(109, 40, 217, 0.05);
+}
+
+.starredTierHeader h4 {
+  margin: 0;
+
+  color: var(--gray-800);
+  font-size: 0.86rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.starredTierHeader span {
+  min-width: 1.65rem;
+  height: 1.65rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background: rgba(250, 204, 21, 0.15);
+  border: 1px solid rgba(250, 204, 21, 0.25);
+
+  color: #92400e;
+  font-size: 0.75rem;
+  font-weight: 950;
+}
+
+.algoList {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  gap: 2rem;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  padding: 0.2rem 0.15rem 0.85rem;
+
+  scroll-snap-type: x proximity;
+}
+
+.starredCardSlot {
+  position: relative;
+  flex: 0 0 auto;
+
+  width: 260px;
+  min-width: 260px;
+
+  scroll-snap-align: start;
+}
+
+.tierSelectWrap {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.55rem;
+  z-index: 6;
+
+  padding: 0.18rem;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(216, 180, 254, 0.45);
+
+  box-shadow:
+    0 8px 18px rgba(109, 40, 217, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.tierSelect {
+  max-width: 132px;
+
+  padding: 0.38rem 0.55rem;
+
+  border: none;
+  border-radius: 999px;
+
+  background: rgba(245, 232, 255, 0.72);
+  color: var(--purple-700);
+
+  font-family: var(--font-main);
+  font-size: 0.72rem;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.tierSelect:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(216, 180, 254, 0.42);
+}
+
+.emptyTierState {
+  min-width: 260px;
+  min-height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+  border-radius: 1.25rem;
+
+  background: rgba(255, 255, 255, 0.44);
+  border: 1.5px dashed rgba(192, 132, 252, 0.5);
+
+  color: var(--gray-500);
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+@media (max-width: 900px) {
+  .starredSection {
+    padding: 1rem;
+    border-radius: 1.45rem;
+  }
+
+  .starredHeader {
+    flex-direction: column;
+  }
+
+  .starredCountPill {
+    align-items: flex-start;
+  }
+}

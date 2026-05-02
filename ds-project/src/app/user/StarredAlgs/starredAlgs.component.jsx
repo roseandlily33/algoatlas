@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "../WeeklyAlgorithms/weeklyFocus.module.css";
+// import styles from "../WeeklyAlgorithms/weeklyFocus.module.css";
+import styles from './starredAlgs.module.css';
 import AlgorithmCard from "../AlgorithmCard/algorithmCard.component";
 
 const TIERS = ["High", "Medium", "Low"];
@@ -57,69 +58,70 @@ const StarredAlgs = ({ algorithms = [], progressMap = {}, handleGoToAlgo }) => {
   }
 
   return (
-    <section className={styles.section}>
-      <h3>Starred Algorithms</h3>
-      {TIERS?.map((tier) => (
-        <div key={tier} style={{ marginBottom: "2rem" }}>
-          <div
-            style={{
-              fontWeight: 700,
-              fontSize: "1.2rem",
-              color: "var(--purple-700)",
-              marginBottom: "0.7rem",
-            }}
-          >
-            {tier} Attention ({tierGroups[tier].length})
-          </div>
-          <div className={styles.algoList}>
-            {tierGroups[tier].length === 0 ? (
-              <div style={{ color: "#aaa", fontSize: "1rem" }}>
-                No algorithms in this tier.
-              </div>
-            ) : (
-              tierGroups[tier].map((algo) => {
-                const progress = progressMap[algo._id];
-                return (
-                  <div key={algo._id} style={{ position: "relative" }}>
-                    <AlgorithmCard
-                      algo={algo}
-                      progress={progress}
-                      onGoTo={() => handleGoToAlgo(algo._id)}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 8,
-                        right: 8,
-                        zIndex: 2,
-                      }}
-                    >
-                      <select
-                        value={localTiers[algo._id] || "Low"}
-                        onChange={(e) => handleTierChange(algo._id, e.target.value)}
-                        style={{
-                          fontSize: "0.95rem",
-                          borderRadius: 6,
-                          padding: "0.3rem 0.7rem",
-                          background: "var(--purple-50)",
-                          border: "1.5px solid var(--purple-200)",
-                        }}
-                      >
-                        {TIERS.map((t) => (
-                          <option key={t} value={t}>
-                            {t} Attention
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
+<section className={styles.starredSection}>
+  <div className={styles.starredHeader}>
+    <div>
+      <p className={styles.starredEyebrow}>Priority Board</p>
+      <h3 className={styles.starredTitle}>Starred Algorithms</h3>
+    </div>
+
+    <div className={styles.starredCountPill}>
+      <span>Total Starred</span>
+      <strong>
+        {TIERS.reduce((sum, tier) => sum + tierGroups[tier].length, 0)}
+      </strong>
+    </div>
+  </div>
+
+  <div className={styles.starredTierList}>
+    {TIERS?.map((tier) => (
+      <section key={tier} className={styles.starredTier}>
+        <div className={styles.starredTierHeader}>
+          <h4>{tier} Attention</h4>
+          <span>{tierGroups[tier].length}</span>
         </div>
-      ))}
-    </section>
+
+        <div className={styles.algoList}>
+          {tierGroups[tier].length === 0 ? (
+            <div className={styles.emptyTierState}>
+              No algorithms in this tier.
+            </div>
+          ) : (
+            tierGroups[tier].map((algo) => {
+              const progress = progressMap[algo._id];
+
+              return (
+                <div key={algo._id} className={styles.starredCardSlot}>
+                  <div className={styles.tierSelectWrap}>
+                    <select
+                      value={localTiers[algo._id] || "Low"}
+                      onChange={(e) =>
+                        handleTierChange(algo._id, e.target.value)
+                      }
+                      className={styles.tierSelect}
+                    >
+                      {TIERS.map((t) => (
+                        <option key={t} value={t}>
+                          {t} Attention
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <AlgorithmCard
+                    algo={algo}
+                    progress={progress}
+                    onGoTo={() => handleGoToAlgo(algo._id)}
+                  />
+                </div>
+              );
+            })
+          )}
+        </div>
+      </section>
+    ))}
+  </div>
+</section>
   );
 };
 

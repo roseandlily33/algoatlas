@@ -56,35 +56,51 @@ const ProgressReportChart = ({ progressHistory }) => {
     const stats = computeProgressStats(progressHistory);
     if (!stats) return null;
     return (
-        <div className={styles.reportChartBlock}>
-            <div className={styles.reportGrid}>
-                <div>
-                    <b>Total Attempts:</b> {stats.totalAttempts}
-                </div>
-                <div>
-                    <b>Avg. Rating:</b> {stats.avgRank} / 10
-                </div>
-                <div>
-                    <b>Days Practiced:</b> {stats.daysPracticed}
-                </div>
-                <div>
-                    <b>Attempts Until Mastery:</b>{" "}
-                    {stats.attemptsToMastery !== null ? stats.attemptsToMastery : "—"}
-                </div>
-                <div>
-                    <b>Practice Span:</b> {stats.spanDays} days
-                </div>
-                <div>
-                    <b>First Attempt:</b> {stats.firstDate.toLocaleDateString()}
-                </div>
-                <div>
-                    <b>Last Attempt:</b> {stats.lastDate.toLocaleDateString()}
-                </div>
-                <div>
-                    <b>Max Streak:</b> {stats.maxStreak} days
-                </div>
-            </div>
-        </div>
+   <div className={styles.reportChartBlock}>
+  <div className={styles.reportGrid}>
+    <div className={styles.reportStat}>
+      <span>Total Attempts</span>
+      <strong>{stats.totalAttempts}</strong>
+    </div>
+
+    <div className={styles.reportStat}>
+      <span>Avg. Rating</span>
+      <strong>{stats.avgRank} / 10</strong>
+    </div>
+
+    <div className={styles.reportStat}>
+      <span>Days Practiced</span>
+      <strong>{stats.daysPracticed}</strong>
+    </div>
+
+    <div className={styles.reportStat}>
+      <span>Attempts Until Mastery</span>
+      <strong>
+        {stats.attemptsToMastery !== null ? stats.attemptsToMastery : "—"}
+      </strong>
+    </div>
+
+    <div className={styles.reportStat}>
+      <span>Practice Span</span>
+      <strong>{stats.spanDays} days</strong>
+    </div>
+
+    <div className={styles.reportStat}>
+      <span>First Attempt</span>
+      <strong>{stats.firstDate.toLocaleDateString()}</strong>
+    </div>
+
+    <div className={styles.reportStat}>
+      <span>Last Attempt</span>
+      <strong>{stats.lastDate.toLocaleDateString()}</strong>
+    </div>
+
+    <div className={styles.reportStat}>
+      <span>Max Streak</span>
+      <strong>{stats.maxStreak} days</strong>
+    </div>
+  </div>
+</div>
     );
 };
 

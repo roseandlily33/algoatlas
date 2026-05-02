@@ -35,9 +35,7 @@ const TakeAlgorithmPage = () => {
   const [pattern, setPattern] = useState("");
   const [dataStructure, setDataStructure] = useState("");
   const [traversalOrTechnique, setTraversalOrTechnique] = useState("");
-  const [coreInvariant, setCoreInvariant] = useState("");
-  const [baseCases, setBaseCases] = useState("");
-  const [commonMistake, setCommonMistake] = useState("");
+
   // Theory field
   const [theory, setTheory] = useState("");
   // Dropdown for theory
@@ -83,10 +81,6 @@ const TakeAlgorithmPage = () => {
           setPattern(latest?.pattern || "");
           setDataStructure(latest?.dataStructure || "");
           setTraversalOrTechnique(latest?.traversalOrTechnique || "");
-          setCoreInvariant(latest?.coreInvariant || "");
-          setBaseCases(latest?.baseCases || "");
-          setCommonMistake(latest?.commonMistake || "");
-          setTheory(algo?.theory || "");
           setStarTier(latest?.starTier || "None");
         } else {
           setProgressHistory([]);
@@ -102,9 +96,6 @@ const TakeAlgorithmPage = () => {
           setPattern("");
           setDataStructure("");
           setTraversalOrTechnique("");
-          setCoreInvariant("");
-          setBaseCases("");
-          setCommonMistake("");
           setTheory(algo?.theory || "");
         }
         setLoading(false);
@@ -133,9 +124,6 @@ const TakeAlgorithmPage = () => {
         pattern,
         dataStructure,
         traversalOrTechnique,
-        coreInvariant,
-        baseCases,
-        commonMistake,
         theory,
         starTier,
       });
@@ -175,149 +163,158 @@ const TakeAlgorithmPage = () => {
   return (
     <>
       <div className={styles.gradientBg} aria-hidden="true" />
-      <div className={styles.y2kBrowserShell}>
-        {/* Faux browser bar */}
-        <div className={styles.browserBar}>
-          <div className={styles.windowBtns}>
-            <span className={styles.windowBtn} title="Flower">
-              🌸
-            </span>
-            <span className={styles.windowBtn} title="Heart">
-              💜
-            </span>
-            <span className={styles.windowBtn} title="Smile">
-              😊
-            </span>
-            {/* Star toggle */}
-            <span
-              className={styles.windowBtn}
-              title={isStarred ? "Unstar (focus)" : "Star (focus)"}
-              style={{
-                cursor: "pointer",
-                marginLeft: "1.2rem",
-                fontSize: "1.5rem",
-              }}
-              onClick={() => setIsStarred((v) => !v)}
-            >
-              {isStarred ? "⭐" : "☆"}
-            </span>
-            {/* I want to select the tier star ranking here */}
-            <select
-              className={styles.starTierSelect}
-              value={starTier}
-              onChange={(e) => setStarTier(e.target.value)}
-            >
-              <option value="None">No Star</option>
-              <option value="Low">Low ⭐</option>
-              <option value="Medium">Medium ⭐⭐</option>
-              <option value="High">High ⭐⭐⭐</option>
-            </select>
-            <p>Star Tier: {starTier}</p>
-          </div>
-        </div>
+      <main className={styles.algorithmPage}>
+        <div className={styles.y2kBrowserShell}>
+          <div className={styles.browserBar}>
+            <div className={styles.windowBtns}>
+              <span className={styles.windowBtn}>🌸</span>
+              <span className={styles.windowBtn}>💜</span>
+              <span className={styles.windowBtn}>😊</span>
+            </div>
 
-        {/* Title and description row */}
-        <div className={styles.titleDescRow}>
-          <div className={styles.leetcodeNumber}>
-            #{algorithm.leetcodeNumber} {algorithm.title}
-          </div>
-          {/* <div className={styles.title}></div> */}
-        </div>
-        {/* Type and Techniques pills */}
-        <TechniqueButtons
-          algorithm={algorithm}
-          setModalTitle={setModalTitle}
-          setModalContent={setModalContent}
-          setModalOpen={setModalOpen}
-        />
-        <div className={styles.description}>{algorithm.description}</div>
+            <div className={styles.browserAddress}>
+              /take-algorithm/{algorithm.leetcodeNumber || "practice"}
+            </div>
 
-        {/* Examples row */}
-        <div className={styles.examplesRow}>
-          <div className={styles.examplesTitle}>Examples:</div>
-          {algorithm.examples && algorithm.examples.length > 0 ? (
-            algorithm.examples.map((ex, i) => (
-              <div key={i} className={styles.exampleRow}>
-                <span className={styles.exampleIcon}>✨</span>
-                <span>
-                  <b>Input:</b> <code>{ex.input}</code>
-                </span>
-                <span>
-                  <b>Output:</b> <code>{ex.output}</code>
-                </span>
-              </div>
-            ))
-          ) : (
-            <div>No examples provided.</div>
+            <div className={styles.browserActions}>
+              <button
+                type="button"
+                className={`${styles.starToggleBtn} ${isStarred ? styles.starred : ""}`}
+                title={isStarred ? "Unstar focus" : "Star focus"}
+                onClick={() => setIsStarred((v) => !v)}
+              >
+                {isStarred ? "⭐" : "☆"}
+              </button>
+
+              <select
+                className={styles.starTierSelect}
+                value={starTier}
+                onChange={(e) => setStarTier(e.target.value)}
+              >
+                <option value="None">No Star</option>
+                <option value="Low">Low ⭐</option>
+                <option value="Medium">Medium ⭐⭐</option>
+                <option value="High">High ⭐⭐⭐</option>
+              </select>
+            </div>
+          </div>
+
+          <section className={styles.algorithmHero}>
+            <div>
+              <p className={styles.eyebrow}>Algorithm Practice</p>
+              <h1 className={styles.algorithmTitle}>
+                {algorithm.leetcodeNumber && (
+                  <span>#{algorithm.leetcodeNumber}</span>
+                )}
+                {algorithm.title}
+              </h1>
+            </div>
+
+            <div className={styles.heroMeta}>
+              <span>{algorithm.type || "No type"}</span>
+              <span>Tier: {starTier}</span>
+            </div>
+          </section>
+
+          <TechniqueButtons
+            algorithm={algorithm}
+            setModalTitle={setModalTitle}
+            setModalContent={setModalContent}
+            setModalOpen={setModalOpen}
+          />
+
+          <section className={styles.descriptionCard}>
+            {algorithm.description}
+          </section>
+
+          <section className={styles.examplesSection}>
+            <div className={styles.sectionHeader}>
+              <p className={styles.eyebrow}>Examples</p>
+            </div>
+
+            <div className={styles.examplesList}>
+              {algorithm.examples && algorithm.examples.length > 0 ? (
+                algorithm.examples.map((ex, i) => (
+                  <div key={i} className={styles.exampleCard}>
+                    <span className={styles.exampleIcon}>✨</span>
+                    <div>
+                      <p>
+                        <strong>Input:</strong> <code>{ex.input}</code>
+                      </p>
+                      <p>
+                        <strong>Output:</strong> <code>{ex.output}</code>
+                      </p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className={styles.emptyState}>No examples provided.</div>
+              )}
+            </div>
+          </section>
+
+          {algorithm.theory && algorithm.theory.trim() !== "" && (
+            <section className={styles.theoryDropdownWrap}>
+              <button
+                type="button"
+                className={styles.theoryDropdownBtn}
+                onClick={() => setShowTheory((v) => !v)}
+                aria-expanded={showTheory}
+                aria-controls="theory-content"
+              >
+                <span>{showTheory ? "Hide Theory" : "Show Theory"}</span>
+                <strong>{showTheory ? "▼" : "▶"}</strong>
+              </button>
+
+              {showTheory && (
+                <div
+                  id="theory-content"
+                  className={styles.theoryDropdownContent}
+                >
+                  {algorithm.theory}
+                </div>
+              )}
+            </section>
           )}
-        </div>
-        {/* Theory dropdown */}
-        {algorithm.theory && algorithm.theory.trim() !== "" && (
-          <div className={styles.theoryDropdownWrap}>
-            <button
-              type="button"
-              className={styles.theoryDropdownBtn}
-              onClick={() => setShowTheory((v) => !v)}
-              aria-expanded={showTheory}
-              aria-controls="theory-content"
-            >
-              {showTheory ? "Hide Theory" : "Show Theory"}
-              <span style={{ fontSize: "1.1em" }}>
-                {showTheory ? "▼" : "▶"}
-              </span>
-            </button>
-            {showTheory && (
-              <div id="theory-content" className={styles.theoryDropdownContent}>
-                {algorithm.theory}
+
+          <form className={styles.practiceWorkspace} onSubmit={handleSubmit}>
+            <div className={styles.workspaceHeader}>
+              <div>
+                <p className={styles.eyebrow}>Workspace</p>
+                <h2>Write Your Solution</h2>
               </div>
-            )}
-          </div>
-        )}
-        {/* Answer/controls row (side-by-side with solution if open) */}
-        <div className={styles.answerSolutionsRow}>
-          <form className={styles.answerForm} onSubmit={handleSubmit}>
-            {/* <div className={styles.answerLabelRow}> */}
-            <button
-              type="button"
-              className={styles.solutionBtn}
-              onClick={() => setShowSolution((v) => !v)}
+
+              <button
+                type="button"
+                className={styles.solutionBtn}
+                onClick={() => setShowSolution((v) => !v)}
+              >
+                {showSolution ? "Hide Solution" : "View Solution"}
+              </button>
+            </div>
+
+            <div
+              className={`${styles.editorGrid} ${
+                showSolution ? styles.editorGridSplit : ""
+              }`}
             >
-              {showSolution ? "Hide Solution" : "View Solution"}
-            </button>
-            {/* </div> */}
-            <div className={styles.answerSolutionFlex}>
-              <div style={{ width: "100%" }}>
-                <textarea
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                  rows={10}
-                  placeholder="Write your code here..."
-                  className={styles.codeTextarea}
-                  style={{
-                    fontFamily:
-                      'var(--font-mono, "Fira Mono", "Menlo", "Monaco", "Consolas", "monospace")',
-                    fontSize: 16,
-                    minHeight: 180,
-                    borderRadius: "0.8rem",
-                    border: "1.5px solid var(--purple-200)",
-                    background: "var(--gray-100, #f8f8fa)",
-                    outline: "none",
-                    width: "100%",
-                    boxSizing: "border-box",
-                    marginBottom: 0,
-                    transition: "border 0.2s",
-                    resize: "vertical",
-                  }}
-                  id="code-editor"
-                  tabIndex={0}
-                />
-              </div>
+              <textarea
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                rows={10}
+                placeholder="Write your code here..."
+                className={styles.codeTextarea}
+                id="code-editor"
+                tabIndex={0}
+              />
+
               {showSolution && (
                 <pre className={styles.solutionBoxSide}>
                   <code>{algorithm.solution}</code>
                 </pre>
               )}
             </div>
+
             <AttemptInfo
               rank={rank}
               setRank={setRank}
@@ -334,40 +331,34 @@ const TakeAlgorithmPage = () => {
               setDataStructure={setDataStructure}
               traversalOrTechnique={traversalOrTechnique}
               setTraversalOrTechnique={setTraversalOrTechnique}
-              coreInvariant={coreInvariant}
-              setCoreInvariant={setCoreInvariant}
-              baseCases={baseCases}
-              setBaseCases={setBaseCases}
-              commonMistake={commonMistake}
-              setCommonMistake={setCommonMistake}
             />
-            {/* Theory textarea */}
-            <div className={styles.flexRow} style={{ marginTop: 16 }}>
-              <div className={styles.label}>Theory:</div>
-              <div className={styles.value} style={{ width: "100%" }}>
-                <textarea
-                  value={theory}
-                  onChange={(e) => setTheory(e.target.value)}
-                  rows={3}
-                  placeholder="Add theory, intuition, or explanation for this algorithm..."
-                  className={styles.theoryTextarea}
-                />
-              </div>
-            </div>
-          </form>
-        </div>
 
-        <ProgressHistory progressHistory={progressHistory} />
-        <CheatSheetModal
-          open={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title={modalTitle}
-          content={modalContent}
-        >
-          {modalContent}
-        </CheatSheetModal>
-        {error && <div className={styles.error}>{error}</div>}
-      </div>
+            <section className={styles.theoryWriteBlock}>
+              <label className={styles.fieldLabel}>Theory Notes</label>
+              <textarea
+                value={theory}
+                onChange={(e) => setTheory(e.target.value)}
+                rows={3}
+                placeholder="Add theory, intuition, or explanation for this algorithm..."
+                className={styles.theoryTextarea}
+              />
+            </section>
+          </form>
+
+          <ProgressHistory progressHistory={progressHistory} />
+
+          <CheatSheetModal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            title={modalTitle}
+            content={modalContent}
+          >
+            {modalContent}
+          </CheatSheetModal>
+
+          {error && <div className={styles.error}>{error}</div>}
+        </div>
+      </main>
     </>
   );
 };

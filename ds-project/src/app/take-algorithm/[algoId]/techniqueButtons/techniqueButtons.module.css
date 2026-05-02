@@ -1,141 +1,115 @@
-.modalCheatSheetContent {
-  border-radius: 1.6rem;
-
-  padding: 1.8rem 1.8rem 1.6rem;
-
-  min-width: 420px;
-  max-width: 600px;
+.metaBar {
+  margin: 0 auto 1.2rem;
+  padding: 0.85rem 1rem;
 
   display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+
+  border-radius: 1.35rem;
 
   background:
-    radial-gradient(circle at top right, rgba(216, 180, 254, 0.18), transparent 40%),
-    rgba(255, 255, 255, 0.82);
+    radial-gradient(circle at top right, rgba(216, 180, 254, 0.2), transparent 36%),
+    rgba(255, 255, 255, 0.72);
 
-  backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(216, 180, 254, 0.48);
 
+  box-shadow:
+    0 10px 24px rgba(109, 40, 217, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.metaGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.metaLabel {
+  color: var(--gray-500);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metaPillWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.metaPill,
+.metaPillPrimary {
+  border-radius: 999px;
   border: 1px solid rgba(216, 180, 254, 0.55);
 
-  box-shadow:
-    0 18px 45px rgba(109, 40, 217, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.72);
 
-  font-family: var(--font-main);
-}
-.modalCheatSheetDescription {
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.6;
+  padding: 0.4rem 0.7rem;
 
-  color: var(--gray-700);
-
-  margin-bottom: 0.2rem;
-}
-.modalCheatSheetKeyPoints {
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-
-  color: var(--gray-700);
-  font-size: 0.9rem;
-}
-
-.modalCheatSheetKeyPointItem {
-  position: relative;
-  padding-left: 1rem;
-}
-
-.modalCheatSheetKeyPointItem::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.6em;
-
-  width: 0.38rem;
-  height: 0.38rem;
-
-  border-radius: 999px;
-
-  background: var(--purple-400);
-
-  box-shadow: 0 0 0 3px rgba(216, 180, 254, 0.25);
-}
-.modalCheatSheetCodeSnippet {
-  border-radius: 1.1rem;
-
-  padding: 0.9rem 1rem;
-
-  font-size: 0.85rem;
-  line-height: 1.5;
-
-  overflow-x: auto;
-
-  background: rgba(245, 232, 255, 0.5);
-  border: 1px solid rgba(216, 180, 254, 0.45);
-
-  color: var(--gray-800);
-
-  font-family: var(--font-mono);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-}
-.modalCheatSheetUsedFor {
-  font-size: 0.85rem;
-  line-height: 1.5;
-
-  padding: 0.7rem 0.85rem;
-
-  border-radius: 1rem;
-
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(216, 180, 254, 0.45);
-
-  color: var(--gray-700);
-
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-.pill {
-  padding: 0.45rem 0.85rem;
-
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(216, 180, 254, 0.6);
+  font-size: 0.78rem;
+  font-weight: 900;
 
   color: var(--purple-700);
 
-  font-family: var(--font-main);
-  font-size: 0.82rem;
-  font-weight: 800;
-
   cursor: pointer;
 
-  box-shadow:
-    0 6px 14px rgba(109, 40, 217, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
     transform 0.14s ease,
-    box-shadow 0.18s ease;
+    background 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
-.pill:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(192, 132, 252, 0.75);
+.metaPillPrimary {
+  background: rgba(245, 232, 255, 0.85);
+}
 
+.metaPill:hover,
+.metaPillPrimary:hover {
   transform: translateY(-1px);
 
-  box-shadow:
-    0 10px 20px rgba(109, 40, 217, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
+
+  box-shadow: 0 6px 14px rgba(109, 40, 217, 0.12);
+}
+
+.metaEmpty {
+  color: var(--gray-400);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Modal styling for techniques */
+.techTitle {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.techDesc {
+  margin-bottom: 0.7rem;
+  color: var(--gray-700);
+}
+
+.techCode {
+  background: rgba(17, 24, 39, 0.9);
+  color: #f8fafc;
+
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+
+  font-size: 0.85rem;
+  overflow-x: auto;
+
+  margin-bottom: 0.6rem;
+}
+
+.techUse {
+  font-size: 0.9rem;
+}
+
+.techError {
+  color: #ef4444;
+  font-weight: 700;
 }
