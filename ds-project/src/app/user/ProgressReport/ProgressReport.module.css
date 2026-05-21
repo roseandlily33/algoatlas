@@ -155,8 +155,23 @@
   gap: 0.45rem;
 }
 
-.typeRow {
-  display: inline-flex;
+
+
+/* Add green border for mastered algorithms */
+.mastered {
+  border: 2px solid #22c55e !important; /* Tailwind green-500 */
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px #bbf7d0;
+}
+
+/* Number styling for algorithm */
+.algoNumber {
+  font-weight: 900;
+  margin-right: 0.5em;
+  color: var(--purple-700);
+  font-size: 0.85em;
+  align-self: center;
+}
 }
 
 .type {

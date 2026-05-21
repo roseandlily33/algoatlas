@@ -69,9 +69,13 @@ const ProgressReport = ({ progress }) => {
                 {algos?.map((algo, idx) => {
                   const name = algo?.name || algo?.title || "Unnamed Algorithm";
                   const id = algo?._id || algo?.id || algo;
+                  const mastered = algo?.mastered;
+                  // Add a green border if mastered
+                  const typeRowClass = `${styles.typeRow} ${mastered ? styles.mastered : ''}`;
 
                   return (
-                    <div className={styles.typeRow} key={id || idx}>
+                    <div className={typeRowClass} key={id || idx}>
+                      <span className={styles.algoNumber}>{idx + 1}.</span>
                       <a className={styles.type} href={`/take-algorithm/${id}`}>
                         {name}
                       </a>
