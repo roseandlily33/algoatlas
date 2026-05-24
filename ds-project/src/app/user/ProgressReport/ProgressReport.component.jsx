@@ -1,16 +1,6 @@
 import React from "react";
 import styles from "./ProgressReport.module.css";
 
-// progress: [{ date: "2025-12-25", algorithms: [{ type: "Array", ... }, ...] }]
-function groupByType(algorithms) {
-  const typeCount = {};
-  for (const algo of algorithms) {
-    if (!algo.type) continue;
-    typeCount[algo.type] = (typeCount[algo.type] || 0) + 1;
-  }
-  return typeCount;
-}
-
 function formatDate(dateStr) {
   const date = new Date(dateStr);
   return date.toLocaleDateString(undefined, {
@@ -71,13 +61,13 @@ const ProgressReport = ({ progress }) => {
                   const id = algo?._id || algo?.id || algo;
                   const mastered = algo?.mastered;
                   // Add a green border if mastered
-                  const typeRowClass = `${styles.typeRow} ${mastered ? styles.mastered : ''}`;
+                  const typeRowClass = `${styles.typeRow} ${mastered ? styles.mastered : ""}`;
 
                   return (
                     <div className={typeRowClass} key={id || idx}>
-                      <span className={styles.algoNumber}>{idx + 1}.</span>
+                      <span className={styles.algoNumber}></span>
                       <a className={styles.type} href={`/take-algorithm/${id}`}>
-                        {name}
+                        #{algo?.leetcodeNumber} {name}
                       </a>
                     </div>
                   );

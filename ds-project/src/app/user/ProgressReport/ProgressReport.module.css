@@ -7,8 +7,16 @@
   border-radius: 1.8rem;
 
   background:
-    radial-gradient(circle at top right, rgba(129, 140, 248, 0.2), transparent 32%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(245, 232, 255, 0.48));
+    radial-gradient(
+      circle at top right,
+      rgba(129, 140, 248, 0.2),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.86),
+      rgba(245, 232, 255, 0.48)
+    );
 
   border: 1px solid rgba(216, 180, 254, 0.58);
 
@@ -155,8 +163,6 @@
   gap: 0.45rem;
 }
 
-
-
 /* Add green border for mastered algorithms */
 .mastered {
   border: 2px solid #22c55e !important; /* Tailwind green-500 */
@@ -171,7 +177,6 @@
   color: var(--purple-700);
   font-size: 0.85em;
   align-self: center;
-}
 }
 
 .type {
