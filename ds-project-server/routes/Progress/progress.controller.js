@@ -32,16 +32,26 @@ async function getWeeklyProgress(req, res) {
     const progress = await UserProgress.find({
       user: req.userId,
       lastPracticed: { $gte: weekAgo, $lte: now },
-    }).populate("algorithm");
+    })
+      .populate("algorithm")
+      .sort({ lastPracticed: -1 }); // sort by most recent first
 
-    // Group by date (YYYY-MM-DD), and for each day, collect unique algorithms
+    // Group by date (YYYY-MM-DD), and for each day, collect unique algorithms with their latest progress
     const progressByDay = {};
     for (const entry of progress) {
       const dateStr = entry.lastPracticed.toISOString().slice(0, 10);
       if (!progressByDay[dateStr]) progressByDay[dateStr] = new Map();
       const algoId = entry.algorithm?._id?.toString() || entry.algorithm + "";
+      // Only add if not already present (so only the latest progress per algo per day)
       if (!progressByDay[dateStr].has(algoId)) {
-        progressByDay[dateStr].set(algoId, entry.algorithm);
+        // Attach the progress object, not just the algorithm
+        progressByDay[dateStr].set(algoId, {
+          algorithm: entry.algorithm,
+          status: entry.status,
+          mastered: entry.status === "Mastered",
+          leetcodeNumber: entry.algorithm?.leetcodeNumber,
+          _id: entry.algorithm?._id,
+        });
       }
     }
 
