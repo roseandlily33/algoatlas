@@ -125,6 +125,8 @@ const UserProgressSchema = new mongoose.Schema({
 const Algorithm = mongoose.model("Algorithm", AlgorithmSchema);
 const UserProgress = mongoose.model("UserProgress", UserProgressSchema);
 
+// Group model is defined in models/Group.js
+
 module.exports = {
   Algorithm,
   UserProgress,

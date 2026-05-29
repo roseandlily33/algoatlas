@@ -5,6 +5,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
+const { Group } = require("./models/Group");
+
 const app = express();
 app.use(express.json());
 
@@ -15,7 +17,7 @@ app.use(
     optionsSuccessStatus: 200,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 
 // parse cookies so req.cookies is available in routes
@@ -35,4 +37,16 @@ mongoose.connect(process.env.MONGO_URI);
 
 // Use a non-conflicting default port (5001) in case 5000 is occupied by system services
 const PORT = process.env.PORT || 5001;
+
+// Ensure groups A and B exist at startup
+mongoose.connection.once("open", async () => {
+  for (const name of ["A", "B"]) {
+    const exists = await Group.findOne({ name });
+    if (!exists) {
+      await Group.create({ name, algorithms: [] });
+      console.log(`Created group ${name}`);
+    }
+  }
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

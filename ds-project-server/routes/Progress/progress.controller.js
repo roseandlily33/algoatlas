@@ -107,9 +107,19 @@ async function getProgressHistory(req, res) {
 // Get user progress for all algorithms
 async function getAllProgress(req, res) {
   try {
-    const progress = await UserProgress.find({ user: req.userId }).populate(
-      "algorithm",
-    );
+    // Get all progress for user, sorted by lastPracticed DESC
+    const allProgress = await UserProgress.find({ user: req.userId })
+      .populate("algorithm")
+      .sort({ lastPracticed: -1 });
+    // Map to keep only the most recent per algorithm
+    const latestByAlgo = new Map();
+    for (const entry of allProgress) {
+      const algoId = entry.algorithm?._id?.toString() || entry.algorithm + "";
+      if (!latestByAlgo.has(algoId)) {
+        latestByAlgo.set(algoId, entry);
+      }
+    }
+    const progress = Array.from(latestByAlgo.values());
     console.log(
       "User progress fetched for userId:",
       req.userId,

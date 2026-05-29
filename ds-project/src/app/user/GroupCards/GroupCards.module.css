@@ -1,0 +1,230 @@
+/* COLUMN LAYOUT: Group A on top, Group B below */
+.groupCardsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.2rem;
+  margin: 2.2rem 0 2.8rem 0;
+  box-sizing: border-box;
+  /* border: 2px solid red; */
+}
+
+/* WeeklyPlan-inspired card style */
+.groupCard {
+  /* position: relative; */
+  overflow-y: auto;
+  overflow-x: hidden;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(129, 140, 248, 0.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(216, 180, 254, 0.18),
+      transparent 36%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(245, 232, 255, 0.54)
+    );
+  border: 1.5px solid rgba(216, 180, 254, 0.38);
+  box-shadow:
+    0 12px 32px rgba(109, 40, 217, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-radius: 1.5rem;
+  padding: 1.5rem 2.2rem 1.2rem 2.2rem;
+  /* min-width: 320px; */
+  /* max-width: 700px; */
+  width: 100%;
+  max-height: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-family: var(--font-main, inherit);
+}
+.groupCard::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+}
+.algosList {
+  margin-bottom: 1.1rem;
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  /* border: 2px solid red; */
+  overflow-y: scroll;
+}
+.algoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1.01rem;
+  color: var(--gray-800, #2d2d2d);
+  background: rgba(255, 255, 255, 0.66);
+  border-radius: 0.8rem;
+  margin-bottom: 0.3rem;
+  transition:
+    box-shadow 0.18s,
+    background 0.18s;
+}
+.algoItem:hover {
+  background: rgba(216, 180, 254, 0.13);
+  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.1);
+}
+.removeBtn {
+  background: linear-gradient(135deg, #ff4d4f 60%, #ffb6b9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.25rem 0.95rem;
+  cursor: pointer;
+  font-size: 0.97rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 77, 79, 0.08);
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.removeBtn:hover {
+  background: linear-gradient(135deg, #d9363e 70%, #ffb6b9 100%);
+  box-shadow: 0 4px 16px rgba(255, 77, 79, 0.13);
+}
+.assignSection {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.7rem;
+}
+.selectAlgo {
+  flex: 1;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(216, 180, 254, 0.45);
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 1rem;
+  font-family: var(--font-main, inherit);
+  color: var(--gray-700, #444);
+  box-shadow: 0 2px 8px rgba(129, 140, 248, 0.06);
+}
+.assignBtn {
+  background:
+    radial-gradient(
+      circle at 28% 22%,
+      rgba(255, 255, 255, 0.35),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      var(--purple-600, #a78bfa),
+      var(--indigo-500, #6366f1)
+    );
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 1.15rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.13);
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.assignBtn:hover {
+  background:
+    radial-gradient(
+      circle at 28% 22%,
+      rgba(255, 255, 255, 0.45),
+      transparent 28%
+    ),
+    linear-gradient(135deg, #7c3aed, #6366f1);
+  box-shadow: 0 8px 24px rgba(129, 140, 248, 0.18);
+}
+.empty {
+  color: var(--purple-500, #a78bfa);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.starredCardSlot {
+  position: relative;
+  flex: 0 0 auto;
+  width: 260px;
+  min-width: 260px;
+  margin-bottom: 0.5rem;
+}
+
+.tierSelectWrap {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.55rem;
+  z-index: 6;
+  padding: 0.18rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(216, 180, 254, 0.45);
+  box-shadow:
+    0 8px 18px rgba(109, 40, 217, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.algorithmCard {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 1.1rem;
+  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.1);
+  padding: 1.1rem 1.1rem 0.9rem 1.1rem;
+  border: 1.5px solid rgba(216, 180, 254, 0.38);
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition:
+    box-shadow 0.18s,
+    background 0.18s;
+}
+.algorithmCard:hover {
+  background: rgba(250, 240, 255, 0.98);
+  box-shadow: 0 8px 24px rgba(129, 140, 248, 0.18);
+}
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 900;
+  font-size: 1.08rem;
+  color: var(--gray-900);
+}
+.leetcodeNumber {
+  color: var(--purple-700);
+  font-size: 1.02rem;
+  font-weight: 900;
+}
+.cardTitle {
+  flex: 1;
+  font-size: 1.02rem;
+  font-weight: 900;
+  color: var(--gray-900);
+}
+.cardType {
+  font-size: 0.92rem;
+  color: var(--purple-500);
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.cardDesc {
+  font-size: 0.93rem;
+  color: var(--gray-700);
+  margin-top: 0.1rem;
+}
