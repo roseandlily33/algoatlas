@@ -1,19 +1,42 @@
 const { Group } = require("../../models/Group");
-const { Algorithm } = require("../../models/DS");
+const { Algorithm, UserProgress } = require("../../models/DS");
 
 // Get all algorithms in a group (A or B)
 async function getGroup(req, res) {
   try {
     const { groupName } = req.params;
+    const userId = req.userId;
     if (!["A", "B"].includes(groupName)) {
       return res.status(400).json({ error: "Invalid group name" });
     }
     const group = await Group.findOne({ name: groupName }).populate(
       "algorithms",
     );
-    console.log("Returning group", group?.length);
     if (!group) return res.status(404).json({ error: "Group not found" });
-    return res.status(200).json(group);
+
+    // Attach lastPracticed for each algorithm for this user
+    const algosWithPractice = await Promise.all(
+      group.algorithms.map(async (algo) => {
+        // Find latest UserProgress for this user and this algorithm
+        const progress = await UserProgress.findOne({
+          user: userId,
+          algorithm: algo._id,
+        }).sort({ lastPracticed: -1 });
+        console.log(
+          `Algorithm ${algo.title} (${algo._id}): progress=`,
+          progress,
+        );
+        // Attach lastPracticed if found
+        return {
+          ...algo.toObject(),
+          lastPracticed: progress ? progress.lastPracticed : null,
+        };
+      }),
+    );
+    // Return group with enriched algorithms
+    const groupObj = group.toObject();
+    groupObj.algorithms = algosWithPractice;
+    return res.status(200).json(groupObj);
   } catch (err) {
     return res.status(500).json({ error: "Server error" });
   }
@@ -29,7 +52,7 @@ async function addAlgorithmToGroup(req, res) {
       return res.status(400).json({ error: "Invalid group name" });
     }
     let group = await Group.findOne({ name: groupName });
-    console.log('Fonund group', group);
+    console.log("Fonund group", group);
     if (!group) {
       group = new Group({ name: groupName, algorithms: [] });
     }

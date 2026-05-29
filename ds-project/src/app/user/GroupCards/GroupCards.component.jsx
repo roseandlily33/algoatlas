@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GroupCards.module.css";
 
-
 export default function GroupCards({ algorithms, onAssign }) {
   const [groupA, setGroupA] = useState([]);
   const [groupB, setGroupB] = useState([]);
@@ -34,11 +33,17 @@ export default function GroupCards({ algorithms, onAssign }) {
   }, []);
 
   // Sort group algorithms by leetcodeNumber
-  const sortedGroupA = [...groupA].sort((a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0));
-  const sortedGroupB = [...groupB].sort((a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0));
+  const sortedGroupA = [...groupA].sort(
+    (a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0),
+  );
+  const sortedGroupB = [...groupB].sort(
+    (a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0),
+  );
 
   // Sort all algorithms by leetcodeNumber for dropdown
-  const sortedAlgorithms = [...algorithms].sort((a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0));
+  const sortedAlgorithms = [...algorithms].sort(
+    (a, b) => (a.leetcodeNumber || 0) - (b.leetcodeNumber || 0),
+  );
 
   // Assign algorithm to group
   async function handleAssign(algoId, groupName) {
@@ -50,8 +55,12 @@ export default function GroupCards({ algorithms, onAssign }) {
     });
     // Refresh groups from backend after assignment
     const [aRes, bRes] = await Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/group/A`, { credentials: "include" }),
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/group/B`, { credentials: "include" }),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/group/A`, {
+        credentials: "include",
+      }),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/group/B`, {
+        credentials: "include",
+      }),
     ]);
     const aData = await aRes.json();
     const bData = await bRes.json();
@@ -62,10 +71,13 @@ export default function GroupCards({ algorithms, onAssign }) {
 
   // Remove algorithm from group
   async function handleRemove(algoId, groupName) {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/group/${groupName}/${algoId}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/group/${groupName}/${algoId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
     if (groupName === "A") {
       setGroupA((prev) => prev.filter((a) => a._id !== algoId));
     } else {
@@ -82,6 +94,16 @@ export default function GroupCards({ algorithms, onAssign }) {
 
   // Card info rendering (like StarredAlgs/AlgorithmCard)
   function renderAlgoCard(algo, groupName) {
+    // Check if practiced today (assume algo.lastPracticed is a Date or ISO string)
+    let practicedToday = false;
+    if (algo.lastPracticed) {
+      const last = new Date(algo.lastPracticed);
+      const now = new Date();
+      practicedToday =
+        last.getFullYear() === now.getFullYear() &&
+        last.getMonth() === now.getMonth() &&
+        last.getDate() === now.getDate();
+    }
     return (
       <div
         key={algo._id}
@@ -91,8 +113,12 @@ export default function GroupCards({ algorithms, onAssign }) {
         <div className={styles.tierSelectWrap}>
           <button
             className={styles.removeBtn}
-            style={{ minWidth: 0, padding: "0.18rem 0.7rem", fontSize: "0.92rem" }}
-            onClick={e => {
+            style={{
+              minWidth: 0,
+              padding: "0.18rem 0.7rem",
+              fontSize: "0.92rem",
+            }}
+            onClick={(e) => {
               e.stopPropagation();
               handleRemove(algo._id, groupName);
             }}
@@ -102,17 +128,25 @@ export default function GroupCards({ algorithms, onAssign }) {
           </button>
         </div>
         <div
-          className={styles.algorithmCard}
-          style={{ cursor: "pointer" }}
+          className={
+            styles.algorithmCard +
+            (practicedToday ? " " + styles.practicedToday : "")
+          }
+          style={{
+            cursor: "pointer",
+            minHeight: 160,
+            border: practicedToday ? "2.5px solid #22c55e" : undefined,
+          }}
           onClick={() => handleGoToAlgo(algo._id)}
           title={algo.title}
         >
           <div className={styles.cardHeader}>
-            <span className={styles.leetcodeNumber}>{algo.leetcodeNumber ? `#${algo.leetcodeNumber}` : ""}</span>
+            <span className={styles.leetcodeNumber}>
+              {algo.leetcodeNumber ? `#${algo.leetcodeNumber}` : ""}
+            </span>
             <span className={styles.cardTitle}>{algo.title}</span>
           </div>
           {algo.type && <div className={styles.cardType}>{algo.type}</div>}
-          {algo.description && <div className={styles.cardDesc}>{algo.description.slice(0, 80)}{algo.description.length > 80 ? "..." : ""}</div>}
         </div>
       </div>
     );
@@ -126,21 +160,26 @@ export default function GroupCards({ algorithms, onAssign }) {
         const groupAlgos = groupName === "A" ? sortedGroupA : sortedGroupB;
         return (
           <div key={groupName} className={styles.groupCard}>
-            <h2>Group {groupName}</h2>
+            <h2>
+              Group {groupName} ({groupAlgos.length})
+            </h2>
             <div className={styles.algosList}>
-              {groupAlgos.length === 0 && <div className={styles.empty}>No algorithms assigned.</div>}
+              {groupAlgos.length === 0 && (
+                <div className={styles.empty}>No algorithms assigned.</div>
+              )}
               {groupAlgos.map((algo) => renderAlgoCard(algo, groupName))}
             </div>
             <div className={styles.assignSection}>
               <select id={`assign-${groupName}`} className={styles.selectAlgo}>
                 <option value="">Assign algorithm...</option>
-                {sortedAlgorithms.filter(
-                  (a) => !groupAlgos.some((g) => g._id === a._id)
-                ).map((algo) => (
-                  <option key={algo._id} value={algo._id}>
-                    {algo.leetcodeNumber ? `#${algo.leetcodeNumber}` : ""} {algo.title}
-                  </option>
-                ))}
+                {sortedAlgorithms
+                  .filter((a) => !groupAlgos.some((g) => g._id === a._id))
+                  .map((algo) => (
+                    <option key={algo._id} value={algo._id}>
+                      {algo.leetcodeNumber ? `#${algo.leetcodeNumber}` : ""}{" "}
+                      {algo.title}
+                    </option>
+                  ))}
               </select>
               <button
                 className={styles.assignBtn}
